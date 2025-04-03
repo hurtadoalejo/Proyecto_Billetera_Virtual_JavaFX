@@ -1,6 +1,6 @@
-package co.edu.uniquindio.billeteravirtual.service;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service;
 
-import co.edu.uniquindio.billeteravirtual.model.Cuenta;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Cuenta;
 
 public interface ICrudCuenta {
     boolean crearCuenta(Cuenta cuenta);

@@ -1,4 +1,4 @@
-package co.edu.uniquindio.billeteravirtual.model;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model;
 
 public class Presupuesto {
     private BilleteraVirtual billeteraVirtual;

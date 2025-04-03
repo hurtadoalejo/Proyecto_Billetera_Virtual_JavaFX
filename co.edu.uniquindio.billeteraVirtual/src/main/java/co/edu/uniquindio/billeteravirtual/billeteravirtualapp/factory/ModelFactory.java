@@ -1,11 +1,12 @@
-package co.edu.uniquindio.billeteravirtual.factory;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory;
 
-import co.edu.uniquindio.billeteravirtual.mapping.dto.UsuarioDto;
-import co.edu.uniquindio.billeteravirtual.mapping.mappers.UsuarioMappingImpl;
-import co.edu.uniquindio.billeteravirtual.model.BilleteraVirtual;
-import co.edu.uniquindio.billeteravirtual.service.IModelFactoryService;
-import co.edu.uniquindio.billeteravirtual.service.IUsuarioMapping;
-import co.edu.uniquindio.billeteravirtual.utils.DataUtil;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.UsuarioMappingImpl;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.BilleteraVirtual;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IModelFactoryService;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IUsuarioMapping;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.DataUtil;
 
 import java.util.LinkedList;
 
@@ -24,6 +25,14 @@ public class ModelFactory implements IModelFactoryService {
     private ModelFactory(){
         usuarioMapper = new UsuarioMappingImpl();
         billeteraVirtual = DataUtil.inicializarDatos();
+    }
+
+    public boolean verificarClaveAdmin(int clave) {
+        return billeteraVirtual.verificarClaveAdmin(clave);
+    }
+
+    public Usuario verificarCredencialesUsuario(String id, int clave) {
+        return billeteraVirtual.verificarCredencialesUsuario(id, clave);
     }
 
     @Override

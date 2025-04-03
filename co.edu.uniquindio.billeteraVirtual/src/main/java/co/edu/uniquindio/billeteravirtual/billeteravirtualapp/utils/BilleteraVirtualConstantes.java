@@ -1,4 +1,4 @@
-package co.edu.uniquindio.billeteravirtual.utils;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils;
 
 public class BilleteraVirtualConstantes {
 

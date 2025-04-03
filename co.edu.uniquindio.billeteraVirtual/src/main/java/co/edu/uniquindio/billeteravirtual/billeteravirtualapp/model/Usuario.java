@@ -1,6 +1,6 @@
-package co.edu.uniquindio.billeteravirtual.model;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model;
 
-import co.edu.uniquindio.billeteravirtual.service.IGestionDinero;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IGestionDinero;
 
 import java.util.LinkedList;
 

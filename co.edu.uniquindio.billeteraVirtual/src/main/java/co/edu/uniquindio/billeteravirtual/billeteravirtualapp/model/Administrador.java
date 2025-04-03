@@ -1,6 +1,6 @@
-package co.edu.uniquindio.billeteravirtual.model;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model;
 
-import co.edu.uniquindio.billeteravirtual.service.ICrudUsuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ICrudUsuario;
 
 public class Administrador implements ICrudUsuario {
     private BilleteraVirtual billeteraVirtual;

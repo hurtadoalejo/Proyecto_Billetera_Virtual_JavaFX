@@ -1,8 +1,8 @@
-package co.edu.uniquindio.billeteravirtual.mapping.mappers;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers;
 
-import co.edu.uniquindio.billeteravirtual.mapping.dto.UsuarioDto;
-import co.edu.uniquindio.billeteravirtual.model.Usuario;
-import co.edu.uniquindio.billeteravirtual.service.IUsuarioMapping;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IUsuarioMapping;
 
 import java.util.LinkedList;
 

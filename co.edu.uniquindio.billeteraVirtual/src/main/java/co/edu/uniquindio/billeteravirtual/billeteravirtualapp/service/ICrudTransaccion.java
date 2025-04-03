@@ -1,6 +1,6 @@
-package co.edu.uniquindio.billeteravirtual.service;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service;
 
-import co.edu.uniquindio.billeteravirtual.model.Transaccion;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Transaccion;
 
 public interface ICrudTransaccion {
     boolean crearTransaccion(Transaccion transaccion);

@@ -1,6 +1,6 @@
-package co.edu.uniquindio.billeteravirtual.model;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model;
 
-import co.edu.uniquindio.billeteravirtual.service.*;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.*;
 
 import java.util.LinkedList;
 
@@ -15,7 +15,12 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
     public BilleteraVirtual(String nombre){
         this.nombre = nombre;
-        this.administrador = new Administrador(this);
+        this.administrador = new Administrador(this, 2911);
+        this.listaCategorias = new LinkedList<>();
+        this.listaPresupuestos = new LinkedList<>();
+        this.listaTransacciones = new LinkedList<>();
+        this.listaCuentas = new LinkedList<>();
+        this.listaUsuarios = new LinkedList<>();
     }
 
     public String getNombre() {
@@ -385,4 +390,19 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         return null;
     }
 
+    public boolean verificarClaveAdmin(int clave) {
+        if (administrador.getClave() == clave){
+            return true;
+        }
+        return false;
+    }
+
+    public Usuario verificarCredencialesUsuario(String id, int clave) {
+        for (Usuario usuario : listaUsuarios) {
+            if (usuario.getIdUsuario().equals(id) && usuario.getClave() == clave){
+                return usuario;
+            }
+        }
+        return null;
+    }
 }

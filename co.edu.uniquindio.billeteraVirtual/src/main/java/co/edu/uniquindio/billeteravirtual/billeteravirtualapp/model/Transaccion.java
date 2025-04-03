@@ -1,7 +1,7 @@
-package co.edu.uniquindio.billeteravirtual.model;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model;
 
 import java.time.LocalDate;
-import co.edu.uniquindio.billeteravirtual.model.builder.TransaccionBuilder;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.builder.TransaccionBuilder;
 
 public class Transaccion {
     private BilleteraVirtual billeteraVirtual;

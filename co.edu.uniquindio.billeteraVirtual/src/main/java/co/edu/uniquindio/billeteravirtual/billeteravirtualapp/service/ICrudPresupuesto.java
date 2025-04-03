@@ -1,6 +1,6 @@
-package co.edu.uniquindio.billeteravirtual.service;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service;
 
-import co.edu.uniquindio.billeteravirtual.model.Presupuesto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Presupuesto;
 
 public interface ICrudPresupuesto {
     boolean crearPresupuesto(Presupuesto presupuesto);

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="ap_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.LoginMenuUsuarioViewController">
+   <children>
+      <Label fx:id="lb_titulo" layoutX="415.0" layoutY="40.0" text="Login Menu Usuario">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_id" layoutX="234.0" layoutY="179.0" text="Ingrese ID del usuario:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="bt_ingresar" layoutX="487.0" layoutY="419.0" mnemonicParsing="false" onAction="#onIngresar" text="Ingresar">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <TextField fx:id="ta_id" layoutX="647.0" layoutY="167.0" prefHeight="77.0" prefWidth="314.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lb_clave" layoutX="189.0" layoutY="272.0" text="Ingrese clave del usuario:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="ta_clave" layoutX="647.0" layoutY="260.0" prefHeight="77.0" prefWidth="314.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

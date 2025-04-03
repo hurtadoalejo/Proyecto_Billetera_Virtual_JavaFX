@@ -1,6 +1,6 @@
-package co.edu.uniquindio.billeteravirtual.model.builder;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.builder;
 
-import co.edu.uniquindio.billeteravirtual.model.*;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.*;
 
 import java.time.LocalDate;
 

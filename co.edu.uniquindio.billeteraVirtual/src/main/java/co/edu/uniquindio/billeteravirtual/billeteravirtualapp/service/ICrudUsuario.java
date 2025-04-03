@@ -1,6 +1,6 @@
-package co.edu.uniquindio.billeteravirtual.service;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service;
 
-import co.edu.uniquindio.billeteravirtual.model.Usuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
 
 public interface ICrudUsuario {
     boolean crearUsuario(Usuario usuario);

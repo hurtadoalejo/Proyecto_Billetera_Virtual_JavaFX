@@ -1,6 +1,6 @@
-package co.edu.uniquindio.billeteravirtual.service;
+package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service;
 
-import co.edu.uniquindio.billeteravirtual.model.Categoria;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Categoria;
 
 public interface ICrudCategoria {
     boolean crearCategoria(Categoria categoria);

@@ -1,13 +1,10 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.App;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.PrincipalController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;

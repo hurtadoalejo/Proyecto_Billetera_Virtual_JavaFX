@@ -7,24 +7,24 @@
 
 <AnchorPane fx:id="ap_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.LoginMenuAdminViewController">
    <children>
-      <Label fx:id="lb_titulo" layoutX="362.0" layoutY="42.0" text="Login Menu Administrador">
+      <Label fx:id="lb_titulo" layoutX="436.0" layoutY="66.0" text="Login Menu Administrador">
          <font>
-            <Font size="36.0" />
+            <Font size="26.0" />
          </font>
       </Label>
-      <Label fx:id="lb_ingresar" layoutX="127.0" layoutY="237.0" text="Ingrese la clave del administrador:">
+      <Label fx:id="lb_ingresar" layoutX="267.0" layoutY="241.0" text="Ingrese la clave del administrador:">
          <font>
-            <Font size="36.0" />
+            <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="bt_ingresar" layoutX="487.0" layoutY="419.0" mnemonicParsing="false" onAction="#onIngresar" text="Ingresar">
+      <Button fx:id="bt_ingresar" layoutX="540.0" layoutY="431.0" mnemonicParsing="false" onAction="#onIngresar" text="Ingresar">
          <font>
-            <Font size="36.0" />
+            <Font size="20.0" />
          </font>
       </Button>
-      <TextField fx:id="ta_clave" layoutX="709.0" layoutY="225.0" prefHeight="77.0" prefWidth="314.0">
+      <TextField fx:id="ta_clave" layoutX="632.0" layoutY="234.0" prefHeight="44.0" prefWidth="252.0">
          <font>
-            <Font size="36.0" />
+            <Font size="20.0" />
          </font>
       </TextField>
    </children>

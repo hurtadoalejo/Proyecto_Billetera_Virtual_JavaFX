@@ -1,13 +1,15 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.App;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.LoginMenuAdminController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -37,13 +39,31 @@ public class LoginMenuAdminViewController {
     private Label lb_ingresar;
 
     @FXML
+    private void cambiarVista() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource
+                    ("/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/GestionUsuarios.fxml"));
+            AnchorPane gestionUsuario = loader.load();
+
+            SplitPane splitPane = (SplitPane) ap_principal.getParent().getParent();
+            splitPane.getItems().setAll(gestionUsuario);
+
+        } catch (IOException e) {
+            System.err.println("Error al cambiar la vista: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void onIngresar() {
         ingresar();
     }
 
     private void ingresar() {
         if (verificarCambosCorrectos() && verificarCambosLlenos()){
-            loginMenuAdminController.verificarClaveAdmin(Integer.parseInt(ta_clave.getText()));
+            if (loginMenuAdminController.verificarClaveAdmin(Integer.parseInt(ta_clave.getText()))){
+                cambiarVista();
+            }
         }
     }
 

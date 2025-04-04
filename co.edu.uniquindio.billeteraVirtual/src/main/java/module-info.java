@@ -1,6 +1,7 @@
 module co.edu.uniquindio.billeteravirtual.billeteravirtualapp {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens co.edu.uniquindio.billeteravirtual.billeteravirtualapp to javafx.fxml;

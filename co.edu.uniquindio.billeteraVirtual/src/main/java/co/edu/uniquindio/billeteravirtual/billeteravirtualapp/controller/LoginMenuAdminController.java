@@ -11,7 +11,7 @@ public class LoginMenuAdminController {
 
     public boolean verificarClaveAdmin(int clave) {
         if (modelFactory.verificarClaveAdmin(clave)){
-            System.out.println("Clave admin encontrado");
+            return true;
         }
         return false;
     }

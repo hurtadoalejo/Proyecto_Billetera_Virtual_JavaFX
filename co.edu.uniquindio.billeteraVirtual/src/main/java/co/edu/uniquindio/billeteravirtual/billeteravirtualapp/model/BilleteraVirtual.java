@@ -80,7 +80,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     }
 
     @Override
-    public boolean crearUsuario(Usuario usuario) {
+    public boolean agregarUsuario(Usuario usuario) {
         if (obtenerUsuario(usuario.getIdUsuario()) == null){
             listaUsuarios.add(usuario);
             return true;
@@ -143,7 +143,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
 
     @Override
-    public boolean crearCuenta(Cuenta cuenta) {
+    public boolean agregarCuenta(Cuenta cuenta) {
         if (obtenerCuenta(cuenta.getIdCuenta()) == null){
             listaCuentas.add(cuenta);
             cuenta.getUsuarioAsociado().getListaCuentas().add(cuenta);
@@ -192,7 +192,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     }
 
     @Override
-    public boolean crearCategoria(Categoria categoria) {
+    public boolean agregarCategoria(Categoria categoria) {
         if (obtenerCategoria(categoria.getIdCategoria()) == null){
             listaCategorias.add(categoria);
             return true;
@@ -240,7 +240,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     }
 
     @Override
-    public boolean crearPresupuesto(Presupuesto presupuesto) {
+    public boolean agregarPresupuesto(Presupuesto presupuesto) {
         if (obtenerPresupuesto(presupuesto.getIdPresupuesto()) == null){
             listaPresupuestos.add(presupuesto);
             return true;
@@ -293,7 +293,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     }
 
     @Override
-    public boolean crearTransaccion(Transaccion transaccion) {
+    public boolean agregarTransaccion(Transaccion transaccion) {
         if (obtenerTransaccion(transaccion.getIdTransaccion()) == null){
             listaTransacciones.add(transaccion);
             return true;

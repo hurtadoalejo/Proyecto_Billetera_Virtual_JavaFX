@@ -1,8 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory.ModelFactory;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.LoginMenuAdminViewController;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.LoginMenuUsuarioViewController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.PrincipalViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class App extends Application {
     private Stage primaryStage;

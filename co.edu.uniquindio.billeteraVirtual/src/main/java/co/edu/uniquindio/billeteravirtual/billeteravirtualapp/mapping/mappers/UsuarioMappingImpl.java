@@ -22,11 +22,20 @@ public class UsuarioMappingImpl implements IUsuarioMapping {
 
     @Override
     public UsuarioDto usuarioToUsuarioDto(Usuario usuario) {
-        return null;
+        return new UsuarioDto(usuario.getNombreCompleto(), usuario.getIdUsuario(),
+                usuario.getCorreoElectronico(), usuario.getNumeroTelefono(),
+                usuario.getDireccion(), usuario.getClave());
     }
 
     @Override
     public Usuario usuarioDtoToUsuario(UsuarioDto usuarioDto) {
-        return null;
+        Usuario usuario = new Usuario();
+        usuario.setNombreCompleto(usuarioDto.nombreCompleto());
+        usuario.setIdUsuario(usuarioDto.idUsuario());
+        usuario.setCorreoElectronico(usuarioDto.correoElectronico());
+        usuario.setNumeroTelefono(usuarioDto.numeroTelefono());
+        usuario.setDireccion(usuarioDto.direccion());
+        usuario.setClave(usuarioDto.clave());
+        return usuario;
     }
 }

@@ -20,8 +20,8 @@ public class Administrador implements ICrudUsuario {
     }
 
     @Override
-    public boolean crearUsuario(Usuario usuario) {
-        return billeteraVirtual.crearUsuario(usuario);
+    public boolean agregarUsuario(Usuario usuario) {
+        return billeteraVirtual.agregarUsuario(usuario);
     }
 
     @Override

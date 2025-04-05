@@ -13,7 +13,11 @@ public class Usuario implements IGestionDinero {
     private LinkedList<Presupuesto> listaPresupuestos;
     private LinkedList<Transaccion> listaTransacciones;
 
-    public Usuario(){}
+    public Usuario(){
+        listaCuentas = new LinkedList<>();
+        listaPresupuestos = new LinkedList<>();
+        listaTransacciones = new LinkedList<>();
+    }
 
     public Usuario(String nombreCompleto, String idUsuario, String correoElectronico, String numeroTelefono, String direccion, int clave, BilleteraVirtual billeteraVirtual) {
         this.nombreCompleto = nombreCompleto;
@@ -23,6 +27,9 @@ public class Usuario implements IGestionDinero {
         this.direccion = direccion;
         this.clave = clave;
         this.billeteraVirtual = billeteraVirtual;
+        listaCuentas = new LinkedList<>();
+        listaPresupuestos = new LinkedList<>();
+        listaTransacciones = new LinkedList<>();
     }
 
     public BilleteraVirtual getBilleteraVirtual() {

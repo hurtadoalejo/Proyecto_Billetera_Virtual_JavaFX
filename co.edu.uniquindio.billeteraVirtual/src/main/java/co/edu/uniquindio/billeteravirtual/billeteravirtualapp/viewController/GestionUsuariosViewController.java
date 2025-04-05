@@ -1,20 +1,19 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.GestionUsuariosController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+
 
 public class GestionUsuariosViewController {
 
@@ -123,24 +122,48 @@ public class GestionUsuariosViewController {
     }
 
     private void agregarUsuario() {
-        if (verificarCamposCorrectos() && verificarCamposCorrectos()) {
-            UsuarioDto usuario = crearUsuario();
-            if (gestionUsuariosController.agregarUsuario(usuario)) {
-                listaUsuarios.add(usuario);
-                tb_usuarios.refresh();
-                limpiarSeleccion();
+        if (verificarCamposLlenos()) {
+            if (verificarCamposCorrectos()){
+                UsuarioDto usuario = crearUsuario();
+                if (gestionUsuariosController.agregarUsuario(usuario)) {
+                    listaUsuarios.add(usuario);
+                    tb_usuarios.refresh();
+                    limpiarSeleccion();
+                    mostrarMensaje(TITULO_USUARIO_AGREGADO, HEADER, BODY_USUARIO_AGREGADO, Alert.AlertType.INFORMATION);
+                }
+                else{
+                    mostrarMensaje(TITULO_USUARIO_NO_AGREGADO, HEADER, BODY_USUARIO_NO_AGREGADO, Alert.AlertType.ERROR);
+                }
             }
+            else{
+                mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
+            }
+        }
+        else{
+            mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
         }
     }
 
     private void actualizarUsuario() {
-        if (verificarCamposCorrectos() && verificarCamposCorrectos()) {
-            UsuarioDto usuarioNuevo = crearUsuario();
-            if (gestionUsuariosController.actualizarUsuario(usuarioSeleccionado, usuarioNuevo)) {
-                intercambiarUsuarios(usuarioSeleccionado.idUsuario(), usuarioNuevo);
-                limpiarSeleccion();
-                tb_usuarios.refresh();
+        if (verificarCamposLlenos()) {
+            if (verificarCamposCorrectos()){
+                UsuarioDto usuarioNuevo = crearUsuario();
+                if (gestionUsuariosController.actualizarUsuario(usuarioSeleccionado, usuarioNuevo)) {
+                    intercambiarUsuarios(usuarioSeleccionado.idUsuario(), usuarioNuevo);
+                    limpiarSeleccion();
+                    tb_usuarios.refresh();
+                    mostrarMensaje(TITULO_USUARIO_ACTUALIZADO, HEADER, BODY_USUARIO_ACTUALIZADO, Alert.AlertType.INFORMATION);
+                }
+                else{
+                    mostrarMensaje(TITULO_USUARIO_NO_ACTUALIZADO, HEADER, BODY_USUARIO_NO_ACTUALIZADO, Alert.AlertType.ERROR);
+                }
             }
+            else{
+                mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
+            }
+        }
+        else{
+            mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
         }
     }
 
@@ -155,10 +178,14 @@ public class GestionUsuariosViewController {
 
     private void eliminarUsuario() {
         if (usuarioSeleccionado != null) {
-            if (gestionUsuariosController.eliminarUsuario(usuarioSeleccionado)){
+            if (mostrarMensajeConfirmacion(BODY_CONFIRMACION_ELIMINAR_USUARIO) && gestionUsuariosController.eliminarUsuario(usuarioSeleccionado)){
                 listaUsuarios.remove(usuarioSeleccionado);
                 limpiarSeleccion();
+                mostrarMensaje(TITULO_USUARIO_ELIMINADO, HEADER, BODY_USUARIO_ELIMINADO, Alert.AlertType.INFORMATION);
             }
+        }
+        else{
+            mostrarMensaje(TITULO_USUARIO_NO_ELIMINADO, HEADER, BODY_USUARIO_NO_ELIMINADO, Alert.AlertType.WARNING);
         }
     }
 
@@ -253,6 +280,26 @@ public class GestionUsuariosViewController {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.showAndWait();
+    }
+
+    private boolean mostrarMensajeConfirmacion(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmacion");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            return true;
+        }
+        return false;
     }
 
     @FXML

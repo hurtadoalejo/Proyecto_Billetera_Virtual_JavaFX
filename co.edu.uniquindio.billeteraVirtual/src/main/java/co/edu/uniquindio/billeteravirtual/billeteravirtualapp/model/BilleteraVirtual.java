@@ -123,7 +123,6 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
                     usuario.setDireccion(nuevoUsuario.getDireccion());
                     usuario.setCorreoElectronico(nuevoUsuario.getCorreoElectronico());
                     usuario.setNumeroTelefono(nuevoUsuario.getNumeroTelefono());
-                    usuario.setSaldoTotal(nuevoUsuario.getSaldoTotal());
                     return true;
                 }
             }

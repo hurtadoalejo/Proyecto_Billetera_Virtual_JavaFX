@@ -1,10 +1,12 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.PrincipalController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -44,8 +46,41 @@ public class PrincipalViewController {
     @FXML
     private Tab tab_usuario;
 
+    private void cargarVistaAdmin() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/LoginMenuAdmin.fxml"));
+            AnchorPane nuevaVista = loader.load();
+            sp_admin.getItems().setAll(nuevaVista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cargarVistaUsuario() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/LoginMenuUsuario.fxml"));
+            AnchorPane nuevaVista = loader.load();
+            sp_usuario.getItems().setAll(nuevaVista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void configurarCambioDeTab() {
+        tp_principal.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab == tab_admin) {
+                cargarVistaAdmin();
+            } else if (newTab == tab_usuario) {
+                cargarVistaUsuario();
+            }
+        });
+    }
+
     @FXML
     void initialize() {
+        configurarCambioDeTab();
         principalController = new PrincipalController();
         assert ap_admin != null : "fx:id=\"ap_admin\" was not injected: check your FXML file 'PrincipalView.fxml'.";
         assert ap_principal != null : "fx:id=\"ap_principal\" was not injected: check your FXML file 'PrincipalView.fxml'.";

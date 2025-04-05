@@ -42,7 +42,7 @@ public class LoginMenuAdminViewController {
     private void cambiarVista() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource
-                    ("/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/GestionUsuarios.fxml"));
+                    ("/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/MenuAdmin.fxml"));
             AnchorPane gestionUsuario = loader.load();
 
             SplitPane splitPane = (SplitPane) ap_principal.getParent().getParent();

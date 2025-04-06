@@ -23,8 +23,8 @@ public class BilleteraVirtualConstantes {
     public static final String TITULO_USUARIO_ELIMINADO = "Usuario eliminado";
     public static final String BODY_USUARIO_ELIMINADO = "El usuario se eliminó exitosamente";
 
-    public static final String TITULO_USUARIO_NO_ELIMINADO = "Usuario no eliminado";
-    public static final String BODY_USUARIO_NO_ELIMINADO = "No hay ningun usuario seleccionado";
+    public static final String TITULO_USUARIO_NO_SELECCIONADO = "Usuario no seleccionado";
+    public static final String BODY_USUARIO_NO_SELECCIONADO = "No hay ningun usuario seleccionado";
     public static final String BODY_CONFIRMACION_ELIMINAR_USUARIO = "¿Está seguro de eliminar el usuario?";
 
     public static final String TITULO_PASSWORD_INCORRECTA = "Contraseña incorrecta";

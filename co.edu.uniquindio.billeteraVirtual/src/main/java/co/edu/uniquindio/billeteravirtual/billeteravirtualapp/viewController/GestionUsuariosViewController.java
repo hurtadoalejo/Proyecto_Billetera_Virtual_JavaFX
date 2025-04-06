@@ -145,25 +145,30 @@ public class GestionUsuariosViewController {
     }
 
     private void actualizarUsuario() {
-        if (verificarCamposLlenos()) {
-            if (verificarCamposCorrectos()){
-                UsuarioDto usuarioNuevo = crearUsuario();
-                if (gestionUsuariosController.actualizarUsuario(usuarioSeleccionado, usuarioNuevo)) {
-                    intercambiarUsuarios(usuarioSeleccionado.idUsuario(), usuarioNuevo);
-                    limpiarSeleccion();
-                    tb_usuarios.refresh();
-                    mostrarMensaje(TITULO_USUARIO_ACTUALIZADO, HEADER, BODY_USUARIO_ACTUALIZADO, Alert.AlertType.INFORMATION);
+        if (usuarioSeleccionado != null) {
+            if (verificarCamposLlenos()) {
+                if (verificarCamposCorrectos()){
+                    UsuarioDto usuarioNuevo = crearUsuario();
+                    if (gestionUsuariosController.actualizarUsuario(usuarioSeleccionado, usuarioNuevo)) {
+                        intercambiarUsuarios(usuarioSeleccionado.idUsuario(), usuarioNuevo);
+                        limpiarSeleccion();
+                        tb_usuarios.refresh();
+                        mostrarMensaje(TITULO_USUARIO_ACTUALIZADO, HEADER, BODY_USUARIO_ACTUALIZADO, Alert.AlertType.INFORMATION);
+                    }
+                    else{
+                        mostrarMensaje(TITULO_USUARIO_NO_ACTUALIZADO, HEADER, BODY_USUARIO_NO_ACTUALIZADO, Alert.AlertType.ERROR);
+                    }
                 }
                 else{
-                    mostrarMensaje(TITULO_USUARIO_NO_ACTUALIZADO, HEADER, BODY_USUARIO_NO_ACTUALIZADO, Alert.AlertType.ERROR);
+                    mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
                 }
             }
             else{
-                mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
+                mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
             }
         }
-        else{
-            mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
+        else {
+            mostrarMensaje(TITULO_USUARIO_NO_SELECCIONADO, HEADER, BODY_USUARIO_NO_SELECCIONADO, Alert.AlertType.WARNING);
         }
     }
 
@@ -185,7 +190,7 @@ public class GestionUsuariosViewController {
             }
         }
         else{
-            mostrarMensaje(TITULO_USUARIO_NO_ELIMINADO, HEADER, BODY_USUARIO_NO_ELIMINADO, Alert.AlertType.WARNING);
+            mostrarMensaje(TITULO_USUARIO_NO_SELECCIONADO, HEADER, BODY_USUARIO_NO_SELECCIONADO, Alert.AlertType.WARNING);
         }
     }
 

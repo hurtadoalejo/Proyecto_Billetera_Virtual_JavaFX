@@ -5,98 +5,103 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="1180.0" style="-fx-background-color: #2ECC71;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.GestionUsuariosViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1180.0" style="-fx-background-color: #2ECC71;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.GestionUsuariosViewController">
    <children>
-      <SplitPane dividerPositions="0.5017605633802817" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" style="-fx-background-color: #2ECC71;">
+      <SplitPane dividerPositions="0.5369718309859155" orientation="VERTICAL" prefHeight="568.0" prefWidth="1180.0" style="-fx-background-color: #2ECC71;">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="294.0" prefWidth="1178.0">
                <children>
-                  <Label fx:id="lb_nombre" layoutX="89.0" layoutY="34.0" text="Nombre Completo:">
+                  <Label fx:id="lb_nombre" layoutX="101.0" layoutY="63.0" text="Nombre Completo:">
                      <font>
                         <Font name="Segoe UI Bold Italic" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lb_id" layoutX="149.0" layoutY="89.0" text="Id Usuario:">
+                  <Label fx:id="lb_id" layoutX="161.0" layoutY="118.0" text="Id Usuario:">
                      <font>
                         <Font name="Segoe UI Bold Italic" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lb_correo" layoutX="628.0" layoutY="36.0" text="Correo Electronico:">
+                  <Label fx:id="lb_correo" layoutX="640.0" layoutY="65.0" text="Correo Electronico:">
                      <font>
                         <Font name="Segoe UI Bold Italic" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lb_telefono" layoutX="99.0" layoutY="143.0" text="Número teléfono:">
+                  <Label fx:id="lb_telefono" layoutX="111.0" layoutY="172.0" text="Número teléfono:">
                      <font>
                         <Font name="Segoe UI Bold Italic" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lb_direccion" layoutX="692.0" layoutY="89.0" text="Dirección:">
+                  <Label fx:id="lb_direccion" layoutX="704.0" layoutY="118.0" text="Dirección:">
                      <font>
                         <Font name="Segoe UI Bold Italic" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lb_clave" layoutX="718.0" layoutY="143.0" text="Clave:">
+                  <Label fx:id="lb_clave" layoutX="730.0" layoutY="172.0" text="Clave:">
                      <font>
                         <Font name="Segoe UI Bold Italic" size="16.0" />
                      </font>
                   </Label>
-                  <Separator layoutX="52.0" layoutY="193.0" prefHeight="12.0" prefWidth="1075.0" />
-                  <TextField fx:id="tf_nombre" layoutX="245.0" layoutY="27.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                  <Separator layoutX="53.0" layoutY="224.0" prefHeight="12.0" prefWidth="1075.0" />
+                  <TextField fx:id="tf_nombre" layoutX="257.0" layoutY="56.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="tf_id" layoutX="245.0" layoutY="83.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                  <TextField fx:id="tf_id" layoutX="257.0" layoutY="112.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="tf_telefono" layoutX="245.0" layoutY="136.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                  <TextField fx:id="tf_telefono" layoutX="257.0" layoutY="165.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="tf_correo" layoutX="777.0" layoutY="28.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                  <TextField fx:id="tf_correo" layoutX="789.0" layoutY="57.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="tf_direccion" layoutX="777.0" layoutY="84.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                  <TextField fx:id="tf_direccion" layoutX="789.0" layoutY="113.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="tf_clave" layoutX="777.0" layoutY="137.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                  <TextField fx:id="tf_clave" layoutX="789.0" layoutY="166.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="bt_nuevo" layoutX="310.0" layoutY="222.0" mnemonicParsing="false" onAction="#onNuevo" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Nuevo">
+                  <Button fx:id="bt_nuevo" layoutX="310.0" layoutY="247.0" mnemonicParsing="false" onAction="#onNuevo" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Nuevo">
                      <font>
                         <Font name="Segoe UI Bold" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="bt_actualizar" layoutX="530.0" layoutY="222.0" mnemonicParsing="false" onAction="#onActualizar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Actualizar">
+                  <Button fx:id="bt_actualizar" layoutX="530.0" layoutY="247.0" mnemonicParsing="false" onAction="#onActualizar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Actualizar">
                      <font>
                         <Font name="Segoe UI Bold" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="bt_limpiar" layoutX="750.0" layoutY="222.0" mnemonicParsing="false" onAction="#onLimpiar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Limpiar">
+                  <Button fx:id="bt_limpiar" layoutX="750.0" layoutY="247.0" mnemonicParsing="false" onAction="#onLimpiar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Limpiar">
                      <font>
                         <Font name="Segoe UI Bold" size="16.0" />
                      </font>
                   </Button>
+                  <Label fx:id="lb_titulo" layoutX="504.0" layoutY="12.0" text="Gestión Usuarios">
+                     <font>
+                        <Font name="Segoe UI Bold" size="22.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="280.0" prefWidth="1178.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="249.0" prefWidth="1178.0">
                <children>
-                  <Button fx:id="bt_eliminar" layoutX="530.0" layoutY="223.0" mnemonicParsing="false" onAction="#onEliminar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Eliminar">
+                  <Button fx:id="bt_eliminar" layoutX="530.0" layoutY="211.0" mnemonicParsing="false" onAction="#onEliminar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Eliminar">
                      <font>
                         <Font name="Segoe UI Bold" size="16.0" />
                      </font>
                   </Button>
-                  <TableView fx:id="tb_usuarios" layoutX="44.0" layoutY="22.0" prefHeight="184.0" prefWidth="1090.0" style="-fx-font-size: 14px; -fx-border-color: #12502c; -fx-border-width: 2px; -fx-background-color: #DFE2E1;">
+                  <TableView fx:id="tb_usuarios" layoutX="44.0" layoutY="14.0" prefHeight="184.0" prefWidth="1090.0" style="-fx-font-size: 14px; -fx-border-color: #12502c; -fx-border-width: 2px; -fx-background-color: #DFE2E1;">
                     <columns>
                       <TableColumn fx:id="cl_nombreCompleto" prefWidth="279.0" text="Nombre Completo" />
                       <TableColumn fx:id="cl_id" prefWidth="138.0" text="Id" />

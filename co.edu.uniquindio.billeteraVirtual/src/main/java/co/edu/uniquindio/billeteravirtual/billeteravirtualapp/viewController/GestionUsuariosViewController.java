@@ -55,6 +55,9 @@ public class GestionUsuariosViewController {
     private TextField tf_telefono;
 
     @FXML
+    private Label lb_titulo;
+
+    @FXML
     private TableColumn<UsuarioDto, String> cl_telefono;
 
     @FXML
@@ -334,5 +337,6 @@ public class GestionUsuariosViewController {
         assert lb_clave != null : "fx:id=\"lb_clave\" was not injected: check your FXML file 'GestionUsuarios.fxml'.";
         assert cl_direccion != null : "fx:id=\"cl_direccion\" was not injected: check your FXML file 'GestionUsuarios.fxml'.";
         assert tf_clave != null : "fx:id=\"tf_clave\" was not injected: check your FXML file 'GestionUsuarios.fxml'.";
+        assert lb_titulo != null : "fx:id=\"lb_titulo\" was not injected: check your FXML file 'GestionUsuarios.fxml'.";
     }
 }

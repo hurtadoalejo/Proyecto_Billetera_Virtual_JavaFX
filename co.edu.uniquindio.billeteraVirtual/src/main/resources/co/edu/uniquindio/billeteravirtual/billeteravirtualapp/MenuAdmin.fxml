@@ -9,11 +9,11 @@
    <children>
       <TabPane prefHeight="600.0" prefWidth="1180.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="tab_gestionUsuarios" text="Gestión Usuarios">
+          <Tab fx:id="tab_gestionUsuarios" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-weight: bold; -fx-font-size: 14px;" text="Gestión Usuarios">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1180.0">
                      <children>
-                        <SplitPane layoutX="10.0" layoutY="11.0" orientation="VERTICAL" prefHeight="545.0" prefWidth="1132.0">
+                        <SplitPane layoutX="-1.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="550.0" prefWidth="1180.0">
                           <items>
                             <fx:include source="GestionUsuarios.fxml" />
                           </items>
@@ -21,22 +21,22 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="tab_gestionCuentas" text="Gestión Cuentas">
+          <Tab fx:id="tab_gestionCuentas" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-size: 14px; -fx-font-weight: bold;" text="Gestión Cuentas">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-            <Tab fx:id="tab_gestionTransacciones" text="Gestión Transacciones">
+            <Tab fx:id="tab_gestionTransacciones" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-size: 14px; -fx-font-weight: bold;" text="Gestión Transacciones">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-            <Tab fx:id="tab_estadisticas" text="Estadísticas">
+            <Tab fx:id="tab_estadisticas" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-size: 14px; -fx-font-weight: bold;" text="Estadísticas">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-            <Tab fx:id="tab_graficas" text="Gráficas">
+            <Tab fx:id="tab_graficas" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-size: 14px; -fx-font-weight: bold;" text="Gráficas">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>

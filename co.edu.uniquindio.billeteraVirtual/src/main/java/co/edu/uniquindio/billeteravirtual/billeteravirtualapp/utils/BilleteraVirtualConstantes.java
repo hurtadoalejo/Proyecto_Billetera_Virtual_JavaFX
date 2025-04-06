@@ -26,4 +26,11 @@ public class BilleteraVirtualConstantes {
     public static final String TITULO_USUARIO_NO_ELIMINADO = "Usuario no eliminado";
     public static final String BODY_USUARIO_NO_ELIMINADO = "No hay ningun usuario seleccionado";
     public static final String BODY_CONFIRMACION_ELIMINAR_USUARIO = "¿Está seguro de eliminar el usuario?";
+
+    public static final String TITULO_PASSWORD_INCORRECTA = "Contraseña incorrecta";
+    public static final String BODY_PASSWORD_INCORRECTA = "La contraseña es incorrecta";
+    public static final String TITULO_PASSWORD_NO_VALIDA = "Contraseña no valida";
+    public static final String BODY_PASSWORD_NO_VALIDA = "La contraseña solo puede llevar números";
+    public static final String TITULO_PASSWORD_NO_RELLENA = "Contraseña vacia";
+    public static final String BODY_PASSWORD_NO_RELLENA = "Introduzca una contraseña";
 }

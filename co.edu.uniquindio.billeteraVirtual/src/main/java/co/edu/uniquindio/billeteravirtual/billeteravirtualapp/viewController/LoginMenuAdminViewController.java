@@ -7,11 +7,10 @@ import java.util.ResourceBundle;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.LoginMenuAdminController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
 
 public class LoginMenuAdminViewController {
 
@@ -60,10 +59,23 @@ public class LoginMenuAdminViewController {
     }
 
     private void ingresar() {
-        if (verificarCambosCorrectos() && verificarCambosLlenos()){
-            if (loginMenuAdminController.verificarClaveAdmin(Integer.parseInt(ta_clave.getText()))){
-                cambiarVista();
+        if (verificarCambosLlenos()){
+            if (verificarCambosCorrectos()){
+                if (loginMenuAdminController.verificarClaveAdmin(Integer.parseInt(ta_clave.getText()))){
+                    cambiarVista();
+                }
+                else{
+                    mostrarMensaje(TITULO_PASSWORD_INCORRECTA, HEADER, BODY_PASSWORD_INCORRECTA, Alert.AlertType.ERROR);
+                    ta_clave.clear();
+                }
             }
+            else{
+                mostrarMensaje(TITULO_PASSWORD_NO_VALIDA, HEADER, BODY_PASSWORD_NO_VALIDA, Alert.AlertType.WARNING);
+                ta_clave.clear();
+            }
+        }
+        else{
+            mostrarMensaje(TITULO_PASSWORD_NO_RELLENA, HEADER, BODY_PASSWORD_NO_RELLENA, Alert.AlertType.WARNING);
         }
     }
 
@@ -91,6 +103,14 @@ public class LoginMenuAdminViewController {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.showAndWait();
     }
 
     @FXML

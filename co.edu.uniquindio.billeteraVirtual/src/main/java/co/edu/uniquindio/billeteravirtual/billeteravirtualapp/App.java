@@ -5,6 +5,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.Pri
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,6 +30,8 @@ public class App extends Application {
      */
     public void openPrincipalView() {
         try {
+            mostrarMensaje("Contraseña admin", "Notificacion",
+                    "La contraseña del admin es: 2911", Alert.AlertType.INFORMATION);
             invocar();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource("PrincipalView.fxml"));
@@ -46,6 +49,14 @@ public class App extends Application {
 
     private void invocar() {
         modelFactory = ModelFactory.getInstance();
+    }
+
+    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.showAndWait();
     }
 
     public static void main(String[] args) {

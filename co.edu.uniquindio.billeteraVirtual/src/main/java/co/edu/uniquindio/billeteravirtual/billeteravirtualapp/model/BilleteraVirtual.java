@@ -182,6 +182,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
                     cuenta.setNumeroCuenta(nuevaCuenta.getNumeroCuenta());
                     cambiarUsuarioCuenta(cuenta, nuevaCuenta);
                     cuenta.setTipoCuenta(nuevaCuenta.getTipoCuenta());
+                    cuenta.setUsuarioAsociado(nuevaCuenta.getUsuarioAsociado());
                     return true;
                 }
             }

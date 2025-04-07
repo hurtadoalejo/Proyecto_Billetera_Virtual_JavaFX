@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.GestionCuentasController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.CuentaDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.TipoCuenta;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -114,7 +115,12 @@ public class GestionCuentasViewController {
 
     private CuentaDto crearCuenta() {
         return new CuentaDto(Integer.parseInt(tf_idCuenta.getText()), tf_nombreBanco.getText(),
-                tf_numeroCuenta.getText(), cb_usuarioAsociado.getValue(), cb_tipoCuenta.getValue());
+                tf_numeroCuenta.getText(), cb_usuarioAsociado.getValue(), cb_tipoCuenta.getValue(), 0);
+    }
+
+    private CuentaDto crearCuentaConSaldo(Double saldo) {
+        return new CuentaDto(Integer.parseInt(tf_idCuenta.getText()), tf_nombreBanco.getText(),
+                tf_numeroCuenta.getText(), cb_usuarioAsociado.getValue(), cb_tipoCuenta.getValue(), saldo);
     }
 
     private void agregarCuenta() {
@@ -143,7 +149,7 @@ public class GestionCuentasViewController {
         if (cuentaSeleccionada != null) {
             if (verificarCamposLlenos()) {
                 if (verificarCamposCorrectos()) {
-                    CuentaDto cuentaNueva = crearCuenta();
+                    CuentaDto cuentaNueva = crearCuentaConSaldo(cuentaSeleccionada.saldo());
                     if (gestionCuentasController.actualizarCuenta(cuentaSeleccionada, cuentaNueva)) {
                         intercambiarCuentas(cuentaSeleccionada.idCuenta(), cuentaNueva);
                         limpiarSeleccion();
@@ -216,7 +222,7 @@ public class GestionCuentasViewController {
         cl_numeroCuenta.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().numCuenta()));
         cl_usuarioAsociado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().idUsuarioAsociado()));
         cl_tipoCuenta.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tipoCuenta().name()));
-        //cl_saldo.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().saldo()).asObject());
+        cl_saldo.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().saldo()).asObject());
     }
 
     private void listenerSelection(){

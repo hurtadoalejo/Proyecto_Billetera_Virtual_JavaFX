@@ -78,7 +78,7 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean actualizarCuenta(int id, String numCuenta, CuentaDto cuentaNueva) {
-        return administrador.actualizarCuenta(id, numCuenta,cuentaMapper.cuentaDtoToCuenta(cuentaNueva, obtenerUsuario(cuentaNueva.idUsuarioAsociado())));
+        return administrador.actualizarCuenta(id, numCuenta, cuentaMapper.cuentaDtoToCuenta(cuentaNueva, obtenerUsuario(cuentaNueva.idUsuarioAsociado())));
     }
 
     public LinkedList<String> obtenerUsuariosId() {

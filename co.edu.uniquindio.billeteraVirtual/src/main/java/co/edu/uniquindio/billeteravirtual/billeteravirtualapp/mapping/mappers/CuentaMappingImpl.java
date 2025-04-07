@@ -23,7 +23,7 @@ public class CuentaMappingImpl implements ICuentaMapping {
     @Override
     public CuentaDto cuentaToCuentaDto(Cuenta cuenta) {
         return new CuentaDto(cuenta.getIdCuenta(), cuenta.getNombreBanco(), cuenta.getNumeroCuenta(),
-                cuenta.getUsuarioAsociado().getIdUsuario(), cuenta.getTipoCuenta());
+                cuenta.getUsuarioAsociado().getIdUsuario(), cuenta.getTipoCuenta(), cuenta.getSaldo());
     }
 
     @Override
@@ -34,6 +34,7 @@ public class CuentaMappingImpl implements ICuentaMapping {
         cuenta.setNumeroCuenta(cuentaDto.numCuenta());
         cuenta.setTipoCuenta(cuentaDto.tipoCuenta());
         cuenta.setUsuarioAsociado(usuario);
+        cuenta.setSaldo(cuentaDto.saldo());
         return cuenta;
     }
 }

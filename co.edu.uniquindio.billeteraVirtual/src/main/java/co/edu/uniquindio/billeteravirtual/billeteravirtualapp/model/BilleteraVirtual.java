@@ -175,8 +175,8 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
             if (cuenta.getIdCuenta() == id){
                 if ((obtenerCuentaId(nuevaCuenta.getIdCuenta()) == null
                         || nuevaCuenta.getIdCuenta() == id) &&
-                obtenerCuentaNumCuenta(nuevaCuenta.getNumeroCuenta()) == null
-                        || nuevaCuenta.getNumeroCuenta().equals(numCuenta)){
+                        (obtenerCuentaNumCuenta(nuevaCuenta.getNumeroCuenta()) == null
+                                || nuevaCuenta.getNumeroCuenta().equals(numCuenta))){
                     cuenta.setIdCuenta(nuevaCuenta.getIdCuenta());
                     cuenta.setNombreBanco(nuevaCuenta.getNombreBanco());
                     cuenta.setNumeroCuenta(nuevaCuenta.getNumeroCuenta());

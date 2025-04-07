@@ -11,6 +11,8 @@ public class DataUtil {
         Cuenta cuenta = new Cuenta(24, "24", "24", usuario, TipoCuenta.AHORRO, billeteraVirtual);
         Cuenta cuenta2 = new Cuenta(25, "25", "25", usuario, TipoCuenta.AHORRO, billeteraVirtual);
         cuenta2.setSaldo(24500);
+        usuario.getListaCuentas().add(cuenta);
+        usuario.getListaCuentas().add(cuenta2);
         billeteraVirtual.getListaUsuarios().add(usuario);
         billeteraVirtual.getListaUsuarios().add(usuario2);
         billeteraVirtual.getListaCuentas().add(cuenta);

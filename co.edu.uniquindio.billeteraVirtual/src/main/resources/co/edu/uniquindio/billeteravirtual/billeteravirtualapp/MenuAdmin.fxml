@@ -7,13 +7,13 @@
 
 <AnchorPane fx:id="ap_menuAdmin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.MenuAdminViewController">
    <children>
-      <TabPane prefHeight="600.0" prefWidth="1180.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tp_menuAdmin" prefHeight="600.0" prefWidth="1180.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="tab_gestionUsuarios" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-weight: bold; -fx-font-size: 14px;" text="Gestión Usuarios">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1180.0">
                      <children>
-                        <SplitPane layoutX="-1.0" orientation="VERTICAL" prefHeight="565.0" prefWidth="1180.0">
+                        <SplitPane fx:id="sp_gestionUsuarios" layoutX="-1.0" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0">
                           <items>
                             <fx:include source="GestionUsuarios.fxml" />
                           </items>
@@ -23,7 +23,14 @@
           </Tab>
           <Tab fx:id="tab_gestionCuentas" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-size: 14px; -fx-font-weight: bold;" text="Gestión Cuentas">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="1180.0">
+                     <children>
+                        <SplitPane fx:id="sp_gestionCuentas" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0">
+                         <items>
+                             <fx:include source="GestionCuentas.fxml" />
+                         </items>
+                        </SplitPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
             <Tab fx:id="tab_gestionTransacciones" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-size: 14px; -fx-font-weight: bold;" text="Gestión Transacciones">

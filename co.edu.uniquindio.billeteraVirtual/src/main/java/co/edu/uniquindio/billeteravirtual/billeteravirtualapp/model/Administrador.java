@@ -1,8 +1,9 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ICrudCuenta;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ICrudUsuario;
 
-public class Administrador implements ICrudUsuario {
+public class Administrador implements ICrudUsuario, ICrudCuenta {
     private BilleteraVirtual billeteraVirtual;
     private int clave;
 
@@ -37,5 +38,25 @@ public class Administrador implements ICrudUsuario {
     @Override
     public Usuario obtenerUsuario(String id) {
         return billeteraVirtual.obtenerUsuario(id);
+    }
+
+    @Override
+    public boolean agregarCuenta(Cuenta cuenta) {
+        return billeteraVirtual.agregarCuenta(cuenta);
+    }
+
+    @Override
+    public boolean eliminarCuenta(int id, String numCuenta) {
+        return billeteraVirtual.eliminarCuenta(id, numCuenta);
+    }
+
+    @Override
+    public boolean actualizarCuenta(int id, String numCuenta, Cuenta nuevaCuenta) {
+        return billeteraVirtual.actualizarCuenta(id, numCuenta, nuevaCuenta);
+    }
+
+    @Override
+    public Cuenta obtenerCuenta(int id, String numCuenta) {
+        return billeteraVirtual.obtenerCuenta(id, numCuenta);
     }
 }

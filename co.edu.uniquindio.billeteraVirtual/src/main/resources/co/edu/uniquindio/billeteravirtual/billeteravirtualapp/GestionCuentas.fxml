@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1180.0" style="-fx-background-color: #2ECC71;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.GestionCuentasViewController">
+   <children>
+      <SplitPane dividerPositions="0.5369718309859155" orientation="VERTICAL" prefHeight="568.0" prefWidth="1180.0" style="-fx-background-color: #2ECC71;">
+         <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="294.0" prefWidth="1178.0">
+               <children>
+                  <Label fx:id="lb_idCuenta" layoutX="166.0" layoutY="65.0" text="Id Cuenta:">
+                     <font>
+                        <Font name="Segoe UI Bold Italic" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lb_nombreBanco" layoutX="127.0" layoutY="120.0" text="Nombre Banco:">
+                     <font>
+                        <Font name="Segoe UI Bold Italic" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lb_usuarioAsociado" layoutX="640.0" layoutY="64.0" text="Usuario Asociado:">
+                     <font>
+                        <Font name="Segoe UI Bold Italic" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lb_numeroCuenta" layoutX="120.0" layoutY="173.0" text="Número Cuenta:">
+                     <font>
+                        <Font name="Segoe UI Bold Italic" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lb_tipoCuenta" layoutX="683.0" layoutY="120.0" text="Tipo Cuenta:">
+                     <font>
+                        <Font name="Segoe UI Bold Italic" size="16.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="53.0" layoutY="224.0" prefHeight="12.0" prefWidth="1075.0" />
+                  <TextField fx:id="tf_idCuenta" layoutX="257.0" layoutY="56.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="tf_nombreBanco" layoutX="257.0" layoutY="112.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="tf_numeroCuenta" layoutX="257.0" layoutY="165.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="bt_nuevo" layoutX="310.0" layoutY="247.0" mnemonicParsing="false" onAction="#onNuevo" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Nueva">
+                     <font>
+                        <Font name="Segoe UI Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="bt_actualizar" layoutX="530.0" layoutY="247.0" mnemonicParsing="false" onAction="#onActualizar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Actualizar">
+                     <font>
+                        <Font name="Segoe UI Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="bt_limpiar" layoutX="750.0" layoutY="247.0" mnemonicParsing="false" onAction="#onLimpiar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Limpiar">
+                     <font>
+                        <Font name="Segoe UI Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="lb_titulo" layoutX="507.0" layoutY="14.0" text="Gestión Cuentas">
+                     <font>
+                        <Font name="Segoe UI Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cb_usuarioAsociado" layoutX="798.0" layoutY="59.0" prefHeight="29.0" prefWidth="218.0" style="-fx-font-size: 15px; -fx-font-family: &quot;Segoe UI&quot;;" />
+                  <ComboBox fx:id="cb_tipoCuenta" layoutX="798.0" layoutY="115.0" prefHeight="29.0" prefWidth="218.0" style="-fx-font-family: &quot;Segoe UI&quot;; -fx-font-size: 15px;" />
+               </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="249.0" prefWidth="1178.0">
+               <children>
+                  <Button fx:id="bt_eliminar" layoutX="530.0" layoutY="211.0" mnemonicParsing="false" onAction="#onEliminar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Eliminar">
+                     <font>
+                        <Font name="Segoe UI Bold" size="16.0" />
+                     </font>
+                  </Button>
+                  <TableView fx:id="tb_cuentas" layoutX="44.0" layoutY="14.0" prefHeight="184.0" prefWidth="1090.0" style="-fx-font-size: 14px; -fx-border-color: #12502c; -fx-border-width: 2px; -fx-background-color: #DFE2E1;">
+                     <columns>
+                        <TableColumn fx:id="cl_idCuenta" prefWidth="166.0" text="Id Cuenta" />
+                        <TableColumn fx:id="cl_nombreBanco" prefWidth="192.0" text="Nombre Banco" />
+                        <TableColumn fx:id="cl_numeroCuenta" prefWidth="207.0" text="Número Cuenta" />
+                        <TableColumn fx:id="cl_usuarioAsociado" prefWidth="184.0" text="Usuario Asociado" />
+                        <TableColumn fx:id="cl_tipoCuenta" prefWidth="184.0" text="Tipo Cuenta" />
+                        <TableColumn fx:id="cl_saldo" prefWidth="154.0" text="Saldo" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

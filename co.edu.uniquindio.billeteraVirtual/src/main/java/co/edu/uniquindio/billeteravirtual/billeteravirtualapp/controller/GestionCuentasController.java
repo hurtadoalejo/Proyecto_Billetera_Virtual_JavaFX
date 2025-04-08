@@ -31,4 +31,12 @@ public class GestionCuentasController {
     public LinkedList<String> obtenerUsuariosId() {
         return modelFactory.obtenerUsuariosId();
     }
+
+    public boolean verificarCuentaNumCuenta(String numCuenta) {
+        return modelFactory.verificarCuentaNumCuenta(numCuenta);
+    }
+
+    public boolean verificarCuentaId(int id) {
+        return modelFactory.verificarCuentaId(id);
+    }
 }

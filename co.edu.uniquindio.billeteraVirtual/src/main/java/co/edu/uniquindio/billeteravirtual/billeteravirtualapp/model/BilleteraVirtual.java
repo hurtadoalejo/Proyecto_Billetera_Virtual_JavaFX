@@ -208,6 +208,24 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         return null;
     }
 
+    public boolean verificarCuentaId(int id) {
+        for (Cuenta cuenta : listaCuentas){
+            if (cuenta.getIdCuenta() == id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean verificarCuentaNumCuenta(String numCuenta) {
+        for (Cuenta cuenta : listaCuentas){
+            if (cuenta.getNumeroCuenta().equalsIgnoreCase(numCuenta)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void cambiarUsuarioCuenta(Cuenta cuenta, Cuenta nuevaCuenta) {
         Usuario usuarioViejo = cuenta.getUsuarioAsociado();
         Usuario usuarioNuevo = nuevaCuenta.getUsuarioAsociado();

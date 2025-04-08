@@ -84,4 +84,12 @@ public class ModelFactory implements IModelFactoryService {
     public LinkedList<String> obtenerUsuariosId() {
         return billeteraVirtual.obtenerUsuariosId();
     }
+
+    public boolean verificarCuentaId(int id) {
+        return billeteraVirtual.verificarCuentaId(id);
+    }
+
+    public boolean verificarCuentaNumCuenta(String numCuenta) {
+        return billeteraVirtual.verificarCuentaNumCuenta(numCuenta);
+    }
 }

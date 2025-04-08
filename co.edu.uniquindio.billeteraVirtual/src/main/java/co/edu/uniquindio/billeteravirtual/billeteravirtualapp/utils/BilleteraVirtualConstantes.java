@@ -1,5 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils;
 
+import java.security.PublicKey;
+
 public class BilleteraVirtualConstantes {
     public static final String TITULO_INCOMPLETO = "Campos incompletos";
     public static final String HEADER = "Notificacion";
@@ -25,12 +27,34 @@ public class BilleteraVirtualConstantes {
 
     public static final String TITULO_USUARIO_NO_SELECCIONADO = "Usuario no seleccionado";
     public static final String BODY_USUARIO_NO_SELECCIONADO = "No hay ningun usuario seleccionado";
+
     public static final String BODY_CONFIRMACION_ELIMINAR_USUARIO = "¿Está seguro de eliminar el usuario?";
+    public static final String BODY_CONFIRMACION_ELIMINAR_CUENTA = "¿Está seguro de eliminar la cuenta?";
 
     public static final String TITULO_PASSWORD_INCORRECTA = "Contraseña incorrecta";
     public static final String BODY_PASSWORD_INCORRECTA = "La contraseña es incorrecta";
     public static final String TITULO_PASSWORD_NO_VALIDA = "Contraseña no valida";
     public static final String BODY_PASSWORD_NO_VALIDA = "La contraseña solo puede llevar números";
+
     public static final String TITULO_PASSWORD_NO_RELLENA = "Contraseña vacia";
     public static final String BODY_PASSWORD_NO_RELLENA = "Introduzca una contraseña";
+
+    public static final String TITULO_CUENTA_NO_SELECCIONADA = "Cuenta no seleccionada";
+    public static final String BODY_CUENTA_NO_SELECCIONADA = "No hay ninguna cuenta seleccionada";
+
+    public static final String TITULO_CUENTA_ELIMINADA = "Cuenta eliminada";
+    public static final String BODY_CUENTA_ELIMINADA = "La cuenta se eliminó exitosamente";
+
+    public static final String TITULO_CUENTA_ACTUALIZADA = "Cuenta actualizada";
+    public static final String BODY_CUENTA_ACTUALIZADA = "La cuenta se actualizó exitosamente";
+
+    public static final String TITULO_CUENTA_NO_ACTUALIZADA = "Cuenta no actualizada";
+    public static final String BODY_CUENTA_NO_ACTUALIZADA_ID = "La cuenta no se actualizó exitosamente, ya está en uso el id administrado";
+    public static final String BODY_CUENTA_NO_ACTUALIZADA_NUM_CUENTA = "La cuenta no se actualizó exitosamente, ya está en uso el número de cuenta administrado";
+
+    public static final String TITULO_CUENTA_NO_AGREGADA = "Cuenta no agregada";
+    public static final String BODY_CUENTA_NO_AGREGADA = "La cuenta no se pudo agregar, ya existe";
+
+    public static final String TITULO_CUENTA_AGREGADA = "Cuenta agregada";
+    public static final String BODY_CUENTA_AGREGADA = "La cuenta se agregó exitosamente";
 }

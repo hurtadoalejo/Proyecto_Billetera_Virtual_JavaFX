@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
 
 public class GestionCuentasViewController {
 
@@ -131,17 +132,18 @@ public class GestionCuentasViewController {
                     listaCuentas.add(cuenta);
                     tb_cuentas.refresh();
                     limpiarSeleccion();
+                    mostrarMensaje(TITULO_CUENTA_AGREGADA, HEADER, BODY_CUENTA_AGREGADA, Alert.AlertType.INFORMATION);
                 }
                 else{
-
+                    mostrarMensaje(TITULO_CUENTA_NO_AGREGADA, HEADER, BODY_CUENTA_NO_AGREGADA, Alert.AlertType.ERROR);
                 }
             }
             else{
-
+                mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
             }
         }
         else {
-
+            mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
         }
     }
 
@@ -154,9 +156,35 @@ public class GestionCuentasViewController {
                         intercambiarCuentas(cuentaSeleccionada.idCuenta(), cuentaNueva);
                         limpiarSeleccion();
                         tb_cuentas.refresh();
+                        mostrarMensaje(TITULO_CUENTA_ACTUALIZADA, HEADER, BODY_CUENTA_ACTUALIZADA, Alert.AlertType.INFORMATION);
+                    }
+                    else {
+                        mostrarMensajeNoActualizarCuenta(cuentaSeleccionada);
                     }
                 }
+                else {
+                    mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
+                }
             }
+            else {
+                mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
+            }
+        }
+        else {
+            mostrarMensaje(TITULO_CUENTA_NO_SELECCIONADA, HEADER, BODY_CUENTA_NO_SELECCIONADA, Alert.AlertType.WARNING);
+        }
+    }
+
+    private void mostrarMensajeNoActualizarCuenta(CuentaDto cuenta) {
+        int idCuenta = Integer.parseInt(tf_idCuenta.getText());
+        String numCuenta = tf_numeroCuenta.getText();
+        if (gestionCuentasController.verificarCuentaId(idCuenta)
+        && cuenta.idCuenta() != idCuenta) {
+            mostrarMensaje(TITULO_CUENTA_NO_ACTUALIZADA, HEADER, BODY_CUENTA_NO_ACTUALIZADA_ID, Alert.AlertType.ERROR);
+        }
+        if (gestionCuentasController.verificarCuentaNumCuenta(numCuenta)
+                && !cuenta.numCuenta().equals(numCuenta)) {
+            mostrarMensaje(TITULO_CUENTA_NO_ACTUALIZADA, HEADER, BODY_CUENTA_NO_ACTUALIZADA_NUM_CUENTA, Alert.AlertType.ERROR);
         }
     }
 
@@ -171,10 +199,15 @@ public class GestionCuentasViewController {
 
     private void eliminarCuenta() {
         if (cuentaSeleccionada != null) {
-            if (gestionCuentasController.eliminarCuenta(cuentaSeleccionada)) {
+            if (mostrarMensajeConfirmacion(BODY_CONFIRMACION_ELIMINAR_CUENTA) &&
+                    gestionCuentasController.eliminarCuenta(cuentaSeleccionada)) {
                 listaCuentas.remove(cuentaSeleccionada);
                 limpiarSeleccion();
+                mostrarMensaje(TITULO_CUENTA_ELIMINADA, HEADER, BODY_CUENTA_ELIMINADA, Alert.AlertType.INFORMATION);
             }
+        }
+        else {
+            mostrarMensaje(TITULO_CUENTA_NO_SELECCIONADA, HEADER, BODY_CUENTA_NO_SELECCIONADA, Alert.AlertType.WARNING);
         }
     }
 

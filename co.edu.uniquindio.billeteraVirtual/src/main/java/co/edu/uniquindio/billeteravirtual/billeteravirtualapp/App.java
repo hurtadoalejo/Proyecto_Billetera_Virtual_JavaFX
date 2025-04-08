@@ -16,7 +16,7 @@ public class App extends Application {
     public ModelFactory modelFactory;
 
     /**
-     * Metodo para inicializar la interfaz principal
+     * Metodo para inicializar el programa
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -47,6 +47,9 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Metodo para invocar el ModelFactory
+     */
     private void invocar() {
         modelFactory = ModelFactory.getInstance();
     }

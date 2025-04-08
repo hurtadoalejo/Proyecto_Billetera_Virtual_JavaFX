@@ -4,6 +4,10 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.*;
 
 public class DataUtil {
 
+    /**
+     * Metodo para inicializar datos de la billetera virtual
+     * @return
+     */
     public static BilleteraVirtual inicializarDatos(){
         BilleteraVirtual billeteraVirtual = new BilleteraVirtual("Nuqui");
         Usuario usuario = new Usuario("Alejandro Hurtado", "1092850037", "alejo@gmail.com", "3161971519", "Cra 6 #11-13", 24, billeteraVirtual);

@@ -5,11 +5,12 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory.ModelFacto
 public class PrincipalController {
     private ModelFactory modelFactory;
 
+    /**
+     * Metodo constructor de la clase PrincipalController
+     */
     public PrincipalController() {
         modelFactory = ModelFactory.getInstance();
     }
 
-    public boolean verificarClaveAdmin(int clave){
-        return modelFactory.verificarClaveAdmin(clave);
-    }
+
 }

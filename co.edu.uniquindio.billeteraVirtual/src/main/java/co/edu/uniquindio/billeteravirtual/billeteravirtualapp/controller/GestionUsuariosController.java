@@ -8,22 +8,45 @@ import java.util.LinkedList;
 public class GestionUsuariosController {
     ModelFactory modelFactory;
 
+    /**
+     * Metodo constructor de la clase GestionUsuariosController
+     */
     public GestionUsuariosController() {
         modelFactory = ModelFactory.getInstance();
     }
 
+    /**
+     * Metodo para obtener la lista de usuarios de billetera virtual
+     * @return Lista de usuarios
+     */
     public LinkedList<UsuarioDto> obtenerUsuarios() {
         return modelFactory.obtenerUsuarios();
     }
 
+    /**
+     * Metodo para agregar un usuario a la lista de usuarios de la billetera virtual
+     * @param usuario Usuario a agregar
+     * @return Booleano sobre si la accion fue completada exitosamente o no
+     */
     public boolean agregarUsuario(UsuarioDto usuario) {
         return modelFactory.agregarUsuario(usuario);
     }
 
+    /**
+     * Metodo para eliminar un usuario de la lista de usuarios de la billetera virtual
+     * @param usuario Usuario a eliminar
+     * @return Booleano sobre si la accion fue completada exitosamente o no
+     */
     public boolean eliminarUsuario(UsuarioDto usuario) {
         return modelFactory.eliminarUsuario(usuario);
     }
 
+    /**
+     * Metodo par aactualizar un usuario de la lista de usuarios de la billetera virtual
+     * @param usuario Usuario a actualizar
+     * @param usuarioNuevo Usuario con los datos nuevos
+     * @return Booleano sobre si la accion fue completada exitosamente o no
+     */
     public boolean actualizarUsuario(UsuarioDto usuario, UsuarioDto usuarioNuevo) {
         return modelFactory.actualizarUsuario(usuario, usuarioNuevo);
     }

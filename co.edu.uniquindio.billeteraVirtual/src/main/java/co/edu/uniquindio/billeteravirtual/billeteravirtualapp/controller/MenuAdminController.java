@@ -1,5 +1,14 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller;
 
-public class MenuAdminController {
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory.ModelFactory;
 
+public class MenuAdminController {
+    ModelFactory modelFactory;
+
+    /**
+     * Metodo constructor de la clase MenuAdminController
+     */
+    public MenuAdminController() {
+        modelFactory = ModelFactory.getInstance();
+    }
 }

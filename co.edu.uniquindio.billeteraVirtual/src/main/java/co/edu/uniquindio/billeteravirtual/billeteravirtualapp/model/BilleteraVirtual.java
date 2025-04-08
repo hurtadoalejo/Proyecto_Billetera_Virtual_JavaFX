@@ -149,7 +149,8 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
 
     @Override
-    public boolean agregarCuenta(Cuenta cuenta) {
+    public boolean agregarCuenta(Cuenta cuenta, String idUsuario) {
+        cuenta.setUsuarioAsociado(obtenerUsuario(idUsuario));
         if (obtenerCuenta(cuenta.getIdCuenta(), cuenta.getNumeroCuenta()) == null){
             listaCuentas.add(cuenta);
             cuenta.getUsuarioAsociado().getListaCuentas().add(cuenta);
@@ -170,13 +171,15 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     }
 
     @Override
-    public boolean actualizarCuenta(int id, String numCuenta, Cuenta nuevaCuenta) {
+    public boolean actualizarCuenta(Cuenta cuentaVieja, String idUsuarioViejo, String idUsuarioNuevo, Cuenta nuevaCuenta) {
+        cuentaVieja.setUsuarioAsociado(obtenerUsuario(idUsuarioViejo));
+        nuevaCuenta.setUsuarioAsociado(obtenerUsuario(idUsuarioNuevo));
         for (Cuenta cuenta : listaCuentas){
-            if (cuenta.getIdCuenta() == id){
+            if (cuenta.getIdCuenta() == cuentaVieja.getIdCuenta()){
                 if ((obtenerCuentaId(nuevaCuenta.getIdCuenta()) == null
-                        || nuevaCuenta.getIdCuenta() == id) &&
+                        || nuevaCuenta.getIdCuenta() == cuentaVieja.getIdCuenta()) &&
                         (obtenerCuentaNumCuenta(nuevaCuenta.getNumeroCuenta()) == null
-                                || nuevaCuenta.getNumeroCuenta().equals(numCuenta))){
+                                || nuevaCuenta.getNumeroCuenta().equals(cuentaVieja.getNumeroCuenta()))){
                     cuenta.setIdCuenta(nuevaCuenta.getIdCuenta());
                     cuenta.setNombreBanco(nuevaCuenta.getNombreBanco());
                     cuenta.setNumeroCuenta(nuevaCuenta.getNumeroCuenta());
@@ -229,7 +232,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     private void cambiarUsuarioCuenta(Cuenta cuenta, Cuenta nuevaCuenta) {
         Usuario usuarioViejo = cuenta.getUsuarioAsociado();
         Usuario usuarioNuevo = nuevaCuenta.getUsuarioAsociado();
-        if (usuarioViejo.getIdUsuario() != usuarioNuevo.getIdUsuario()){
+        if (!usuarioViejo.getIdUsuario().equals(usuarioNuevo.getIdUsuario())){
             usuarioViejo.getListaCuentas().remove(cuenta);
             usuarioNuevo.getListaCuentas().add(cuenta);
         }

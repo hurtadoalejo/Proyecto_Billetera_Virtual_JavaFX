@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
+
 public class LoginMenuUsuarioViewController {
 
     LoginMenuUsuarioController loginMenuUsuarioController;
@@ -48,6 +50,13 @@ public class LoginMenuUsuarioViewController {
         ingresar();
     }
 
+    /**
+     * Metodo para mostrar un mensaje personalizado
+     * @param titulo Titulo del mensaje
+     * @param header Encabezado del mensaje
+     * @param contenido Contenido del mensaje
+     * @param alertType Tipo de alerta del mensaje
+     */
     private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(titulo);
@@ -56,13 +65,36 @@ public class LoginMenuUsuarioViewController {
         alert.showAndWait();
     }
 
+    /**
+     * Metodo para intercambiar la vista actual por otra si se administra un id y una clave correcta
+     */
     private void ingresar() {
-        if (verificarCambosLlenos() && verificarCambosCorrectos()){
-            loginMenuUsuarioController.verificarCredencialesUsuario(ta_id.getText(), Integer.parseInt(ta_clave.getText()));
-
+        if (verificarCambosLlenos()){
+            if (verificarCambosCorrectos()){
+                if (loginMenuUsuarioController.verificarCredencialesUsuario(ta_id.getText(), Integer.parseInt(ta_clave.getText()))){
+                    System.out.println("Holi");
+                }
+                else{
+                    mostrarMensaje(TITULO_CREDENCIALES_INCORRECTAS, HEADER, BODY_CREDENCIALES_INCORRECTAS, Alert.AlertType.WARNING);
+                    ta_clave.clear();
+                    ta_id.clear();
+                }
+            }
+            else {
+                mostrarMensaje(TITULO_CREDENCIALES_NO_VALIDAS, HEADER, BODY_CREDENCIALES_NO_VALIDAS, Alert.AlertType.WARNING);
+                ta_clave.clear();
+                ta_id.clear();
+            }
+        }
+        else {
+            mostrarMensaje(TITULO_CREDENCIALES_NO_RELLENAS, HEADER, BODY_CREDENCIALES_NO_RELLENAS, Alert.AlertType.WARNING);
         }
     }
 
+    /**
+     * Metodo para verificar que todos los campos de texto esten rellenos
+     * @return Booleano sobre si todos los campos cumplen con la condicion
+     */
     private boolean verificarCambosLlenos(){
         if (ta_clave.getText().isEmpty() || ta_id.getText().isEmpty()) {
             return false;
@@ -70,6 +102,10 @@ public class LoginMenuUsuarioViewController {
         return true;
     }
 
+    /**
+     * Metodo para verificar que los campos que requieren datos diferentes de String esten rellenos con datos validos
+     * @return Booleano sobre si todos los campos de este tipo cumplen con la condicion dada
+     */
     private boolean verificarCambosCorrectos(){
         if (isInteger(ta_clave.getText()) && isInteger(ta_id.getText())) {
             return true;
@@ -77,6 +113,11 @@ public class LoginMenuUsuarioViewController {
         return false;
     }
 
+    /**
+     * Metodo para verificar si un texto es un dato de tipo Integer
+     * @param text Texto de tipo String
+     * @return Booleano sobre si cumpleo o no con la condicion
+     */
     private boolean isInteger(String text){
         if (text == null || text.isEmpty()) {
             return false;
@@ -89,6 +130,9 @@ public class LoginMenuUsuarioViewController {
         }
     }
 
+    /**
+     * Metodo para inicializar el LoginMenuUsuarioViewController
+     */
     @FXML
     void initialize() {
         loginMenuUsuarioController = new LoginMenuUsuarioController();

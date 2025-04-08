@@ -6,6 +6,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.Cu
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.UsuarioMappingImpl;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Administrador;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.BilleteraVirtual;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Cuenta;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ICuentaMapping;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IModelFactoryService;
@@ -21,6 +22,10 @@ public class ModelFactory implements IModelFactoryService {
     private IUsuarioMapping usuarioMapper;
     private ICuentaMapping cuentaMapper;
 
+    /**
+     * Metodo para obtener la instancia unica de la clase ModelFactory
+     * @return Instancia unica de la clase ModelFactory
+     */
     public static ModelFactory getInstance(){
         if (modelFactory == null){
             modelFactory = new ModelFactory();
@@ -28,6 +33,9 @@ public class ModelFactory implements IModelFactoryService {
         return modelFactory;
     }
 
+    /**
+     * Metodo constructor de la clase ModelFactory
+     */
     private ModelFactory(){
         usuarioMapper = new UsuarioMappingImpl();
         cuentaMapper = new CuentaMappingImpl();
@@ -52,12 +60,12 @@ public class ModelFactory implements IModelFactoryService {
         return administrador.agregarUsuario(usuarioMapper.usuarioDtoToUsuario(usuario));
     }
 
-    public boolean eliminarUsuario(UsuarioDto usuario) {
-        return administrador.eliminarUsuario(usuario.idUsuario());
+    public boolean eliminarUsuario(String id) {
+        return administrador.eliminarUsuario(id);
     }
 
-    public boolean actualizarUsuario(UsuarioDto usuario, UsuarioDto usuarioNuevo) {
-        return administrador.actualizarUsuario(usuario.idUsuario(), usuarioMapper.usuarioDtoToUsuario(usuarioNuevo));
+    public boolean actualizarUsuario(String id, UsuarioDto usuarioNuevo) {
+        return administrador.actualizarUsuario(id, usuarioMapper.usuarioDtoToUsuario(usuarioNuevo));
     }
 
     public Usuario obtenerUsuario(String id) {
@@ -70,15 +78,15 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean agregarCuenta(CuentaDto cuenta) {
-        return administrador.agregarCuenta(cuentaMapper.cuentaDtoToCuenta(cuenta, obtenerUsuario(cuenta.idUsuarioAsociado())));
+        return administrador.agregarCuenta(cuentaMapper.cuentaDtoToCuenta(cuenta), cuenta.idUsuarioAsociado());
     }
 
-    public boolean eliminarCuenta(CuentaDto cuenta) {
-        return administrador.eliminarCuenta(cuenta.idCuenta(), cuenta.numCuenta());
+    public boolean eliminarCuenta(int idCuenta, String numCuenta) {
+        return administrador.eliminarCuenta(idCuenta, numCuenta);
     }
 
-    public boolean actualizarCuenta(int id, String numCuenta, CuentaDto cuentaNueva) {
-        return administrador.actualizarCuenta(id, numCuenta, cuentaMapper.cuentaDtoToCuenta(cuentaNueva, obtenerUsuario(cuentaNueva.idUsuarioAsociado())));
+    public boolean actualizarCuenta(CuentaDto cuentaVieja, CuentaDto cuentaNueva) {
+        return administrador.actualizarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaVieja), cuentaVieja.idUsuarioAsociado(), cuentaNueva.idUsuarioAsociado(), cuentaMapper.cuentaDtoToCuenta(cuentaNueva));
     }
 
     public LinkedList<String> obtenerUsuariosId() {

@@ -200,7 +200,7 @@ public class GestionCuentasViewController {
     private void eliminarCuenta() {
         if (cuentaSeleccionada != null) {
             if (mostrarMensajeConfirmacion(BODY_CONFIRMACION_ELIMINAR_CUENTA) &&
-                    gestionCuentasController.eliminarCuenta(cuentaSeleccionada)) {
+                    gestionCuentasController.eliminarCuenta(cuentaSeleccionada.idCuenta(), cuentaSeleccionada.numCuenta())) {
                 listaCuentas.remove(cuentaSeleccionada);
                 limpiarSeleccion();
                 mostrarMensaje(TITULO_CUENTA_ELIMINADA, HEADER, BODY_CUENTA_ELIMINADA, Alert.AlertType.INFORMATION);

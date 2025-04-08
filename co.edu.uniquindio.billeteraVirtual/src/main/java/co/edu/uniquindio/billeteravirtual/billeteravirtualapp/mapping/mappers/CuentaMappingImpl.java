@@ -40,17 +40,15 @@ public class CuentaMappingImpl implements ICuentaMapping {
     /**
      * Metodo para convetir una cuenta dto a cuenta
      * @param cuentaDto Cuenta dto a convertir
-     * @param usuario Usuario de la cuenta a asignar
      * @return Cuenta
      */
     @Override
-    public Cuenta cuentaDtoToCuenta(CuentaDto cuentaDto, Usuario usuario) {
+    public Cuenta cuentaDtoToCuenta(CuentaDto cuentaDto) {
         Cuenta cuenta = new Cuenta();
         cuenta.setIdCuenta(cuentaDto.idCuenta());
         cuenta.setNombreBanco(cuentaDto.nombreBanco());
         cuenta.setNumeroCuenta(cuentaDto.numCuenta());
         cuenta.setTipoCuenta(cuentaDto.tipoCuenta());
-        cuenta.setUsuarioAsociado(usuario);
         cuenta.setSaldo(cuentaDto.saldo());
         return cuenta;
     }

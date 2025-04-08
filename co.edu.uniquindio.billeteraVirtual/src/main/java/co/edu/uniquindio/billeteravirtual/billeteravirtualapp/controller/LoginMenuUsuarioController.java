@@ -22,7 +22,7 @@ public class LoginMenuUsuarioController {
     public boolean verificarCredencialesUsuario(String id, int clave) {
         Usuario usuario = modelFactory.verificarCredencialesUsuario(id, clave);
         if (usuario != null) {
-            System.out.println("Hola " + usuario.getNombreCompleto());
+            return true;
         }
         return false;
     }

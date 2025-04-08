@@ -34,20 +34,20 @@ public class GestionUsuariosController {
 
     /**
      * Metodo para eliminar un usuario de la lista de usuarios de la billetera virtual
-     * @param usuario Usuario a eliminar
+     * @param id Id del usuario a eliminar
      * @return Booleano sobre si la accion fue completada exitosamente o no
      */
-    public boolean eliminarUsuario(UsuarioDto usuario) {
-        return modelFactory.eliminarUsuario(usuario);
+    public boolean eliminarUsuario(String id) {
+        return modelFactory.eliminarUsuario(id);
     }
 
     /**
      * Metodo par aactualizar un usuario de la lista de usuarios de la billetera virtual
-     * @param usuario Usuario a actualizar
+     * @param idUsuario id del usuario a actualizar
      * @param usuarioNuevo Usuario con los datos nuevos
      * @return Booleano sobre si la accion fue completada exitosamente o no
      */
-    public boolean actualizarUsuario(UsuarioDto usuario, UsuarioDto usuarioNuevo) {
-        return modelFactory.actualizarUsuario(usuario, usuarioNuevo);
+    public boolean actualizarUsuario(String idUsuario, UsuarioDto usuarioNuevo) {
+        return modelFactory.actualizarUsuario(idUsuario, usuarioNuevo);
     }
 }

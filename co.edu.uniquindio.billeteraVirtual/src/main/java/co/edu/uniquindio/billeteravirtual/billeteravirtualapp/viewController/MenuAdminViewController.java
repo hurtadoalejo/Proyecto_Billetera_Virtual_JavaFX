@@ -49,6 +49,9 @@ public class MenuAdminViewController {
     @FXML
     private Tab tab_gestionTransacciones;
 
+    /**
+     * Metodo para configurar el cambio de tab
+     */
     private void configurarCambioDeTab() {
         tp_menuAdmin.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
             if (newTab == tab_gestionUsuarios) {
@@ -65,6 +68,9 @@ public class MenuAdminViewController {
         });
     }
 
+    /**
+     * Metodo para cargar la vista de la gestion de usuario
+     */
     private void cargarVistaGestionUsuarios() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -76,6 +82,9 @@ public class MenuAdminViewController {
         }
     }
 
+    /**
+     * Metodo para cargar la vista de la gestion de cuentas
+     */
     private void cargarVistaGestionCuentas() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -87,6 +96,9 @@ public class MenuAdminViewController {
         }
     }
 
+    /**
+     * Metodo para inicializar el MenuAdminViewController
+     */
     @FXML
     void initialize() {
         configurarCambioDeTab();

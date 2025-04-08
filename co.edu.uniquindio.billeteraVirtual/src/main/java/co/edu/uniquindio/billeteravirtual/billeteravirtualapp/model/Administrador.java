@@ -41,8 +41,8 @@ public class Administrador implements ICrudUsuario, ICrudCuenta {
     }
 
     @Override
-    public boolean agregarCuenta(Cuenta cuenta) {
-        return billeteraVirtual.agregarCuenta(cuenta);
+    public boolean agregarCuenta(Cuenta cuenta, String idUsuario) {
+        return billeteraVirtual.agregarCuenta(cuenta, idUsuario);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class Administrador implements ICrudUsuario, ICrudCuenta {
     }
 
     @Override
-    public boolean actualizarCuenta(int id, String numCuenta, Cuenta nuevaCuenta) {
-        return billeteraVirtual.actualizarCuenta(id, numCuenta, nuevaCuenta);
+    public boolean actualizarCuenta(Cuenta cuentaVieja, String idUsuarioViejo, String idUsuarioNuevo,Cuenta nuevaCuenta) {
+        return billeteraVirtual.actualizarCuenta(cuentaVieja, idUsuarioViejo, idUsuarioNuevo, nuevaCuenta);
     }
 
     @Override

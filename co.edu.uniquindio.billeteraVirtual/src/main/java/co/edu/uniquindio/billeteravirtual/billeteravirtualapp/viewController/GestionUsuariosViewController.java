@@ -152,7 +152,7 @@ public class GestionUsuariosViewController {
             if (verificarCamposLlenos()) {
                 if (verificarCamposCorrectos()){
                     UsuarioDto usuarioNuevo = crearUsuario();
-                    if (gestionUsuariosController.actualizarUsuario(usuarioSeleccionado, usuarioNuevo)) {
+                    if (gestionUsuariosController.actualizarUsuario(usuarioSeleccionado.idUsuario(), usuarioNuevo)) {
                         intercambiarUsuarios(usuarioSeleccionado.idUsuario(), usuarioNuevo);
                         limpiarSeleccion();
                         tb_usuarios.refresh();
@@ -186,7 +186,7 @@ public class GestionUsuariosViewController {
 
     private void eliminarUsuario() {
         if (usuarioSeleccionado != null) {
-            if (mostrarMensajeConfirmacion(BODY_CONFIRMACION_ELIMINAR_USUARIO) && gestionUsuariosController.eliminarUsuario(usuarioSeleccionado)){
+            if (mostrarMensajeConfirmacion(BODY_CONFIRMACION_ELIMINAR_USUARIO) && gestionUsuariosController.eliminarUsuario(usuarioSeleccionado.idUsuario())){
                 listaUsuarios.remove(usuarioSeleccionado);
                 limpiarSeleccion();
                 mostrarMensaje(TITULO_USUARIO_ELIMINADO, HEADER, BODY_USUARIO_ELIMINADO, Alert.AlertType.INFORMATION);

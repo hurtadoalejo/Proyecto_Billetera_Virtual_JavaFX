@@ -47,6 +47,9 @@ public class PrincipalViewController {
     @FXML
     private Tab tab_usuario;
 
+    /**
+     * Metodo para cargar la vista del login menu admin
+     */
     private void cargarVistaAdmin() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -58,6 +61,9 @@ public class PrincipalViewController {
         }
     }
 
+    /**
+     * Metodo para cargar la vista del login menu usuario
+     */
     private void cargarVistaUsuario() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -69,6 +75,9 @@ public class PrincipalViewController {
         }
     }
 
+    /**
+     * Metodo para configurar el cambio de tab
+     */
     private void configurarCambioDeTab() {
         tp_principal.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
             if (newTab == tab_admin) {
@@ -79,6 +88,9 @@ public class PrincipalViewController {
         });
     }
 
+    /**
+     * Metodo para inicializar el PrincipalViewController
+     */
     @FXML
     void initialize() {
         configurarCambioDeTab();

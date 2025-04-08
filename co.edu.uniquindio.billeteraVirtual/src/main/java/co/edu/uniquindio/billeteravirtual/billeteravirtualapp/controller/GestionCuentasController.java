@@ -34,31 +34,45 @@ public class GestionCuentasController {
 
     /**
      * Metodo para eliminar una cuenta de la lista de cuentas de billetera virtual
-     * @param cuentaDto Cuenta a eliminar
+     * @param idCuenta Id de la cuenta a eliminar
      * @return Booleano sobre si la accion fue completada exitosamente o no
      */
-    public boolean eliminarCuenta(CuentaDto cuentaDto) {
-        return modelFactory.eliminarCuenta(cuentaDto);
+    public boolean eliminarCuenta(int idCuenta, String numCuenta) {
+        return modelFactory.eliminarCuenta(idCuenta, numCuenta);
     }
 
     /**
      * Metodo para actualizar una cuenta de la lista de cuentas billetera virtual
-     * @param cuenta Cuenta antigua
+     * @param cuentaVieja Cuenta a actualizar
      * @param cuentaNueva Cuenta con los datos nuevos
      * @return Booleano sobre si la accion fue completada exitosamente o no
      */
-    public boolean actualizarCuenta(CuentaDto cuenta, CuentaDto cuentaNueva) {
-        return modelFactory.actualizarCuenta(cuenta.idCuenta(), cuenta.numCuenta(), cuentaNueva);
+    public boolean actualizarCuenta(CuentaDto cuentaVieja, CuentaDto cuentaNueva) {
+        return modelFactory.actualizarCuenta(cuentaVieja, cuentaNueva);
     }
 
+    /**
+     * Metodo para obtener una lista de numeros de id de los usuario de la billetera virtual
+     * @return Lista de numeros de id
+     */
     public LinkedList<String> obtenerUsuariosId() {
         return modelFactory.obtenerUsuariosId();
     }
 
+    /**
+     * Metodo para verificar si existe una cuenta con el mismo numero de cuenta administrado
+     * @param numCuenta Numero de cuenta administrado
+     * @return Booleano sobre si se cumple la condicion o no
+     */
     public boolean verificarCuentaNumCuenta(String numCuenta) {
         return modelFactory.verificarCuentaNumCuenta(numCuenta);
     }
 
+    /**
+     * Metodo para verificar si existe una cuenta con el mismo id administrado
+     * @param id Id de la cuenta administrada
+     * @return Booleano sobre si se cumple la condicion o no
+     */
     public boolean verificarCuentaId(int id) {
         return modelFactory.verificarCuentaId(id);
     }

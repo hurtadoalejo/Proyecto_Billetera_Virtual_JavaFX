@@ -10,5 +10,5 @@ import java.util.LinkedList;
 public interface ICuentaMapping {
     LinkedList<CuentaDto> getCuentasDto(LinkedList<Cuenta> listaCuentas);
     CuentaDto cuentaToCuentaDto(Cuenta cuenta);
-    Cuenta cuentaDtoToCuenta(CuentaDto cuentaDto, Usuario usuario);
+    Cuenta cuentaDtoToCuenta(CuentaDto cuentaDto);
 }

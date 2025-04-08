@@ -35,9 +35,15 @@ public class BilleteraVirtualConstantes {
     public static final String BODY_PASSWORD_INCORRECTA = "La contraseña es incorrecta";
     public static final String TITULO_PASSWORD_NO_VALIDA = "Contraseña no valida";
     public static final String BODY_PASSWORD_NO_VALIDA = "La contraseña solo puede llevar números";
-
     public static final String TITULO_PASSWORD_NO_RELLENA = "Contraseña vacia";
     public static final String BODY_PASSWORD_NO_RELLENA = "Introduzca una contraseña";
+
+    public static final String TITULO_CREDENCIALES_INCORRECTAS = "Credenciales incorrecta";
+    public static final String BODY_CREDENCIALES_INCORRECTAS = "Las credenciales son incorrectas";
+    public static final String TITULO_CREDENCIALES_NO_VALIDAS = "Credenciales no validas";
+    public static final String BODY_CREDENCIALES_NO_VALIDAS = "El id y la contraseña solo pueden llevar numeros";
+    public static final String TITULO_CREDENCIALES_NO_RELLENAS = "Credenciales vacias";
+    public static final String BODY_CREDENCIALES_NO_RELLENAS = "Introduzca las dos credenciales";
 
     public static final String TITULO_CUENTA_NO_SELECCIONADA = "Cuenta no seleccionada";
     public static final String BODY_CUENTA_NO_SELECCIONADA = "No hay ninguna cuenta seleccionada";

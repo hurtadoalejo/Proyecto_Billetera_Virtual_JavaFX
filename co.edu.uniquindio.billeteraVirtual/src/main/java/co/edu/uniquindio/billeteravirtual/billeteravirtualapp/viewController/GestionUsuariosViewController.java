@@ -207,10 +207,15 @@ public class GestionUsuariosViewController {
 
     private boolean verificarCamposCorrectos(){
         if (isInteger(tf_clave.getText()) && isLong(tf_telefono.getText()) &&
-        isLong(tf_id.getText())) {
+        isLong(tf_id.getText()) && esCorreoValido(tf_correo.getText())) {
             return true;
         }
         return false;
+    }
+
+    public static boolean esCorreoValido(String correo) {
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+        return correo.matches(regex);
     }
 
     private void mostrarInformacionUsuario(UsuarioDto usuario) {

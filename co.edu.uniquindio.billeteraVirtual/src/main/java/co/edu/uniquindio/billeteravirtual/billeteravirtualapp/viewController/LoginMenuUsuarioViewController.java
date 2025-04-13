@@ -46,8 +46,16 @@ public class LoginMenuUsuarioViewController {
     private Label lb_clave;
 
     @FXML
+    private Button bt_registrar;
+
+    @FXML
     void onIngresar() {
         ingresar();
+    }
+
+    @FXML
+    void onRegistrar() {
+
     }
 
     /**
@@ -143,6 +151,6 @@ public class LoginMenuUsuarioViewController {
         assert lb_id != null : "fx:id=\"lb_id\" was not injected: check your FXML file 'LoginMenuUsuario.fxml'.";
         assert ta_id != null : "fx:id=\"ta_id\" was not injected: check your FXML file 'LoginMenuUsuario.fxml'.";
         assert lb_clave != null : "fx:id=\"lb_clave\" was not injected: check your FXML file 'LoginMenuUsuario.fxml'.";
-
+        assert bt_registrar != null : "fx:id=\"bt_registrar\" was not injected: check your FXML file 'LoginMenuUsuario.fxml'.";
     }
 }

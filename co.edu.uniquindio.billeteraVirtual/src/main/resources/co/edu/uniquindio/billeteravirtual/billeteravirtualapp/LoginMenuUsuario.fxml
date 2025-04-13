@@ -7,35 +7,40 @@
 
 <AnchorPane fx:id="ap_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" style="-fx-background-color: #2ECC71;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.LoginMenuUsuarioViewController">
    <children>
-      <Label fx:id="lb_titulo" layoutX="466.0" layoutY="70.0" text="Login Menu Usuario">
+      <Label fx:id="lb_titulo" layoutX="465.0" layoutY="59.0" text="Login Menu Usuario">
          <font>
             <Font name="Segoe UI Bold" size="26.0" />
          </font>
       </Label>
-      <Label fx:id="lb_id" layoutX="348.0" layoutY="244.0" text="Ingrese ID del usuario:">
+      <Label fx:id="lb_id" layoutX="348.0" layoutY="216.0" text="Ingrese ID del usuario:">
          <font>
             <Font name="Segoe UI Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="bt_ingresar" layoutX="534.0" layoutY="489.0" mnemonicParsing="false" onAction="#onIngresar" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Ingresar">
+      <Button fx:id="bt_ingresar" layoutX="510.0" layoutY="428.0" mnemonicParsing="false" onAction="#onIngresar" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Iniciar Sesión">
          <font>
             <Font name="Segoe UI Bold" size="20.0" />
          </font>
       </Button>
-      <TextField fx:id="ta_id" layoutX="590.0" layoutY="232.0" prefHeight="44.0" prefWidth="269.0" style="-fx-border-width: 2px; -fx-border-radius: 6px; -fx-text-fill: #000000; -fx-background-radius: 8px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+      <TextField fx:id="ta_id" layoutX="590.0" layoutY="204.0" prefHeight="44.0" prefWidth="269.0" style="-fx-border-width: 2px; -fx-border-radius: 6px; -fx-text-fill: #000000; -fx-background-radius: 8px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
          <font>
             <Font name="Segoe UI Bold" size="22.0" />
          </font>
       </TextField>
-      <Label fx:id="lb_clave" layoutX="321.0" layoutY="333.0" text="Ingrese clave del usuario:">
+      <Label fx:id="lb_clave" layoutX="321.0" layoutY="305.0" text="Ingrese clave del usuario:">
          <font>
             <Font name="Segoe UI Bold Italic" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="ta_clave" layoutX="590.0" layoutY="321.0" prefHeight="24.0" prefWidth="269.0" style="-fx-border-width: 2px; -fx-border-radius: 6px; -fx-text-fill: #000000; -fx-background-radius: 8px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+      <TextField fx:id="ta_clave" layoutX="590.0" layoutY="293.0" prefHeight="24.0" prefWidth="269.0" style="-fx-border-width: 2px; -fx-border-radius: 6px; -fx-text-fill: #000000; -fx-background-radius: 8px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
          <font>
             <Font name="Segoe UI Bold" size="22.0" />
          </font>
       </TextField>
+      <Button fx:id="bt_registrar" layoutX="521.0" layoutY="499.0" mnemonicParsing="false" onAction="#onRegistrar" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Registrarse">
+         <font>
+            <Font name="Segoe UI Bold" size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

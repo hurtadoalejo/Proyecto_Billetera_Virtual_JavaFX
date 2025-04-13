@@ -12,9 +12,14 @@ public class BilleteraVirtualConstantes {
 
     public static final String TITULO_USUARIO_NO_AGREGADO = "Usuario no agregado";
     public static final String BODY_USUARIO_NO_AGREGADO = "El usuario no se pudo agregar, ya existe";
+    public static final String TITULO_USUARIO_NO_CREADO = "Usuario no creado";
+    public static final String BODY_USUARIO_NO_CREADO = "El usuario no se pudo crear, el número de identificación ya está en uso";
 
     public static final String TITULO_USUARIO_AGREGADO = "Usuario agregado";
     public static final String BODY_USUARIO_AGREGADO = "El usuario se agregó exitosamente";
+    public static final String TITULO_USUARIO_CREADO = "Usuario creado";
+    public static final String BODY_USUARIO_CREADO = "El usuario se creó exitosamente, ya puedes iniciar sesión con tus credenciales";
+
 
     public static final String TITULO_USUARIO_ACTUALIZADO = "Usuario actualizado";
     public static final String BODY_USUARIO_ACTUALIZADO = "El usuario se actualizó exitosamente";
@@ -38,8 +43,8 @@ public class BilleteraVirtualConstantes {
     public static final String TITULO_PASSWORD_NO_RELLENA = "Contraseña vacia";
     public static final String BODY_PASSWORD_NO_RELLENA = "Introduzca una contraseña";
 
-    public static final String TITULO_CREDENCIALES_INCORRECTAS = "Credenciales incorrecta";
-    public static final String BODY_CREDENCIALES_INCORRECTAS = "Las credenciales son incorrectas";
+    public static final String TITULO_CREDENCIALES_INCORRECTAS = "Credenciales incorrectas";
+    public static final String BODY_CREDENCIALES_INCORRECTAS = "No existe un usuario con esas credenciales";
     public static final String TITULO_CREDENCIALES_NO_VALIDAS = "Credenciales no validas";
     public static final String BODY_CREDENCIALES_NO_VALIDAS = "El id y la contraseña solo pueden llevar numeros";
     public static final String TITULO_CREDENCIALES_NO_RELLENAS = "Credenciales vacias";

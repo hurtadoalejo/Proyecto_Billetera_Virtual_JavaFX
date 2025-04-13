@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="ap_registrarUsuario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" style="-fx-background-color: #2ECC71;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.RegistrarUsuarioViewController">
+   <children>
+      <Button fx:id="bt_ingresar" layoutX="512.0" layoutY="511.0" mnemonicParsing="false" onAction="#onIngresar" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Iniciar Sesión">
+         <font>
+            <Font name="Segoe UI Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="bt_registrar" layoutX="522.0" layoutY="443.0" mnemonicParsing="false" onAction="#onRegistrar" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Registrarse">
+         <font>
+            <Font name="Segoe UI Bold" size="20.0" />
+         </font>
+      </Button>
+      <TextField fx:id="tf_clave" layoutX="801.0" layoutY="311.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+         <font>
+            <Font name="Segoe UI" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="tf_direccion" layoutX="801.0" layoutY="258.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+         <font>
+            <Font name="Segoe UI" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="tf_correo" layoutX="801.0" layoutY="202.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+         <font>
+            <Font name="Segoe UI" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="tf_telefono" layoutX="269.0" layoutY="310.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+         <font>
+            <Font name="Segoe UI" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="tf_id" layoutX="269.0" layoutY="257.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+         <font>
+            <Font name="Segoe UI" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="tf_nombre" layoutX="269.0" layoutY="201.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+         <font>
+            <Font name="Segoe UI" size="15.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lb_clave" layoutX="742.0" layoutY="317.0" text="Clave:">
+         <font>
+            <Font name="Segoe UI Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_direccion" layoutX="716.0" layoutY="263.0" text="Dirección:">
+         <font>
+            <Font name="Segoe UI Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_telefono" layoutX="123.0" layoutY="317.0" text="Número teléfono:">
+         <font>
+            <Font name="Segoe UI Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_correo" layoutX="652.0" layoutY="210.0" text="Correo Electronico:">
+         <font>
+            <Font name="Segoe UI Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_numeroId" layoutX="82.0" layoutY="265.0" text="Número identificación:">
+         <font>
+            <Font name="Segoe UI Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_nombre" layoutX="113.0" layoutY="208.0" text="Nombre Completo:">
+         <font>
+            <Font name="Segoe UI Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_titulo" layoutX="485.0" layoutY="69.0" text="Registrar Usuario">
+         <font>
+            <Font name="Segoe UI Bold" size="26.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

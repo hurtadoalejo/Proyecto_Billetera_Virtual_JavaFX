@@ -12,7 +12,7 @@
             <Font name="Segoe UI Bold" size="26.0" />
          </font>
       </Label>
-      <Label fx:id="lb_id" layoutX="348.0" layoutY="216.0" text="Ingrese ID del usuario:">
+      <Label fx:id="lb_id" layoutX="246.0" layoutY="216.0" text="Ingrese número de identificación:">
          <font>
             <Font name="Segoe UI Bold Italic" size="20.0" />
          </font>
@@ -24,7 +24,7 @@
       </Button>
       <TextField fx:id="ta_id" layoutX="590.0" layoutY="204.0" prefHeight="44.0" prefWidth="269.0" style="-fx-border-width: 2px; -fx-border-radius: 6px; -fx-text-fill: #000000; -fx-background-radius: 8px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
          <font>
-            <Font name="Segoe UI Bold" size="22.0" />
+            <Font name="Segoe UI" size="22.0" />
          </font>
       </TextField>
       <Label fx:id="lb_clave" layoutX="321.0" layoutY="305.0" text="Ingrese clave del usuario:">
@@ -34,7 +34,7 @@
       </Label>
       <TextField fx:id="ta_clave" layoutX="590.0" layoutY="293.0" prefHeight="24.0" prefWidth="269.0" style="-fx-border-width: 2px; -fx-border-radius: 6px; -fx-text-fill: #000000; -fx-background-radius: 8px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
          <font>
-            <Font name="Segoe UI Bold" size="22.0" />
+            <Font name="Segoe UI" size="22.0" />
          </font>
       </TextField>
       <Button fx:id="bt_registrar" layoutX="521.0" layoutY="499.0" mnemonicParsing="false" onAction="#onRegistrar" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Registrarse">

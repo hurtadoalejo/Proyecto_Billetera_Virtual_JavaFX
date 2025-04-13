@@ -1,15 +1,14 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.App;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.LoginMenuUsuarioController;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
@@ -55,7 +54,23 @@ public class LoginMenuUsuarioViewController {
 
     @FXML
     void onRegistrar() {
+        cambiarVista();
+    }
 
+    @FXML
+    private void cambiarVista() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource
+                    ("/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/RegistrarUsuario.fxml"));
+            AnchorPane registrarUsuario = loader.load();
+
+            SplitPane splitPane = (SplitPane) ap_principal.getParent().getParent();
+            splitPane.getItems().setAll(registrarUsuario);
+
+        } catch (IOException e) {
+            System.err.println("Error al cambiar la vista: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**

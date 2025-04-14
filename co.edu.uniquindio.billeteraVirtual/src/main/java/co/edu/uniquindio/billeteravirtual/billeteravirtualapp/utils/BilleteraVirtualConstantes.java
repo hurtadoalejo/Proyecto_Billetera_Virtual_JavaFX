@@ -68,4 +68,7 @@ public class BilleteraVirtualConstantes {
 
     public static final String TITULO_CUENTA_AGREGADA = "Cuenta agregada";
     public static final String BODY_CUENTA_AGREGADA = "La cuenta se agregó exitosamente";
+
+    public static final String TITULO_BIENVENIDA = "Usuario logeado";
+    public static final String BODY_BIENVENIDA = "Bienvenid@: ";
 }

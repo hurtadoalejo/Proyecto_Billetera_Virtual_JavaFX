@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="ap_menuAdmin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.MenuUsuarioViewController">
+   <children>
+      <TabPane fx:id="tp_menuUsuario" prefHeight="600.0" prefWidth="1180.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab fx:id="tab_editarPerfil" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-weight: bold; -fx-font-size: 14px;" text="Editar Perfil">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1180.0">
+                     <children>
+                        <SplitPane fx:id="sp_editarPerfil" layoutX="-1.0" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0">
+                           <items>
+                              <fx:include source="EditarPerfil.fxml" />
+                           </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tab_gestioDinero" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-size: 14px; -fx-font-weight: bold;" text="Gestión Dinero">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane fx:id="sp_gestionDinero" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tab_cuentas" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-size: 14px; -fx-font-weight: bold;" text="Cuentas">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="1180.0">
+                     <children>
+                        <SplitPane fx:id="sp_cuentas" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tab_categorias" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-size: 14px; -fx-font-weight: bold;" text="Categorias">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane fx:id="sp_categorias" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tab_presupuestos" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-size: 14px; -fx-font-weight: bold;" text="Presupuestos">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane fx:id="sp_presupuestos" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tab_transacciones" style="-fx-background-color: #1E3929; -fx-text-base-color: #27AE60; -fx-font-size: 14px; -fx-font-weight: bold;" text="Transacciones">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane fx:id="sp_transacciones" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

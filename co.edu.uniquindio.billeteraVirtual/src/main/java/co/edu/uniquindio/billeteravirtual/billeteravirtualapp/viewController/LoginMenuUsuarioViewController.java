@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.App;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.LoginMenuUsuarioController;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -54,11 +54,11 @@ public class LoginMenuUsuarioViewController {
 
     @FXML
     void onRegistrar() {
-        cambiarVista();
+        cambiarVistaRegistrar();
     }
 
     @FXML
-    private void cambiarVista() {
+    private void cambiarVistaRegistrar() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource
                     ("/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/RegistrarUsuario.fxml"));
@@ -67,6 +67,23 @@ public class LoginMenuUsuarioViewController {
             SplitPane splitPane = (SplitPane) ap_principal.getParent().getParent();
             splitPane.getItems().setAll(registrarUsuario);
 
+        } catch (IOException e) {
+            System.err.println("Error al cambiar la vista: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void cambiarVistaLogeado(UsuarioDto usuarioDto) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource
+                    ("/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/MenuUsuario.fxml"));
+            AnchorPane menuUsuario = loader.load();
+            MenuUsuarioViewController menuUsuarioViewController = loader.getController();
+            menuUsuarioViewController.setUsuario(usuarioDto);
+
+            SplitPane splitPane = (SplitPane) ap_principal.getParent().getParent();
+            splitPane.getItems().setAll(menuUsuario);
         } catch (IOException e) {
             System.err.println("Error al cambiar la vista: " + e.getMessage());
             e.printStackTrace();
@@ -95,7 +112,11 @@ public class LoginMenuUsuarioViewController {
         if (verificarCambosLlenos()){
             if (verificarCambosCorrectos()){
                 if (loginMenuUsuarioController.verificarCredencialesUsuario(ta_id.getText(), Integer.parseInt(ta_clave.getText()))){
-                    System.out.println("Holi");
+                    UsuarioDto usuarioDto = loginMenuUsuarioController.obtenerUsuario(ta_id.getText());
+                    mostrarMensaje(TITULO_BIENVENIDA,HEADER,
+                            BODY_BIENVENIDA + usuarioDto.nombreCompleto(),
+                            Alert.AlertType.INFORMATION);
+                    cambiarVistaLogeado(usuarioDto);
                 }
                 else{
                     mostrarMensaje(TITULO_CREDENCIALES_INCORRECTAS, HEADER, BODY_CREDENCIALES_INCORRECTAS, Alert.AlertType.WARNING);

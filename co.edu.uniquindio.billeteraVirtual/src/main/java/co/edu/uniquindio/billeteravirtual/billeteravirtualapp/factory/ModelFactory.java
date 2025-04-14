@@ -47,7 +47,7 @@ public class ModelFactory implements IModelFactoryService {
         return billeteraVirtual.verificarClaveAdmin(clave);
     }
 
-    public Usuario verificarCredencialesUsuario(String id, int clave) {
+    public boolean verificarCredencialesUsuario(String id, int clave) {
         return billeteraVirtual.verificarCredencialesUsuario(id, clave);
     }
 
@@ -68,8 +68,8 @@ public class ModelFactory implements IModelFactoryService {
         return administrador.actualizarUsuario(id, usuarioMapper.usuarioDtoToUsuario(usuarioNuevo));
     }
 
-    public Usuario obtenerUsuario(String id) {
-        return administrador.obtenerUsuario(id);
+    public UsuarioDto obtenerUsuario(String id) {
+        return usuarioMapper.usuarioToUsuarioDto(administrador.obtenerUsuario(id));
     }
 
     @Override

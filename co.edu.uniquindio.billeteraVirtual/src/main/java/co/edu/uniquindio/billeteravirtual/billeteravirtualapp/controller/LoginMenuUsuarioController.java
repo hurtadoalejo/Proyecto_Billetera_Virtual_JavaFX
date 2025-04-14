@@ -1,6 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory.ModelFactory;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
 
 public class LoginMenuUsuarioController {
@@ -17,13 +18,18 @@ public class LoginMenuUsuarioController {
      * Metodo para verificar las credenciales de un usuario
      * @param id Id del usuario administrada
      * @param clave Clave del usuario administrada
-     * @return Booleano sobre si las credenciales son correctas o no
+     * @return Booleano sobre si las credenciales son correctas
      */
     public boolean verificarCredencialesUsuario(String id, int clave) {
-        Usuario usuario = modelFactory.verificarCredencialesUsuario(id, clave);
-        if (usuario != null) {
-            return true;
-        }
-        return false;
+        return modelFactory.verificarCredencialesUsuario(id, clave);
+    }
+
+    /**
+     * Metodo para obtener un usuario dado un id
+     * @param id Id del usuario a buscar
+     * @return UsuarioDto
+     */
+    public UsuarioDto obtenerUsuario(String id) {
+        return modelFactory.obtenerUsuario(id);
     }
 }

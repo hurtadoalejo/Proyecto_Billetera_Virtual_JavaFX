@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.MenuAdminController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
@@ -13,8 +12,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 
 public class MenuAdminViewController {
-
-    private MenuAdminController menuAdminController;
 
     @FXML
     private ResourceBundle resources;
@@ -102,7 +99,6 @@ public class MenuAdminViewController {
     @FXML
     void initialize() {
         configurarCambioDeTab();
-        menuAdminController= new MenuAdminController();
         assert ap_menuAdmin != null : "fx:id=\"ap_menuAdmin\" was not injected: check your FXML file 'MenuAdmin.fxml'.";
         assert tp_menuAdmin != null : "fx:id=\"tp_menuAdmin\" was not injected: check your FXML file 'MenuAdmin.fxml'.";
         assert tab_gestionUsuarios != null : "fx:id=\"tab_gestionUsuarios\" was not injected: check your FXML file 'MenuAdmin.fxml'.";

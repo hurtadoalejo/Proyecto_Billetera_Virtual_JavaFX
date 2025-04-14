@@ -454,13 +454,13 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         return false;
     }
 
-    public Usuario verificarCredencialesUsuario(String id, int clave) {
+    public boolean verificarCredencialesUsuario(String id, int clave) {
         for (Usuario usuario : listaUsuarios) {
             if (usuario.getIdUsuario().equals(id) && usuario.getClave() == clave){
-                return usuario;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public LinkedList<String> obtenerUsuariosId() {

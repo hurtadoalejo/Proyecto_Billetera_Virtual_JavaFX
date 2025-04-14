@@ -42,10 +42,10 @@ public class LoginMenuAdminViewController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource
                     ("/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/MenuAdmin.fxml"));
-            AnchorPane gestionUsuario = loader.load();
-
+            AnchorPane menuAdmin = loader.load();
+            
             SplitPane splitPane = (SplitPane) ap_principal.getParent().getParent();
-            splitPane.getItems().setAll(gestionUsuario);
+            splitPane.getItems().setAll(menuAdmin);
 
         } catch (IOException e) {
             System.err.println("Error al cambiar la vista: " + e.getMessage());

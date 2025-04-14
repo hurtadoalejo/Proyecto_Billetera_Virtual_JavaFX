@@ -17,6 +17,7 @@ import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.Bille
 public class EditarPerfilViewController {
 
     private EditarPerfilController editarPerfilController;
+    private MenuUsuarioViewController menuUsuarioViewController;
     private UsuarioDto usuario;
 
     @FXML
@@ -58,11 +59,6 @@ public class EditarPerfilViewController {
     @FXML
     private TextField tf_clave;
 
-    public void setUsuario(UsuarioDto usuarioDto) {
-        usuario = usuarioDto;
-        limpiarCampos();
-    }
-
     @FXML
     void onLimpiar() {
         limpiarCampos();
@@ -71,6 +67,15 @@ public class EditarPerfilViewController {
     @FXML
     void onActualizar() {
         actualizar();
+    }
+
+    public void setUsuario(UsuarioDto usuarioDto) {
+        usuario = usuarioDto;
+        limpiarCampos();
+    }
+
+    public void setControladorPadre(MenuUsuarioViewController menuUsuarioViewController) {
+        this.menuUsuarioViewController = menuUsuarioViewController;
     }
 
     private UsuarioDto crearUsuario() {
@@ -84,6 +89,7 @@ public class EditarPerfilViewController {
                 UsuarioDto usuarioNuevo = crearUsuario();
                 if (editarPerfilController.actualizarUsuario(usuario.idUsuario(), usuarioNuevo)) {
                     usuario = usuarioNuevo;
+                    menuUsuarioViewController.setUsuario(usuario);
                     limpiarCampos();
                     mostrarMensaje(TITULO_USUARIO_ACTUALIZADO, HEADER, BODY_USUARIO_ACTUALIZADO, Alert.AlertType.INFORMATION);
                 }

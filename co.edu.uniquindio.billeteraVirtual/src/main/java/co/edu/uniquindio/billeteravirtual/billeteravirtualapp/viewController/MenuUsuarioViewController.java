@@ -100,6 +100,7 @@ public class MenuUsuarioViewController {
             AnchorPane nuevaVista = loader.load();
             EditarPerfilViewController editarPerfilViewController = loader.getController();
             editarPerfilViewController.setUsuario(usuario);
+            editarPerfilViewController.setControladorPadre(this);
             sp_editarPerfil.getItems().setAll(nuevaVista);
         } catch (IOException e) {
             e.printStackTrace();

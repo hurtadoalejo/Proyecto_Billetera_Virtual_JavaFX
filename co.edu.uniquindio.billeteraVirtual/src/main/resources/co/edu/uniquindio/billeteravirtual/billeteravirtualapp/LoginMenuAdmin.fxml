@@ -7,24 +7,24 @@
 
 <AnchorPane fx:id="ap_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" style="-fx-background-color: #2ECC71;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.LoginMenuAdminViewController">
    <children>
-      <Label fx:id="lb_titulo" layoutX="436.0" layoutY="60.0" text="Login Menu Administrador">
+      <Label fx:id="lb_titulo" layoutX="450.0" layoutY="85.0" text="Login Menu Administrador">
          <font>
-            <Font name="Segoe UI Bold" size="26.0" />
+            <Font name="Segoe UI Bold" size="22.0" />
          </font>
       </Label>
-      <Label fx:id="lb_ingresar" layoutX="287.0" layoutY="266.0" text="Ingrese la clave del administrador:">
+      <Label fx:id="lb_ingresar" layoutX="307.0" layoutY="291.0" text="Ingrese la clave del administrador:">
          <font>
-            <Font name="Segoe UI Bold Italic" size="20.0" />
+            <Font name="Segoe UI Bold Italic" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="bt_ingresar" layoutX="546.0" layoutY="456.0" mnemonicParsing="false" onAction="#onIngresar" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Ingresar" textFill="#12502c">
+      <Button fx:id="bt_ingresar" layoutX="546.0" layoutY="478.0" mnemonicParsing="false" onAction="#onIngresar" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Ingresar">
          <font>
-            <Font name="Segoe UI Bold" size="20.0" />
+            <Font name="Segoe UI Bold" size="16.0" />
          </font>
       </Button>
-      <TextField fx:id="ta_clave" layoutX="643.0" layoutY="256.0" prefHeight="44.0" prefWidth="252.0" style="-fx-border-width: 2px; -fx-border-radius: 6px; -fx-text-fill: #000000; -fx-background-radius: 8px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+      <TextField fx:id="ta_clave" layoutX="622.0" layoutY="283.0" prefHeight="5.0" prefWidth="252.0" style="-fx-border-width: 2px; -fx-border-radius: 6px; -fx-text-fill: #000000; -fx-background-radius: 8px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
          <font>
-            <Font name="Segoe UI Italic" size="20.0" />
+            <Font name="Segoe UI Bold Italic" size="16.0" />
          </font>
       </TextField>
    </children>

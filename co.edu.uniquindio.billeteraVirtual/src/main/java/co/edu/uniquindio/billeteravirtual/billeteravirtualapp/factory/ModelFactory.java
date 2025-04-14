@@ -57,7 +57,7 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean agregarUsuario(UsuarioDto usuario) {
-        return administrador.agregarUsuario(usuarioMapper.usuarioDtoToUsuario(usuario));
+        return administrador.agregarUsuario(usuarioMapper.usuarioDtoToUsuario(usuario, billeteraVirtual));
     }
 
     public boolean eliminarUsuario(String id) {
@@ -65,7 +65,7 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean actualizarUsuario(String id, UsuarioDto usuarioNuevo) {
-        return administrador.actualizarUsuario(id, usuarioMapper.usuarioDtoToUsuario(usuarioNuevo));
+        return administrador.actualizarUsuario(id, usuarioMapper.usuarioDtoToUsuario(usuarioNuevo, billeteraVirtual));
     }
 
     public UsuarioDto obtenerUsuario(String id) {
@@ -78,7 +78,8 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean agregarCuenta(CuentaDto cuenta) {
-        return administrador.agregarCuenta(cuentaMapper.cuentaDtoToCuenta(cuenta), cuenta.idUsuarioAsociado());
+        return administrador.agregarCuenta(cuentaMapper.cuentaDtoToCuenta(cuenta, billeteraVirtual),
+                cuenta.idUsuarioAsociado());
     }
 
     public boolean eliminarCuenta(int idCuenta, String numCuenta) {
@@ -86,7 +87,9 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean actualizarCuenta(CuentaDto cuentaVieja, CuentaDto cuentaNueva) {
-        return administrador.actualizarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaVieja), cuentaVieja.idUsuarioAsociado(), cuentaNueva.idUsuarioAsociado(), cuentaMapper.cuentaDtoToCuenta(cuentaNueva));
+        return administrador.actualizarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaVieja, billeteraVirtual),
+                cuentaVieja.idUsuarioAsociado(), cuentaNueva.idUsuarioAsociado(),
+                cuentaMapper.cuentaDtoToCuenta(cuentaNueva, billeteraVirtual));
     }
 
     public LinkedList<String> obtenerUsuariosId() {
@@ -102,12 +105,14 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean agregarCuentaUsuario(String idUsuario, CuentaDto cuentaDto) {
-        return billeteraVirtual.obtenerUsuario(idUsuario).agregarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaDto));
+        return billeteraVirtual.obtenerUsuario(idUsuario).
+                agregarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaDto, billeteraVirtual));
     }
 
     public boolean actualizarCuentaUsuario(String idUsuario, CuentaDto cuentaVieja, CuentaDto cuentaNueva) {
         return billeteraVirtual.obtenerUsuario(idUsuario).
-                actualizarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaVieja), cuentaMapper.cuentaDtoToCuenta(cuentaNueva));
+                actualizarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaVieja, billeteraVirtual),
+                        cuentaMapper.cuentaDtoToCuenta(cuentaNueva, billeteraVirtual));
     }
 
     public boolean eliminarCuentaUsuario(String idUsuario, int idCuenta, String numCuenta) {

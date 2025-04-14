@@ -1,6 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.CuentaDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.BilleteraVirtual;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Cuenta;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ICuentaMapping;
@@ -40,10 +41,11 @@ public class CuentaMappingImpl implements ICuentaMapping {
     /**
      * Metodo para convetir una cuenta dto a cuenta
      * @param cuentaDto Cuenta dto a convertir
+     * @param billeteraVirtual Billetera virtual principal
      * @return Cuenta
      */
     @Override
-    public Cuenta cuentaDtoToCuenta(CuentaDto cuentaDto) {
+    public Cuenta cuentaDtoToCuenta(CuentaDto cuentaDto, BilleteraVirtual billeteraVirtual) {
         Cuenta cuenta = new Cuenta();
         cuenta.setIdCuenta(cuentaDto.idCuenta());
         cuenta.setNombreBanco(cuentaDto.nombreBanco());

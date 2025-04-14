@@ -1,6 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.BilleteraVirtual;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IUsuarioMapping;
 
@@ -40,10 +41,11 @@ public class UsuarioMappingImpl implements IUsuarioMapping {
     /**
      * Metodo para convetir un usuario dto a usuario
      * @param usuarioDto Usuario dto a convertir
+     * @param billeteraVirtual Billetera virtual principal
      * @return Usuario
      */
     @Override
-    public Usuario usuarioDtoToUsuario(UsuarioDto usuarioDto) {
+    public Usuario usuarioDtoToUsuario(UsuarioDto usuarioDto, BilleteraVirtual billeteraVirtual) {
         Usuario usuario = new Usuario();
         usuario.setNombreCompleto(usuarioDto.nombreCompleto());
         usuario.setIdUsuario(usuarioDto.idUsuario());
@@ -51,6 +53,7 @@ public class UsuarioMappingImpl implements IUsuarioMapping {
         usuario.setNumeroTelefono(usuarioDto.numeroTelefono());
         usuario.setDireccion(usuarioDto.direccion());
         usuario.setClave(usuarioDto.clave());
+        usuario.setBilleteraVirtual(billeteraVirtual);
         return usuario;
     }
 }

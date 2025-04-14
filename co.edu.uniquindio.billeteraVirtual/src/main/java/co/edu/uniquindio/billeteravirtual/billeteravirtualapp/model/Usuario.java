@@ -143,4 +143,17 @@ public class Usuario implements IGestionDinero {
     public boolean transferirDinero(double dinero, int idCuentaOrigen, int idCuentaDestino) {
         return false;
     }
+
+    public boolean agregarCuenta(Cuenta cuenta) {
+        return billeteraVirtual.agregarCuenta(cuenta, idUsuario);
+    }
+
+    public boolean actualizarCuenta(Cuenta cuentaVieja, Cuenta nuevaCuenta) {
+        return billeteraVirtual.actualizarCuenta(cuentaVieja, this.idUsuario,
+                this.idUsuario, nuevaCuenta);
+    }
+
+    public boolean eliminarCuenta(int idCuenta, String numCuenta) {
+        return billeteraVirtual.eliminarCuenta(idCuenta, numCuenta);
+    }
 }

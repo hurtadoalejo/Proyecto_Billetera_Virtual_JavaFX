@@ -100,4 +100,21 @@ public class ModelFactory implements IModelFactoryService {
     public boolean verificarCuentaNumCuenta(String numCuenta) {
         return billeteraVirtual.verificarCuentaNumCuenta(numCuenta);
     }
+
+    public boolean agregarCuentaUsuario(String idUsuario, CuentaDto cuentaDto) {
+        return billeteraVirtual.obtenerUsuario(idUsuario).agregarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaDto));
+    }
+
+    public boolean actualizarCuentaUsuario(String idUsuario, CuentaDto cuentaVieja, CuentaDto cuentaNueva) {
+        return billeteraVirtual.obtenerUsuario(idUsuario).
+                actualizarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaVieja), cuentaMapper.cuentaDtoToCuenta(cuentaNueva));
+    }
+
+    public boolean eliminarCuentaUsuario(String idUsuario, int idCuenta, String numCuenta) {
+        return billeteraVirtual.obtenerUsuario(idUsuario).eliminarCuenta(idCuenta, numCuenta);
+    }
+
+    public LinkedList<CuentaDto> obtenerCuentasUsuario(String idUsuario) {
+        return cuentaMapper.getCuentasDto(billeteraVirtual.obtenerUsuario(idUsuario).getListaCuentas());
+    }
 }

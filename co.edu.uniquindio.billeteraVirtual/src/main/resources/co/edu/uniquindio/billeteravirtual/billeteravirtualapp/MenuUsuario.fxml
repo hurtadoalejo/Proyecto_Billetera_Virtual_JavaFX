@@ -34,7 +34,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="1180.0">
                      <children>
-                        <SplitPane fx:id="sp_cuentas" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" />
+                        <SplitPane fx:id="sp_cuentas" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" >
+                           <items>
+                              <fx:include source="GestionCuentasUsuario.fxml" />
+                           </items>
+                        </SplitPane>
                      </children>
                   </AnchorPane>
                </content>

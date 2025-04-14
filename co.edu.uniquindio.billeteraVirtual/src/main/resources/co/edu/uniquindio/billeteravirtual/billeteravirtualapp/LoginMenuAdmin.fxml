@@ -24,7 +24,7 @@
       </Button>
       <TextField fx:id="ta_clave" layoutX="622.0" layoutY="283.0" prefHeight="5.0" prefWidth="252.0" style="-fx-border-width: 2px; -fx-border-radius: 6px; -fx-text-fill: #000000; -fx-background-radius: 8px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
          <font>
-            <Font name="Segoe UI Bold Italic" size="16.0" />
+            <Font name="Segoe UI" size="16.0" />
          </font>
       </TextField>
    </children>

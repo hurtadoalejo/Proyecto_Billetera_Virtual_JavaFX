@@ -376,7 +376,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         if (transaccion.getTipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)){
             if (transaccion.getCuentaDestino() != null) {
                 Cuenta cuentaDestino = transaccion.getCuentaDestino();
-                return cuentaOrigen != null;
+                return cuentaDestino != null;
             }
         }
         return true;

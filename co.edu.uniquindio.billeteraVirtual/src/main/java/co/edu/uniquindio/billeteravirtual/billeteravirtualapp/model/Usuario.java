@@ -1,10 +1,11 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ICrudTransaccion;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IGestionDinero;
 
 import java.util.LinkedList;
 
-public class Usuario implements IGestionDinero {
+public class Usuario implements IGestionDinero, ICrudTransaccion {
     private BilleteraVirtual billeteraVirtual;
     private String nombreCompleto, idUsuario, correoElectronico, numeroTelefono, direccion;
     private int clave;
@@ -12,11 +13,13 @@ public class Usuario implements IGestionDinero {
     private LinkedList<Cuenta> listaCuentas;
     private LinkedList<Presupuesto> listaPresupuestos;
     private LinkedList<Transaccion> listaTransacciones;
+    private LinkedList<Categoria> listaCategorias;
 
     public Usuario(){
         listaCuentas = new LinkedList<>();
         listaPresupuestos = new LinkedList<>();
         listaTransacciones = new LinkedList<>();
+        listaCategorias = new LinkedList<>();
     }
 
     public Usuario(String nombreCompleto, String idUsuario, String correoElectronico, String numeroTelefono, String direccion, int clave, BilleteraVirtual billeteraVirtual) {
@@ -30,6 +33,7 @@ public class Usuario implements IGestionDinero {
         listaCuentas = new LinkedList<>();
         listaPresupuestos = new LinkedList<>();
         listaTransacciones = new LinkedList<>();
+        listaCategorias = new LinkedList<>();
     }
 
     public BilleteraVirtual getBilleteraVirtual() {
@@ -120,14 +124,39 @@ public class Usuario implements IGestionDinero {
         this.listaTransacciones = listaTransacciones;
     }
 
-    @Override
-    public boolean agregarDinero(double dinero, int idCuenta) {
+    public LinkedList<Categoria> getListaCategorias() {
+        return listaCategorias;
+    }
+
+    public void setListaCategorias(LinkedList<Categoria> listaCategorias) {
+        this.listaCategorias = listaCategorias;
+    }
+
+    private Cuenta obtenerCuenta(int idCuenta) {
         for (Cuenta cuenta : listaCuentas) {
             if (cuenta.getIdCuenta() == idCuenta) {
-                Transaccion transaccion = Transaccion.builder()
-                        .billeteraVirtual(billeteraVirtual)
-                        .idTransaccion(billeteraVirtual.getListaTransacciones().size() + 1)
-                        .build();
+                return cuenta;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean agregarTransaccion(Transaccion transaccion) {
+        if (esTransaccionPosible(transaccion)){
+            if (billeteraVirtual.agregarTransaccion(transaccion)) {
+                if (transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)){
+                    agregarDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta());
+                }
+                else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.RETIRO) &&
+                        montoPasaSaldoCuenta(transaccion)){
+                    transferirDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta(),
+                            transaccion.getCuentaDestino().getIdCuenta());
+                }
+                else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA) &&
+                        montoPasaSaldoCuenta(transaccion)){
+                    retirarDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta());
+                }
                 return true;
             }
         }
@@ -135,12 +164,45 @@ public class Usuario implements IGestionDinero {
     }
 
     @Override
+    public boolean actualizarTransaccion(int idTransaccion, Transaccion nuevaTransaccion) {
+        return false;
+    }
+
+    @Override
+    public Transaccion obtenerTransaccion(int idTransaccion) {
+        return null;
+    }
+
+    @Override
+    public boolean agregarDinero(double dinero, int idCuenta) {
+        Cuenta cuenta = obtenerCuenta(idCuenta);
+        if (cuenta != null) {
+            cuenta.modificarSaldoTotal(dinero);
+            modificarSaldoTotal(dinero);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public boolean retirarDinero(double dinero, int idCuenta) {
+        Cuenta cuenta = obtenerCuenta(idCuenta);
+        if (cuenta != null) {
+            cuenta.modificarSaldoTotal(dinero*-1);
+            modificarSaldoTotal(dinero*-1);
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean transferirDinero(double dinero, int idCuentaOrigen, int idCuentaDestino) {
+        Cuenta cuenta = obtenerCuenta(idCuentaOrigen);
+        if (cuenta != null) {
+            cuenta.modificarSaldoTotal(dinero*-1);
+            billeteraVirtual.modificarSaldoTotalCuenta(dinero, idCuentaDestino);
+            return true;
+        }
         return false;
     }
 
@@ -155,5 +217,30 @@ public class Usuario implements IGestionDinero {
 
     public boolean eliminarCuenta(int idCuenta, String numCuenta) {
         return billeteraVirtual.eliminarCuenta(idCuenta, numCuenta);
+    }
+
+    private void modificarSaldoTotal(double saldoDado) {
+        saldoTotal = saldoTotal+saldoDado;
+    }
+
+    private boolean esTransaccionPosible(Transaccion transaccion) {
+        Categoria categoria = transaccion.getCategoriaTransaccion();
+        if (categoria != null) {
+            Presupuesto presupuesto = categoria.getPresupuesto();
+            if (presupuesto != null) {
+                return transaccionPasaPrespuesto(transaccion.getMonto(), presupuesto);
+            }
+        }
+        return true;
+    }
+
+    private boolean transaccionPasaPrespuesto(Double montoTransaccion, Presupuesto presupuesto) {
+        double montoGastadoFuturo = montoTransaccion + presupuesto.getMontoGastado();
+        return montoGastadoFuturo <= presupuesto.getMontoTotalAsignado();
+    }
+
+    private boolean montoPasaSaldoCuenta(Transaccion transaccion) {
+        Cuenta cuenta = transaccion.getCuentaOrigen();
+        return cuenta.getSaldo() >= transaccion.getMonto();
     }
 }

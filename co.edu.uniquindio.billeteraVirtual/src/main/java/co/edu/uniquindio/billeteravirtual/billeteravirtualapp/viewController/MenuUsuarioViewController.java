@@ -70,6 +70,7 @@ public class MenuUsuarioViewController {
         usuario = usuarioDto;
         cargarVistaEditarPerfil();
         cargarVistaGestionCuentasUsuario();
+        cargarVistaGestionDinero();
     }
 
     /**
@@ -80,7 +81,7 @@ public class MenuUsuarioViewController {
             if (newTab == tab_editarPerfil) {
                 cargarVistaEditarPerfil();
             } else if (newTab == tab_gestioDinero) {
-                System.out.println();
+                cargarVistaGestionDinero();
             } else if (newTab == tab_cuentas) {
                 cargarVistaGestionCuentasUsuario();
             } else if (newTab == tab_categorias) {
@@ -115,6 +116,19 @@ public class MenuUsuarioViewController {
             GestionCuentasUsuarioViewController viewController = loader.getController();
             viewController.setUsuario(usuario);
             sp_cuentas.getItems().setAll(nuevaVista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cargarVistaGestionDinero() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/GestionDinero.fxml"));
+            AnchorPane nuevaVista = loader.load();
+            GestionDineroViewController viewController = loader.getController();
+            viewController.setUsuario(usuario);
+            sp_gestionDinero.getItems().setAll(nuevaVista);
         } catch (IOException e) {
             e.printStackTrace();
         }

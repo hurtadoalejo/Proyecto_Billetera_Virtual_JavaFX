@@ -90,4 +90,8 @@ public class Cuenta {
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
+
+    public void modificarSaldoTotal(double saldoDado) {
+        saldo = saldo+saldoDado;
+    }
 }

@@ -25,7 +25,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane fx:id="sp_gestionDinero" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" />
+                        <SplitPane fx:id="sp_gestionDinero" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0">
+                           <items>
+                              <fx:include source="GestionDinero.fxml" />
+                           </items>
+                        </SplitPane>
                      </children>
                   </AnchorPane>
                </content>

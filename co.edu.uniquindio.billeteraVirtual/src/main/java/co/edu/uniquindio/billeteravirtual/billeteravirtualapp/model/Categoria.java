@@ -6,8 +6,8 @@ public class Categoria {
     private BilleteraVirtual billeteraVirtual;
     private int idCategoria;
     private String nombre, descripcionOpcional;
+    private Presupuesto presupuesto;
     private LinkedList<Transaccion> listaTransacciones;
-    private LinkedList<Presupuesto> listaPresupuestos;
 
     public Categoria() {}
 
@@ -60,11 +60,11 @@ public class Categoria {
         this.listaTransacciones = listaTransacciones;
     }
 
-    public LinkedList<Presupuesto> getListaPresupuestos() {
-        return listaPresupuestos;
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
     }
 
-    public void setListaPresupuestos(LinkedList<Presupuesto> listaPresupuestos) {
-        this.listaPresupuestos = listaPresupuestos;
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
     }
 }

@@ -1,8 +1,10 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.CuentaDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.CuentaMappingImpl;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.TransaccionMapplingImpl;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.UsuarioMappingImpl;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Administrador;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.BilleteraVirtual;
@@ -10,6 +12,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Cuenta;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ICuentaMapping;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IModelFactoryService;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ITransaccionMapping;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IUsuarioMapping;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.DataUtil;
 
@@ -21,6 +24,7 @@ public class ModelFactory implements IModelFactoryService {
     private Administrador administrador;
     private IUsuarioMapping usuarioMapper;
     private ICuentaMapping cuentaMapper;
+    private ITransaccionMapping transaccionMapper;
 
     /**
      * Metodo para obtener la instancia unica de la clase ModelFactory
@@ -39,6 +43,7 @@ public class ModelFactory implements IModelFactoryService {
     private ModelFactory(){
         usuarioMapper = new UsuarioMappingImpl();
         cuentaMapper = new CuentaMappingImpl();
+        transaccionMapper = new TransaccionMapplingImpl();
         billeteraVirtual = DataUtil.inicializarDatos();
         administrador = billeteraVirtual.getAdministrador();
     }
@@ -121,5 +126,26 @@ public class ModelFactory implements IModelFactoryService {
 
     public LinkedList<CuentaDto> obtenerCuentasUsuario(String idUsuario) {
         return cuentaMapper.getCuentasDto(billeteraVirtual.obtenerUsuario(idUsuario).getListaCuentas());
+    }
+
+    public LinkedList<String> obtenerCategoriasNombresDeUsuario(String idUsuario) {
+        return billeteraVirtual.obtenerCategoriasNombresDeUsuario(idUsuario);
+    }
+
+    public LinkedList<String> obtenerNumCuentasUsuario(String idUsuario) {
+        return billeteraVirtual.obtenerNumCuentasUsuario(idUsuario);
+    }
+
+    public int obtenerNuevoIdTransaccion() {
+        return billeteraVirtual.obtenerNuevoIdTransaccion();
+    }
+
+    public boolean agregarTransaccion(TransaccionDto transaccion, String idUsuario) {
+        return billeteraVirtual.obtenerUsuario(idUsuario).
+                agregarTransaccion(transaccionMapper.transaccionDtoToTransaccion(transaccion, billeteraVirtual,
+                        billeteraVirtual.obtenerUsuario(idUsuario),
+                        billeteraVirtual.obtenerCategoriaPorNombre(transaccion.nombreCategoria()),
+                        billeteraVirtual.obtenerCuentaNumCuenta(transaccion.numCuentaOrigen()),
+                        billeteraVirtual.obtenerCuentaNumCuenta(transaccion.numCuentaDestino())));
     }
 }

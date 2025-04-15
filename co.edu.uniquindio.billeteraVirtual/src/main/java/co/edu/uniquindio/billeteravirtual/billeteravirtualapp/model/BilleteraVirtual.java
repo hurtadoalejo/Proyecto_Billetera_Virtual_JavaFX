@@ -202,7 +202,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         return null;
     }
 
-    private Cuenta obtenerCuentaNumCuenta(String numCuenta){
+    public Cuenta obtenerCuentaNumCuenta(String numCuenta){
         for (Cuenta cuenta : listaCuentas){
             if (cuenta.getNumeroCuenta().equalsIgnoreCase(numCuenta)){
                 return cuenta;
@@ -266,7 +266,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
                     categoria.setNombre(nuevaCategoria.getNombre());
                     categoria.setDescripcionOpcional(nuevaCategoria.getDescripcionOpcional());
                     categoria.setListaTransacciones(nuevaCategoria.getListaTransacciones());
-                    categoria.setListaPresupuestos(nuevaCategoria.getListaPresupuestos());
+                    categoria.setPresupuesto(nuevaCategoria.getPresupuesto());
                     return true;
                 }
             }
@@ -279,20 +279,30 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         Categoria categoria = obtenerCategoria(idCategoria);
         if (categoria != null){
             listaCategorias.remove(categoria);
-            eliminarPresupuestos(categoria.getListaPresupuestos());
+            listaPresupuestos.remove(categoria.getPresupuesto());
             return true;
         }
         return false;
     }
 
-    private void eliminarPresupuestos(LinkedList<Presupuesto> listaPresupuestos) {
-        for (Presupuesto presupuesto : listaPresupuestos){
-            eliminarPresupuesto(presupuesto.getIdPresupuesto());
+    public Categoria obtenerCategoriaPorNombre(String nombreCategoria) {
+        if (nombreCategoria != null){
+            for (Categoria categoria : listaCategorias){
+                if (categoria.getNombre().equalsIgnoreCase(nombreCategoria)){
+                    return categoria;
+                }
+            }
         }
+        return null;
     }
 
     @Override
     public Categoria obtenerCategoria(int idCategoria) {
+        for (Categoria categoria : listaCategorias){
+            if (categoria.getIdCategoria() == idCategoria){
+                return categoria;
+            }
+        }
         return null;
     }
 
@@ -317,7 +327,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
     private void desasociarPresupuestoModelo(Presupuesto presupuesto) {
         presupuesto.getUsuarioAsociado().getListaPresupuestos().remove(presupuesto);
-        presupuesto.getCategoriaPresupuesto().getListaPresupuestos().remove(presupuesto);
+        presupuesto.getCategoriaPresupuesto().setPresupuesto(null);
         listaPresupuestos.remove(presupuesto);
     }
 
@@ -351,22 +361,25 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
     @Override
     public boolean agregarTransaccion(Transaccion transaccion) {
-        if (obtenerTransaccion(transaccion.getIdTransaccion()) == null){
+        if (obtenerTransaccion(transaccion.getIdTransaccion()) == null && cuentasExisten(transaccion)){
             listaTransacciones.add(transaccion);
             return true;
         }
         return false;
     }
 
-    @Override
-    public boolean eliminarTransaccion(int idTransaccion) {
-        for (Transaccion transaccion : listaTransacciones){
-            if (transaccion.getIdTransaccion() == idTransaccion){
-                listaTransacciones.remove(transaccion);
-                return true;
+    private boolean cuentasExisten(Transaccion transaccion) {
+        if (transaccion.getCuentaOrigen() == null) {
+            return false;
+        }
+        Cuenta cuentaOrigen = transaccion.getCuentaOrigen();
+        if (transaccion.getTipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)){
+            if (transaccion.getCuentaDestino() != null) {
+                Cuenta cuentaDestino = transaccion.getCuentaDestino();
+                return cuentaOrigen != null;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -469,5 +482,38 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
             listaUsuariosId.add(usuario.getIdUsuario());
         }
         return listaUsuariosId;
+    }
+
+    public void modificarSaldoTotalCuenta(double dinero, int idCuentaDestino) {
+        Cuenta cuenta = obtenerCuentaId(idCuentaDestino);
+        if (cuenta != null) {
+            cuenta.modificarSaldoTotal(dinero);
+        }
+    }
+
+    public LinkedList<String> obtenerCategoriasNombresDeUsuario(String idUsuario) {
+        Usuario usuario = obtenerUsuario(idUsuario);
+        LinkedList<String> listaCategoriasNombres = new LinkedList<>();
+        if (usuario != null) {
+            for (Categoria categoria : usuario.getListaCategorias()){
+                listaCategoriasNombres.add(categoria.getNombre());
+            }
+        }
+        return listaCategoriasNombres;
+    }
+
+    public LinkedList<String> obtenerNumCuentasUsuario(String idUsuario) {
+        Usuario usuario = obtenerUsuario(idUsuario);
+        LinkedList<String> listaNumCuentasUsuario = new LinkedList<>();
+        if (usuario != null) {
+            for (Cuenta cuenta : usuario.getListaCuentas()){
+                listaNumCuentasUsuario.add(cuenta.getNumeroCuenta());
+            }
+        }
+        return listaNumCuentasUsuario;
+    }
+
+    public int obtenerNuevoIdTransaccion() {
+        return listaTransacciones.size()+1;
     }
 }

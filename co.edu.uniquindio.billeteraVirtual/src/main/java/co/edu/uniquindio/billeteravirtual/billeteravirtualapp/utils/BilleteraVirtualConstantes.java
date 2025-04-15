@@ -71,4 +71,10 @@ public class BilleteraVirtualConstantes {
 
     public static final String TITULO_BIENVENIDA = "Usuario logeado";
     public static final String BODY_BIENVENIDA = "Bienvenid@: ";
+
+    public static final String TITULO_DEPOSITO_EXITOSO = "Deposito exitoso";
+    public static final String BODY_DEPOSITO_EXITOSO = "Se han depositado exitosamente: ";
+
+    public static final String TITULO_DEPOSITO_NO_EXITOSO = "Deposito no exitoso";
+    public static final String BODY_DEPOSITO_NO_EXITOSO = "No se ha depositado exitosamente: ";
 }

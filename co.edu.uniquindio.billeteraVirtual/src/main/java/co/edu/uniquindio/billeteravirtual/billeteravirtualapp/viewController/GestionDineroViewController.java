@@ -9,12 +9,8 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.Transa
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.TipoTransaccion;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import jdk.swing.interop.SwingInterOpUtils;
+import javafx.scene.control.*;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
 
 public class GestionDineroViewController {
 
@@ -110,20 +106,55 @@ public class GestionDineroViewController {
                 obtenerCategoriasNombresDeUsuario(usuario.idUsuario()));
     }
 
+    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.showAndWait();
+    }
+
     private void realizarMovimiento() {
-        TipoTransaccion tipoTransaccion = cb_tipoMovimiento.getSelectionModel().getSelectedItem();
-        TransaccionDto transaccionDto = crearTransaccion();
-        if (tipoTransaccion.equals(TipoTransaccion.DEPOSITO)) {
-            if (gestionDineroController.agregarTransaccion(transaccionDto, usuario.idUsuario())){
-                System.out.println("Yeih");
-                limpiarSeleccion();
+        if (verificarCamposLlenos()) {
+            if (verificarCamposCorrectos()) {
+                TipoTransaccion tipoTransaccion = cb_tipoMovimiento.getSelectionModel().getSelectedItem();
+                TransaccionDto transaccionDto = crearTransaccion();
+                if (tipoTransaccion.equals(TipoTransaccion.DEPOSITO)) {
+                    realizarDeposito(transaccionDto);
+                }
+                else if (tipoTransaccion.equals(TipoTransaccion.TRANSFERENCIA)) {
+                    realizarTransferencia(transaccionDto);
+                }
+                else if (tipoTransaccion.equals(TipoTransaccion.RETIRO)) {
+                    realizarRetiro(transaccionDto);
+                }
+            }
+            else {
+                mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.INFORMATION);
             }
         }
-        else if (tipoTransaccion.equals(TipoTransaccion.TRANSFERENCIA)) {
-            System.out.println();
+        else {
+            mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.INFORMATION);
         }
-        else if (tipoTransaccion.equals(TipoTransaccion.RETIRO)) {
-            System.out.println();
+    }
+
+    private void realizarRetiro(TransaccionDto transaccionDto) {
+        System.out.println();
+    }
+
+    private void realizarTransferencia(TransaccionDto transaccionDto) {
+        System.out.println();
+    }
+
+    private void realizarDeposito(TransaccionDto transaccionDto) {
+        if (gestionDineroController.agregarTransaccion(transaccionDto, usuario.idUsuario())){
+            mostrarMensaje(TITULO_DEPOSITO_EXITOSO, HEADER,
+                    BODY_DEPOSITO_EXITOSO + transaccionDto.monto() + " pesos.",
+                    Alert.AlertType.INFORMATION);
+            limpiarSeleccion();
+        }
+        else {
+            mostrarMensaje(TITULO_DEPOSITO_NO_EXITOSO, HEADER, BODY_DEPOSITO_NO_EXITOSO, Alert.AlertType.ERROR);
         }
     }
 
@@ -145,7 +176,6 @@ public class GestionDineroViewController {
         dp_fecha.setDisable(false);
         tf_descripcion.setDisable(false);
         cb_categoria.setDisable(false);
-        bt_realizarMovimiento.setDisable(false);
         if (tipoTransaccion == null) {
             cb_cuentaOrigen.setDisable(true);
             tf_cuentaDestino.setDisable(true);
@@ -153,16 +183,70 @@ public class GestionDineroViewController {
             dp_fecha.setDisable(true);
             tf_descripcion.setDisable(true);
             cb_categoria.setDisable(true);
-            bt_realizarMovimiento.setDisable(true);
         }
-        else if (tipoTransaccion.equals(TipoTransaccion.DEPOSITO)) {
-            tf_cuentaDestino.setDisable(true);
-        }
-        else if (tipoTransaccion.equals(TipoTransaccion.RETIRO)) {
-            tf_cuentaDestino.setDisable(true);
+        else if (tipoTransaccion.equals(TipoTransaccion.TRANSFERENCIA)) {
+            limpiarCampos();
+            tf_cuentaDestino.setDisable(false);
         }
         else {
-            tf_cuentaDestino.setDisable(false);
+            limpiarCampos();
+            tf_cuentaDestino.setDisable(true);
+        }
+    }
+
+    private void limpiarCampos() {
+        cb_categoria.getSelectionModel().clearSelection();
+        cb_cuentaOrigen.getSelectionModel().clearSelection();
+        dp_fecha.setValue(null);
+        tf_cuentaDestino.clear();
+        tf_monto.clear();
+        tf_descripcion.clear();
+    }
+
+    private boolean verificarCamposLlenos() {
+        if (!cb_tipoMovimiento.getSelectionModel().isEmpty() &&
+                !cb_cuentaOrigen.getSelectionModel().isEmpty() &&
+                dp_fecha.getValue() != null &&
+                !tf_monto.getText().isEmpty()) {
+            if (cb_tipoMovimiento.getSelectionModel().getSelectedItem().equals(TipoTransaccion.TRANSFERENCIA)) {
+                return !tf_cuentaDestino.getText().isEmpty();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean verificarCamposCorrectos(){
+        if (isDouble(tf_monto.getText())) {
+            if (cb_tipoMovimiento.getSelectionModel().getSelectedItem().equals(TipoTransaccion.TRANSFERENCIA)) {
+                return isLong(tf_cuentaDestino.getText());
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isDouble(String text){
+        if (text == null || text.isEmpty()) {
+            return false;
+        }
+        try {
+            Double.parseDouble(text);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private boolean isLong(String text){
+        if (text == null || text.isEmpty()) {
+            return false;
+        }
+        try {
+            Long.parseLong(text);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
@@ -170,6 +254,7 @@ public class GestionDineroViewController {
     void initialize() {
         gestionDineroController = new GestionDineroController();
         manejarSeleccionTipoTransaccion();
+        dp_fecha.setEditable(false);
         assert bt_limpiar1 != null : "fx:id=\"bt_limpiar1\" was not injected: check your FXML file 'GestionDinero.fxml'.";
         assert cb_categoria != null : "fx:id=\"cb_categoria\" was not injected: check your FXML file 'GestionDinero.fxml'.";
         assert lb_cuentaOrigen != null : "fx:id=\"lb_cuentaOrigen\" was not injected: check your FXML file 'GestionDinero.fxml'.";

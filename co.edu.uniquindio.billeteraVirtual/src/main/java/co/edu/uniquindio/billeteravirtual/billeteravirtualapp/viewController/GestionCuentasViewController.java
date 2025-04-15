@@ -212,19 +212,15 @@ public class GestionCuentasViewController {
     }
 
     private boolean verificarCamposLlenos() {
-        if (tf_numeroCuenta.getText().isEmpty() || tf_idCuenta.getText().isEmpty()
-                || tf_nombreBanco.getText().isEmpty() || cb_tipoCuenta.getSelectionModel().isEmpty()
-                || cb_usuarioAsociado.getSelectionModel().isEmpty()) {
-            return false;
-        }
-        return true;
+        return !tf_numeroCuenta.getText().isEmpty() &&
+                !tf_idCuenta.getText().isEmpty() &&
+                !tf_nombreBanco.getText().isEmpty() &&
+                !cb_tipoCuenta.getSelectionModel().isEmpty() &&
+                !cb_usuarioAsociado.getSelectionModel().isEmpty();
     }
 
     private boolean verificarCamposCorrectos(){
-        if (isInteger(tf_idCuenta.getText()) && isLong(tf_numeroCuenta.getText())) {
-            return true;
-        }
-        return false;
+        return isInteger(tf_idCuenta.getText()) && isLong(tf_numeroCuenta.getText());
     }
 
     private void mostrarInformacionCuenta(CuentaDto cuenta) {

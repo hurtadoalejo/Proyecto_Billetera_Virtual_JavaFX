@@ -44,7 +44,8 @@ public class TransaccionMapplingImpl implements ITransaccionMapping {
                                                    BilleteraVirtual billeteraVirtual, Usuario usuarioAsociado,
                                                    Categoria categoria, Cuenta cuentaOrigen,
                                                    Cuenta cuentaDestino) {
-        return Transaccion.builder().idTransaccion(transaccionDto.idTransaccion())
+        return Transaccion.builder().billeteraVirtual(billeteraVirtual)
+                .idTransaccion(transaccionDto.idTransaccion())
                 .fecha(transaccionDto.fecha()).monto(transaccionDto.monto())
                 .descripcionOpcional(transaccionDto.descripcion())
                 .tipoTransaccion(transaccionDto.tipoTransaccion()).usuarioAsociado(usuarioAsociado)

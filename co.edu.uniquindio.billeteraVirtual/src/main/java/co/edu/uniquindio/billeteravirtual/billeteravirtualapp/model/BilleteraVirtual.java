@@ -375,11 +375,19 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         Cuenta cuentaOrigen = transaccion.getCuentaOrigen();
         if (transaccion.getTipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)){
             if (transaccion.getCuentaDestino() != null) {
-                Cuenta cuentaDestino = transaccion.getCuentaDestino();
-                return cuentaDestino != null;
+                return transaccion.getCuentaDestino() != null;
             }
         }
         return true;
+    }
+
+    public boolean cuentasExisten(String numCuentaOrigen, String numCuentaDestino) {
+        if (numCuentaOrigen != null && numCuentaDestino != null){
+            Cuenta cuentaOrigen = obtenerCuentaNumCuenta(numCuentaOrigen);
+            Cuenta cuentaDestino = obtenerCuentaNumCuenta(numCuentaDestino);
+            return cuentaOrigen !=null && cuentaDestino != null;
+        }
+        return false;
     }
 
     @Override

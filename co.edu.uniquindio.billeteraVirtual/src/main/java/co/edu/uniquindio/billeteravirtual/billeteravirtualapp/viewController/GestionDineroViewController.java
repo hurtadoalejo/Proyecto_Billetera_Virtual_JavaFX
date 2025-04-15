@@ -8,6 +8,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.Gestion
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.TipoTransaccion;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
@@ -138,24 +139,64 @@ public class GestionDineroViewController {
         }
     }
 
-    private void realizarRetiro(TransaccionDto transaccionDto) {
-        System.out.println();
-    }
-
-    private void realizarTransferencia(TransaccionDto transaccionDto) {
-        System.out.println();
-    }
-
     private void realizarDeposito(TransaccionDto transaccionDto) {
         if (gestionDineroController.agregarTransaccion(transaccionDto, usuario.idUsuario())){
-            mostrarMensaje(TITULO_DEPOSITO_EXITOSO, HEADER,
-                    BODY_DEPOSITO_EXITOSO + transaccionDto.monto() + " pesos.",
-                    Alert.AlertType.INFORMATION);
-            limpiarSeleccion();
+            mostrarMensajeTransaccionExitosa(transaccionDto);
         }
         else {
             mostrarMensaje(TITULO_DEPOSITO_NO_EXITOSO, HEADER, BODY_DEPOSITO_NO_EXITOSO, Alert.AlertType.ERROR);
         }
+    }
+
+    private void realizarRetiro(TransaccionDto transaccionDto) {
+        if (gestionDineroController.saldoCuentaEsSuficiente(transaccionDto, usuario.idUsuario())) {
+            if (gestionDineroController.agregarTransaccion(transaccionDto, usuario.idUsuario())){
+                mostrarMensajeTransaccionExitosa(transaccionDto);
+            }
+        }
+        else {
+            mostrarMensaje(TITULO_RETIRO_NO_EXITOSO, HEADER, BODY_RETIRO_NO_EXITOSO, Alert.AlertType.ERROR);
+        }
+    }
+
+    private void realizarTransferencia(TransaccionDto transaccionDto) {
+        if (gestionDineroController.cuentasExisten(transaccionDto.numCuentaOrigen(),
+                transaccionDto.numCuentaDestino())) {
+            if (gestionDineroController.saldoCuentaEsSuficiente(transaccionDto, usuario.idUsuario())) {
+                if (gestionDineroController.agregarTransaccion(transaccionDto, usuario.idUsuario())){
+                    mostrarMensajeTransaccionExitosa(transaccionDto);
+                }
+            }
+            else {
+                mostrarMensaje(TITULO_TRANSFERENCIA_NO_EXITOSA, HEADER,
+                        BODY_TRANSFERENCIA_NO_EXITOSA_DINERO, Alert.AlertType.ERROR);
+            }
+        }
+        else {
+            mostrarMensaje(TITULO_TRANSFERENCIA_NO_EXITOSA, HEADER,
+                    BODY_TRANSFERENCIA_NO_EXITOSA_CUENTA, Alert.AlertType.ERROR);
+        }
+    }
+
+    private void mostrarMensajeTransaccionExitosa(TransaccionDto transaccionDto) {
+        String mensajeMonto = transaccionDto.monto() + " pesos.";
+        if (transaccionDto.tipoTransaccion().equals(TipoTransaccion.DEPOSITO)) {
+            mostrarMensaje(TITULO_DEPOSITO_EXITOSO, HEADER,
+                    BODY_DEPOSITO_EXITOSO + mensajeMonto,
+                    Alert.AlertType.INFORMATION);
+        }
+        else if (transaccionDto.tipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)) {
+            mostrarMensaje(TITULO_TRANSFERENCIA_EXITOSA, HEADER,
+                    BODY_TRANSFERENCIA_EXITOSA + mensajeMonto,
+                    Alert.AlertType.INFORMATION);
+
+        }
+        else if (transaccionDto.tipoTransaccion().equals(TipoTransaccion.RETIRO)) {
+            mostrarMensaje(TITULO_RETIRO_EXITOSO, HEADER,
+                    BODY_RETIRO_EXITOSO + mensajeMonto,
+                    Alert.AlertType.INFORMATION);
+        }
+        limpiarSeleccion();
     }
 
     private void limpiarSeleccion() {

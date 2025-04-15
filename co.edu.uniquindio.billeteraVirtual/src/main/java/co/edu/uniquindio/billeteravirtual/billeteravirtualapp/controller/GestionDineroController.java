@@ -2,6 +2,7 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory.ModelFactory;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Transaccion;
 
 import java.util.LinkedList;
 
@@ -26,5 +27,13 @@ public class GestionDineroController {
 
     public boolean agregarTransaccion(TransaccionDto transaccionDto, String idUsuario) {
         return modelFactory.agregarTransaccion(transaccionDto, idUsuario);
+    }
+
+    public boolean saldoCuentaEsSuficiente(TransaccionDto transaccion, String idUsuario) {
+        return modelFactory.saldoCuentaEsSuficiente(transaccion, idUsuario);
+    }
+
+    public boolean cuentasExisten(String numCuentaOrigen, String numCuentaDestino) {
+        return modelFactory.cuentasExisten(numCuentaOrigen, numCuentaDestino);
     }
 }

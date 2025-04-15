@@ -148,11 +148,11 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
                 if (transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)){
                     agregarDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta());
                 }
-                else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.RETIRO)){
+                else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)){
                     transferirDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta(),
                             transaccion.getCuentaDestino().getIdCuenta());
                 }
-                else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)){
+                else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.RETIRO)){
                     retirarDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta());
                 }
                 return true;
@@ -198,6 +198,7 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
         Cuenta cuenta = obtenerCuenta(idCuentaOrigen);
         if (cuenta != null) {
             cuenta.modificarSaldoTotal(dinero*-1);
+            modificarSaldoTotal(dinero*-1);
             billeteraVirtual.modificarSaldoTotalCuenta(dinero, idCuentaDestino);
             return true;
         }
@@ -237,7 +238,7 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
         return montoGastadoFuturo <= presupuesto.getMontoTotalAsignado();
     }
 
-    private boolean saldoCuentaEsSuficiente(Transaccion transaccion) {
+    public boolean saldoCuentaEsSuficiente(Transaccion transaccion) {
         if (transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)) {
             return true;
         }

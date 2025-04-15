@@ -74,7 +74,17 @@ public class BilleteraVirtualConstantes {
 
     public static final String TITULO_DEPOSITO_EXITOSO = "Deposito exitoso";
     public static final String BODY_DEPOSITO_EXITOSO = "Se han depositado exitosamente: ";
-
     public static final String TITULO_DEPOSITO_NO_EXITOSO = "Deposito no exitoso";
-    public static final String BODY_DEPOSITO_NO_EXITOSO = "No se ha depositado exitosamente: ";
+    public static final String BODY_DEPOSITO_NO_EXITOSO = "No se ha podido depositadar";
+
+    public static final String TITULO_RETIRO_EXITOSO = "Retiro exitoso";
+    public static final String BODY_RETIRO_EXITOSO = "Se retiraron exitosamente: ";
+    public static final String TITULO_RETIRO_NO_EXITOSO = "Retiro no exitoso";
+    public static final String BODY_RETIRO_NO_EXITOSO = "Su cuenta no tiene el saldo suficiente a retirar";
+
+    public static final String TITULO_TRANSFERENCIA_EXITOSA = "Transferencia exitosa";
+    public static final String BODY_TRANSFERENCIA_EXITOSA = "Se transfirieron exitosamente: ";
+    public static final String TITULO_TRANSFERENCIA_NO_EXITOSA = "Transferencia no exitosa";
+    public static final String BODY_TRANSFERENCIA_NO_EXITOSA_DINERO = "Su cuenta no tiene el saldo suficiente a transferir";
+    public static final String BODY_TRANSFERENCIA_NO_EXITOSA_CUENTA = "La cuenta a la que quiere transferir no existe";
 }

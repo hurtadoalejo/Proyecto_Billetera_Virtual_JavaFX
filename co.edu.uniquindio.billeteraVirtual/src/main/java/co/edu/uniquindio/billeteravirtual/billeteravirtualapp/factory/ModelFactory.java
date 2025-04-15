@@ -6,10 +6,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.Usuari
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.CuentaMappingImpl;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.TransaccionMapplingImpl;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.UsuarioMappingImpl;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Administrador;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.BilleteraVirtual;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Cuenta;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ICuentaMapping;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IModelFactoryService;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ITransaccionMapping;
@@ -142,10 +139,23 @@ public class ModelFactory implements IModelFactoryService {
 
     public boolean agregarTransaccion(TransaccionDto transaccion, String idUsuario) {
         return billeteraVirtual.obtenerUsuario(idUsuario).
-                agregarTransaccion(transaccionMapper.transaccionDtoToTransaccion(transaccion, billeteraVirtual,
-                        billeteraVirtual.obtenerUsuario(idUsuario),
-                        billeteraVirtual.obtenerCategoriaPorNombre(transaccion.nombreCategoria()),
-                        billeteraVirtual.obtenerCuentaNumCuenta(transaccion.numCuentaOrigen()),
-                        billeteraVirtual.obtenerCuentaNumCuenta(transaccion.numCuentaDestino())));
+                agregarTransaccion(transaccionDtoToTransaccion(transaccion, idUsuario));
+    }
+
+    public boolean saldoCuentaEsSuficiente(TransaccionDto transaccion, String idUsuario) {
+        return billeteraVirtual.obtenerUsuario(idUsuario).
+                saldoCuentaEsSuficiente(transaccionDtoToTransaccion(transaccion, idUsuario));
+    }
+
+    private Transaccion transaccionDtoToTransaccion(TransaccionDto transaccion, String idUsuario){
+        return transaccionMapper.transaccionDtoToTransaccion(transaccion, billeteraVirtual,
+                billeteraVirtual.obtenerUsuario(idUsuario),
+                billeteraVirtual.obtenerCategoriaPorNombre(transaccion.nombreCategoria()),
+                billeteraVirtual.obtenerCuentaNumCuenta(transaccion.numCuentaOrigen()),
+                billeteraVirtual.obtenerCuentaNumCuenta(transaccion.numCuentaDestino()));
+    }
+
+    public boolean cuentasExisten(String numCuentaOrigen, String numCuentaDestino) {
+        return billeteraVirtual.cuentasExisten(numCuentaOrigen, numCuentaDestino);
     }
 }

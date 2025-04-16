@@ -206,7 +206,7 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
     }
 
     public boolean agregarCuenta(Cuenta cuenta) {
-        return billeteraVirtual.agregarCuenta(cuenta, idUsuario);
+        return billeteraVirtual.agregarCuenta(cuenta);
     }
 
     public boolean actualizarCuenta(Cuenta cuentaVieja, Cuenta nuevaCuenta) {
@@ -225,7 +225,7 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
     private boolean esTransaccionPosible(Transaccion transaccion) {
         Categoria categoria = transaccion.getCategoriaTransaccion();
         if (categoria != null) {
-            Presupuesto presupuesto = categoria.getPresupuesto();
+            Presupuesto presupuesto = categoria.getPresupuestoAsignado();
             if (presupuesto != null) {
                 return transaccionPasaPrespuesto(transaccion.getMonto(), presupuesto);
             }
@@ -244,5 +244,47 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
         }
         Cuenta cuenta = transaccion.getCuentaOrigen();
         return cuenta.getSaldo() >= transaccion.getMonto();
+    }
+
+    public boolean agregarCategoria(Categoria categoria) {
+        if (obtenerCategoria(categoria) == null){
+            return billeteraVirtual.agregarCategoria(categoria);
+        }
+        return false;
+    }
+
+    private Categoria obtenerCategoria(Categoria categoria) {
+        for (Categoria categoriaTemporal : listaCategorias){
+            if (categoriaTemporal.getNombre().equals(categoria.getNombre()) &&
+            categoriaTemporal.getIdCategoria() == categoria.getIdCategoria()) {
+                return categoria;
+            }
+        }
+        return null;
+    }
+
+    public boolean eliminarCategoria(int idCategoria) {
+        return billeteraVirtual.eliminarCategoria(idCategoria);
+    }
+
+    public boolean actualizarCategoria(int idCategoriaVieja, Categoria nuevaCategoria) {
+        return billeteraVirtual.actualizarCategoria(idCategoriaVieja, nuevaCategoria);
+    }
+
+    public Presupuesto obtenerPresupuestoNombre(String nombrePresupuesto) {
+        for (Presupuesto presupuesto : listaPresupuestos) {
+            if (presupuesto.getNombre().equalsIgnoreCase(nombrePresupuesto)) {
+                return presupuesto;
+            }
+        }
+        return null;
+    }
+
+    public LinkedList<String> obtenerPresupuestosNombres(){
+        LinkedList<String> listaPresupuestosNombres = new LinkedList<>();
+        for (Presupuesto presupuesto : listaPresupuestos) {
+            listaPresupuestosNombres.add(presupuesto.getNombre());
+        }
+        return listaPresupuestosNombres;
     }
 }

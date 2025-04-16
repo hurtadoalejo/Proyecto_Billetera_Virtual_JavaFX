@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.isInteger;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.mostrarMensaje;
 
 public class LoginMenuAdminViewController {
 
@@ -80,37 +82,11 @@ public class LoginMenuAdminViewController {
     }
 
     private boolean verificarCambosLlenos(){
-        if (ta_clave.getText().isEmpty()) {
-            return false;
-        }
-        return true;
+        return !ta_clave.getText().isEmpty();
     }
 
     private boolean verificarCambosCorrectos(){
-        if (isInteger(ta_clave.getText())) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isInteger(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Integer.parseInt(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(titulo);
-        alert.setHeaderText(header);
-        alert.setContentText(contenido);
-        alert.showAndWait();
+        return isInteger(ta_clave.getText());
     }
 
     @FXML

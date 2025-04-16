@@ -45,7 +45,7 @@ public class CuentaMappingImpl implements ICuentaMapping {
      * @return Cuenta
      */
     @Override
-    public Cuenta cuentaDtoToCuenta(CuentaDto cuentaDto, BilleteraVirtual billeteraVirtual) {
+    public Cuenta cuentaDtoToCuenta(CuentaDto cuentaDto, BilleteraVirtual billeteraVirtual, Usuario usuario) {
         Cuenta cuenta = new Cuenta();
         cuenta.setIdCuenta(cuentaDto.idCuenta());
         cuenta.setNombreBanco(cuentaDto.nombreBanco());

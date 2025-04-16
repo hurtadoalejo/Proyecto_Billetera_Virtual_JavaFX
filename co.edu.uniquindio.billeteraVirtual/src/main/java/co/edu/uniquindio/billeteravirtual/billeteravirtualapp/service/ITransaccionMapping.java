@@ -12,4 +12,6 @@ public interface ITransaccionMapping {
                                             BilleteraVirtual billeteraVirtual, Usuario usuarioAsociado,
                                             Categoria categoria, Cuenta cuentaOrigen,
                                             Cuenta cuentaDestino);
+    String mapNumeroCuenta(Cuenta cuenta);
+    String mapNombreCategoria(Categoria categoria);
 }

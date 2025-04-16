@@ -1,7 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.GestionCuentasController;
@@ -15,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.*;
 
 public class GestionCuentasViewController {
 
@@ -272,50 +272,6 @@ public class GestionCuentasViewController {
         tf_nombreBanco.clear();
         cb_tipoCuenta.getSelectionModel().clearSelection();
         cb_usuarioAsociado.getSelectionModel().clearSelection();
-    }
-
-    private boolean isInteger(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Integer.parseInt(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private boolean isLong(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Long.parseLong(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(titulo);
-        alert.setHeaderText(header);
-        alert.setContentText(contenido);
-        alert.showAndWait();
-    }
-
-    private boolean mostrarMensajeConfirmacion(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmacion");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            return true;
-        }
-        return false;
     }
 
     @FXML

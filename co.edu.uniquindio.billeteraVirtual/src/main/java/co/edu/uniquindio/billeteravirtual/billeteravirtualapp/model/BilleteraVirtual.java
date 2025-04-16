@@ -149,8 +149,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
 
     @Override
-    public boolean agregarCuenta(Cuenta cuenta, String idUsuario) {
-        cuenta.setUsuarioAsociado(obtenerUsuario(idUsuario));
+    public boolean agregarCuenta(Cuenta cuenta) {
         if (obtenerCuenta(cuenta.getIdCuenta(), cuenta.getNumeroCuenta()) == null){
             listaCuentas.add(cuenta);
             cuenta.getUsuarioAsociado().getListaCuentas().add(cuenta);
@@ -172,8 +171,6 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
     @Override
     public boolean actualizarCuenta(Cuenta cuentaVieja, String idUsuarioViejo, String idUsuarioNuevo, Cuenta nuevaCuenta) {
-        cuentaVieja.setUsuarioAsociado(obtenerUsuario(idUsuarioViejo));
-        nuevaCuenta.setUsuarioAsociado(obtenerUsuario(idUsuarioNuevo));
         for (Cuenta cuenta : listaCuentas){
             if (cuenta.getIdCuenta() == cuentaVieja.getIdCuenta()){
                 if ((obtenerCuentaId(nuevaCuenta.getIdCuenta()) == null
@@ -261,12 +258,12 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     public boolean actualizarCategoria(int idCategoria, Categoria nuevaCategoria) {
         for (Categoria categoria : listaCategorias){
             if (categoria.getIdCategoria() == idCategoria){
-                if (obtenerCategoria(nuevaCategoria.getIdCategoria()) == null || categoria.getIdCategoria() == idCategoria){
+                if (obtenerCategoria(nuevaCategoria.getIdCategoria()) == null ||
+                        nuevaCategoria.getIdCategoria() == idCategoria){
                     categoria.setIdCategoria(nuevaCategoria.getIdCategoria());
                     categoria.setNombre(nuevaCategoria.getNombre());
                     categoria.setDescripcionOpcional(nuevaCategoria.getDescripcionOpcional());
-                    categoria.setListaTransacciones(nuevaCategoria.getListaTransacciones());
-                    categoria.setPresupuesto(nuevaCategoria.getPresupuesto());
+                    categoria.setPresupuestoAsignado(nuevaCategoria.getPresupuestoAsignado());
                     return true;
                 }
             }
@@ -279,7 +276,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         Categoria categoria = obtenerCategoria(idCategoria);
         if (categoria != null){
             listaCategorias.remove(categoria);
-            listaPresupuestos.remove(categoria.getPresupuesto());
+            listaPresupuestos.remove(categoria.getPresupuestoAsignado());
             return true;
         }
         return false;
@@ -327,7 +324,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
     private void desasociarPresupuestoModelo(Presupuesto presupuesto) {
         presupuesto.getUsuarioAsociado().getListaPresupuestos().remove(presupuesto);
-        presupuesto.getCategoriaPresupuesto().setPresupuesto(null);
+        presupuesto.getCategoriaPresupuesto().setPresupuestoAsignado(null);
         listaPresupuestos.remove(presupuesto);
     }
 

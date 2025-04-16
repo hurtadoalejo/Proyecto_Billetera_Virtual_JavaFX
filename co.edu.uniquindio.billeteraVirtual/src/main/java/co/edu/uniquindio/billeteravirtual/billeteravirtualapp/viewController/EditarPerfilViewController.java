@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
-import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.BODY_INCOMPLETO;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.*;
 
 public class EditarPerfilViewController {
 
@@ -91,18 +91,22 @@ public class EditarPerfilViewController {
                     usuario = usuarioNuevo;
                     menuUsuarioViewController.setUsuario(usuario);
                     limpiarCampos();
-                    mostrarMensaje(TITULO_USUARIO_ACTUALIZADO, HEADER, BODY_USUARIO_ACTUALIZADO, Alert.AlertType.INFORMATION);
+                    mostrarMensaje(TITULO_USUARIO_ACTUALIZADO, HEADER,
+                            BODY_USUARIO_ACTUALIZADO, Alert.AlertType.INFORMATION);
                 }
                 else{
-                    mostrarMensaje(TITULO_USUARIO_NO_ACTUALIZADO, HEADER, BODY_USUARIO_NO_ACTUALIZADO, Alert.AlertType.ERROR);
+                    mostrarMensaje(TITULO_USUARIO_NO_ACTUALIZADO, HEADER,
+                            BODY_USUARIO_NO_ACTUALIZADO, Alert.AlertType.ERROR);
                 }
             }
             else{
-                mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
+                mostrarMensaje(TITULO_INCORRECTO, HEADER,
+                        BODY_INCORRECTO, Alert.AlertType.WARNING);
             }
         }
         else{
-            mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
+            mostrarMensaje(TITULO_INCOMPLETO, HEADER,
+                    BODY_INCOMPLETO, Alert.AlertType.WARNING);
         }
     }
 
@@ -131,38 +135,6 @@ public class EditarPerfilViewController {
     public static boolean esCorreoValido(String correo) {
         String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
         return correo.matches(regex);
-    }
-
-    private boolean isInteger(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Integer.parseInt(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private boolean isLong(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Long.parseLong(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(titulo);
-        alert.setHeaderText(header);
-        alert.setContentText(contenido);
-        alert.showAndWait();
     }
 
     @FXML

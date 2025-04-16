@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.isInteger;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.mostrarMensaje;
 
 public class LoginMenuUsuarioViewController {
 
@@ -91,21 +93,6 @@ public class LoginMenuUsuarioViewController {
     }
 
     /**
-     * Metodo para mostrar un mensaje personalizado
-     * @param titulo Titulo del mensaje
-     * @param header Encabezado del mensaje
-     * @param contenido Contenido del mensaje
-     * @param alertType Tipo de alerta del mensaje
-     */
-    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(titulo);
-        alert.setHeaderText(header);
-        alert.setContentText(contenido);
-        alert.showAndWait();
-    }
-
-    /**
      * Metodo para intercambiar la vista actual por otra si se administra un id y una clave correcta
      */
     private void ingresar() {
@@ -155,23 +142,6 @@ public class LoginMenuUsuarioViewController {
             return true;
         }
         return false;
-    }
-
-    /**
-     * Metodo para verificar si un texto es un dato de tipo Integer
-     * @param text Texto de tipo String
-     * @return Booleano sobre si cumpleo o no con la condicion
-     */
-    private boolean isInteger(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Integer.parseInt(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 
     /**

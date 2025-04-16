@@ -5,19 +5,24 @@ import java.util.LinkedList;
 public class Categoria {
     private BilleteraVirtual billeteraVirtual;
     private int idCategoria;
+    private Usuario usuarioAsociado;
     private String nombre, descripcionOpcional;
-    private Presupuesto presupuesto;
+    private Presupuesto presupuestoAsignado;
     private LinkedList<Transaccion> listaTransacciones;
 
-    public Categoria() {}
+    public Categoria() {
+        this.listaTransacciones = new LinkedList<>();
+    }
 
-    public Categoria(int idCategoria, String nombre, String descripcionOpcional, BilleteraVirtual billeteraVirtual) {
+    public Categoria(int idCategoria, String nombre, String descripcionOpcional, Presupuesto presupuesto,
+                     Usuario usuario,BilleteraVirtual billeteraVirtual) {
         this.idCategoria = idCategoria;
         this.nombre = nombre;
-
-
+        this.usuarioAsociado = usuario;
+        this.presupuestoAsignado = presupuesto;
         this.descripcionOpcional = descripcionOpcional;
         this.billeteraVirtual = billeteraVirtual;
+        this.listaTransacciones = new LinkedList<>();
     }
 
     public BilleteraVirtual getBilleteraVirtual() {
@@ -60,11 +65,19 @@ public class Categoria {
         this.listaTransacciones = listaTransacciones;
     }
 
-    public Presupuesto getPresupuesto() {
-        return presupuesto;
+    public Usuario getUsuarioAsociado() {
+        return usuarioAsociado;
     }
 
-    public void setPresupuesto(Presupuesto presupuesto) {
-        this.presupuesto = presupuesto;
+    public void setUsuarioAsociado(Usuario usuarioAsociado) {
+        this.usuarioAsociado = usuarioAsociado;
+    }
+
+    public Presupuesto getPresupuestoAsignado() {
+        return presupuestoAsignado;
+    }
+
+    public void setPresupuestoAsignado(Presupuesto presupuestoAsignado) {
+        this.presupuestoAsignado = presupuestoAsignado;
     }
 }

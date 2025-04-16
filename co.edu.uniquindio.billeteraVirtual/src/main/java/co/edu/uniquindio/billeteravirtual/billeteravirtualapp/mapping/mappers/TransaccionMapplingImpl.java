@@ -35,7 +35,8 @@ public class TransaccionMapplingImpl implements ITransaccionMapping {
         return new TransaccionDto(transaccion.getIdTransaccion(), transaccion.getFecha(),
                 transaccion.getMonto(), transaccion.getDescripcionOpcional(), transaccion.getTipoTransaccion(),
                 transaccion.getUsuarioAsociado().getIdUsuario(), transaccion.getCuentaOrigen().getNumeroCuenta(),
-                transaccion.getCuentaDestino().getNumeroCuenta(), transaccion.getCategoriaTransaccion().getNombre());
+                mapNumeroCuenta(transaccion.getCuentaDestino()),
+                mapNombreCategoria(transaccion.getCategoriaTransaccion()));
     }
 
 
@@ -46,10 +47,22 @@ public class TransaccionMapplingImpl implements ITransaccionMapping {
                                                    Cuenta cuentaDestino) {
         return Transaccion.builder().billeteraVirtual(billeteraVirtual)
                 .idTransaccion(transaccionDto.idTransaccion())
-                .fecha(transaccionDto.fecha()).monto(transaccionDto.monto())
+                .fecha(transaccionDto.fecha())
+                .monto(transaccionDto.monto())
                 .descripcionOpcional(transaccionDto.descripcion())
-                .tipoTransaccion(transaccionDto.tipoTransaccion()).usuarioAsociado(usuarioAsociado)
+                .tipoTransaccion(transaccionDto.tipoTransaccion())
+                .usuarioAsociado(usuarioAsociado)
                 .categoriaTransaccion(categoria)
                 .cuentaOrigen(cuentaOrigen).cuentaDestino(cuentaDestino).build();
+    }
+
+    @Override
+    public String mapNumeroCuenta(Cuenta cuenta) {
+        return (cuenta != null) ? cuenta.getNumeroCuenta() : null;
+    }
+
+    @Override
+    public String mapNombreCategoria(Categoria categoria) {
+        return (categoria != null) ? categoria.getNombre() : null;
     }
 }

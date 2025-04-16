@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.GestionUsuariosController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.*;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -198,24 +200,14 @@ public class GestionUsuariosViewController {
     }
 
     private boolean verificarCamposLlenos() {
-        if (tf_correo.getText().isEmpty() || tf_telefono.getText().isEmpty() || tf_direccion.getText().isEmpty()
-        || tf_clave.getText().isEmpty() || tf_id.getText().isEmpty() || tf_nombre.getText().isEmpty()) {
-            return false;
-        }
-        return true;
+        return !tf_correo.getText().isEmpty() && !tf_telefono.getText().isEmpty() &&
+                !tf_direccion.getText().isEmpty() && !tf_clave.getText().isEmpty()
+                && !tf_id.getText().isEmpty() && !tf_nombre.getText().isEmpty();
     }
 
     private boolean verificarCamposCorrectos(){
-        if (isInteger(tf_clave.getText()) && isLong(tf_telefono.getText()) &&
-        isLong(tf_id.getText()) && esCorreoValido(tf_correo.getText())) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean esCorreoValido(String correo) {
-        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
-        return correo.matches(regex);
+        return isInteger(tf_clave.getText()) && isLong(tf_telefono.getText()) &&
+                isLong(tf_id.getText()) && esCorreoValido(tf_correo.getText());
     }
 
     private void mostrarInformacionUsuario(UsuarioDto usuario) {
@@ -269,50 +261,6 @@ public class GestionUsuariosViewController {
         tf_clave.clear();
         tf_id.clear();
         tf_nombre.clear();
-    }
-
-    private boolean isInteger(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Integer.parseInt(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private boolean isLong(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Long.parseLong(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(titulo);
-        alert.setHeaderText(header);
-        alert.setContentText(contenido);
-        alert.showAndWait();
-    }
-
-    private boolean mostrarMensajeConfirmacion(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmacion");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            return true;
-        }
-        return false;
     }
 
     @FXML

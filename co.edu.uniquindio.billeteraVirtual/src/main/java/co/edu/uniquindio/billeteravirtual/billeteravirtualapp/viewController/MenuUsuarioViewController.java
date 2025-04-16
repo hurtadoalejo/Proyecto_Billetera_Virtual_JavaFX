@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.MenuUsuarioController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 public class MenuUsuarioViewController {
 
     UsuarioDto usuario;
-    private MenuUsuarioController menuUsuarioController;
 
     @FXML
     private ResourceBundle resources;
@@ -71,6 +69,7 @@ public class MenuUsuarioViewController {
         cargarVistaEditarPerfil();
         cargarVistaGestionCuentasUsuario();
         cargarVistaGestionDinero();
+        cargarVistaGestionCategorias();
     }
 
     /**
@@ -85,7 +84,7 @@ public class MenuUsuarioViewController {
             } else if (newTab == tab_cuentas) {
                 cargarVistaGestionCuentasUsuario();
             } else if (newTab == tab_categorias) {
-                System.out.println();
+                cargarVistaGestionCategorias();
             } else if (newTab == tab_presupuestos) {
                 System.out.println();
             } else if (newTab == tab_transacciones) {
@@ -134,9 +133,21 @@ public class MenuUsuarioViewController {
         }
     }
 
+    private void cargarVistaGestionCategorias() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/GestionCategorias.fxml"));
+            AnchorPane nuevaVista = loader.load();
+            GestionCategoriasViewController viewController = loader.getController();
+            viewController.setUsuario(usuario);
+            sp_categorias.getItems().setAll(nuevaVista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     void initialize() {
-        menuUsuarioController = new MenuUsuarioController();
         configurarCambioDeTab();
         assert tab_editarPerfil != null : "fx:id=\"tab_editarPerfil\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
         assert tab_categorias != null : "fx:id=\"tab_categorias\" was not injected: check your FXML file 'MenuUsuario.fxml'.";

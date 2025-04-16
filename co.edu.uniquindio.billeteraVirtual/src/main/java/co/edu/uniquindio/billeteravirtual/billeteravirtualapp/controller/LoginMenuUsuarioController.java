@@ -2,7 +2,6 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory.ModelFactory;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
 
 public class LoginMenuUsuarioController {
     ModelFactory modelFactory;
@@ -30,6 +29,6 @@ public class LoginMenuUsuarioController {
      * @return UsuarioDto
      */
     public UsuarioDto obtenerUsuario(String id) {
-        return modelFactory.obtenerUsuario(id);
+        return modelFactory.obtenerUsuarioToUsuarioDto(id);
     }
 }

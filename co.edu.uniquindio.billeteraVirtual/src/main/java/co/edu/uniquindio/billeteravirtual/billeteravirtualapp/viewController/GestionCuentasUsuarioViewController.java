@@ -1,7 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.GestionCuentasUsuarioController;
@@ -17,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.*;
 
 public class GestionCuentasUsuarioViewController {
 
@@ -134,15 +134,18 @@ public class GestionCuentasUsuarioViewController {
                     mostrarMensaje(TITULO_CUENTA_AGREGADA, HEADER, BODY_CUENTA_AGREGADA, Alert.AlertType.INFORMATION);
                 }
                 else{
-                    mostrarMensaje(TITULO_CUENTA_NO_AGREGADA, HEADER, BODY_CUENTA_NO_AGREGADA, Alert.AlertType.ERROR);
+                    mostrarMensaje(TITULO_CUENTA_NO_AGREGADA, HEADER,
+                            BODY_CUENTA_NO_AGREGADA, Alert.AlertType.ERROR);
                 }
             }
             else{
-                mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
+                mostrarMensaje(TITULO_INCORRECTO, HEADER,
+                        BODY_INCORRECTO, Alert.AlertType.WARNING);
             }
         }
         else {
-            mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
+            mostrarMensaje(TITULO_INCOMPLETO, HEADER,
+                    BODY_INCOMPLETO, Alert.AlertType.WARNING);
         }
     }
 
@@ -157,22 +160,26 @@ public class GestionCuentasUsuarioViewController {
                         intercambiarCuentas(cuentaSeleccionada.idCuenta(), cuentaNueva);
                         limpiarSeleccion();
                         tb_cuentas.refresh();
-                        mostrarMensaje(TITULO_CUENTA_ACTUALIZADA, HEADER, BODY_CUENTA_ACTUALIZADA, Alert.AlertType.INFORMATION);
+                        mostrarMensaje(TITULO_CUENTA_ACTUALIZADA, HEADER,
+                                BODY_CUENTA_ACTUALIZADA, Alert.AlertType.INFORMATION);
                     }
                     else {
                         mostrarMensajeNoActualizarCuenta(cuentaSeleccionada);
                     }
                 }
                 else {
-                    mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
+                    mostrarMensaje(TITULO_INCORRECTO, HEADER,
+                            BODY_INCORRECTO, Alert.AlertType.WARNING);
                 }
             }
             else {
-                mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
+                mostrarMensaje(TITULO_INCOMPLETO, HEADER,
+                        BODY_INCOMPLETO, Alert.AlertType.WARNING);
             }
         }
         else {
-            mostrarMensaje(TITULO_CUENTA_NO_SELECCIONADA, HEADER, BODY_CUENTA_NO_SELECCIONADA, Alert.AlertType.WARNING);
+            mostrarMensaje(TITULO_CUENTA_NO_SELECCIONADA, HEADER,
+                    BODY_CUENTA_NO_SELECCIONADA, Alert.AlertType.WARNING);
         }
     }
 
@@ -181,11 +188,13 @@ public class GestionCuentasUsuarioViewController {
         String numCuenta = tf_numeroCuenta.getText();
         if (gestionCuentasUsuarioController.verificarCuentaId(idCuenta)
                 && cuenta.idCuenta() != idCuenta) {
-            mostrarMensaje(TITULO_CUENTA_NO_ACTUALIZADA, HEADER, BODY_CUENTA_NO_ACTUALIZADA_ID, Alert.AlertType.ERROR);
+            mostrarMensaje(TITULO_CUENTA_NO_ACTUALIZADA, HEADER,
+                    BODY_CUENTA_NO_ACTUALIZADA_ID, Alert.AlertType.ERROR);
         }
         if (gestionCuentasUsuarioController.verificarCuentaNumCuenta(numCuenta)
                 && !cuenta.numCuenta().equals(numCuenta)) {
-            mostrarMensaje(TITULO_CUENTA_NO_ACTUALIZADA, HEADER, BODY_CUENTA_NO_ACTUALIZADA_NUM_CUENTA, Alert.AlertType.ERROR);
+            mostrarMensaje(TITULO_CUENTA_NO_ACTUALIZADA, HEADER,
+                    BODY_CUENTA_NO_ACTUALIZADA_NUM_CUENTA, Alert.AlertType.ERROR);
         }
     }
 
@@ -214,18 +223,12 @@ public class GestionCuentasUsuarioViewController {
     }
 
     private boolean verificarCamposLlenos() {
-        if (tf_numeroCuenta.getText().isEmpty() || tf_idCuenta.getText().isEmpty()
-                || tf_nombreBanco.getText().isEmpty() || cb_tipoCuenta.getSelectionModel().isEmpty()) {
-            return false;
-        }
-        return true;
+        return !tf_numeroCuenta.getText().isEmpty() && !tf_idCuenta.getText().isEmpty()
+                && !tf_nombreBanco.getText().isEmpty() && !cb_tipoCuenta.getSelectionModel().isEmpty();
     }
 
     private boolean verificarCamposCorrectos(){
-        if (isInteger(tf_idCuenta.getText()) && isLong(tf_numeroCuenta.getText())) {
-            return true;
-        }
-        return false;
+        return isInteger(tf_idCuenta.getText()) && isLong(tf_numeroCuenta.getText());
     }
 
     private void mostrarInformacionCuenta(CuentaDto cuenta) {
@@ -274,50 +277,6 @@ public class GestionCuentasUsuarioViewController {
         tf_idCuenta.clear();
         tf_nombreBanco.clear();
         cb_tipoCuenta.getSelectionModel().clearSelection();
-    }
-
-    private boolean isInteger(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Integer.parseInt(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private boolean isLong(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Long.parseLong(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(titulo);
-        alert.setHeaderText(header);
-        alert.setContentText(contenido);
-        alert.showAndWait();
-    }
-
-    private boolean mostrarMensajeConfirmacion(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmacion");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            return true;
-        }
-        return false;
     }
 
     @FXML

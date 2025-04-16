@@ -12,6 +12,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.*;
 
 public class GestionDineroViewController {
 
@@ -107,14 +108,6 @@ public class GestionDineroViewController {
                 obtenerCategoriasNombresDeUsuario(usuario.idUsuario()));
     }
 
-    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(titulo);
-        alert.setHeaderText(header);
-        alert.setContentText(contenido);
-        alert.showAndWait();
-    }
-
     private void realizarMovimiento() {
         if (verificarCamposLlenos()) {
             if (verificarCamposCorrectos()) {
@@ -131,11 +124,11 @@ public class GestionDineroViewController {
                 }
             }
             else {
-                mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.INFORMATION);
+                mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
             }
         }
         else {
-            mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.INFORMATION);
+            mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
         }
     }
 
@@ -265,30 +258,6 @@ public class GestionDineroViewController {
             return true;
         }
         return false;
-    }
-
-    private boolean isDouble(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Double.parseDouble(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private boolean isLong(String text){
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        try {
-            Long.parseLong(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 
     @FXML

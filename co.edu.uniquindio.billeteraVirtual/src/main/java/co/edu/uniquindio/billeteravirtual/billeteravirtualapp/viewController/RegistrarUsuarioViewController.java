@@ -13,6 +13,8 @@ import javafx.scene.layout.AnchorPane;
 
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.BODY_INCOMPLETO;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.esCorreoValido;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.mostrarMensaje;
 
 public class RegistrarUsuarioViewController {
 
@@ -144,11 +146,6 @@ public class RegistrarUsuarioViewController {
         return false;
     }
 
-    public static boolean esCorreoValido(String correo) {
-        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
-        return correo.matches(regex);
-    }
-
     private void limpiarCamposTexto() {
         tf_correo.clear();
         tf_telefono.clear();
@@ -180,14 +177,6 @@ public class RegistrarUsuarioViewController {
         } catch (NumberFormatException e) {
             return false;
         }
-    }
-
-    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(titulo);
-        alert.setHeaderText(header);
-        alert.setContentText(contenido);
-        alert.showAndWait();
     }
 
     @FXML

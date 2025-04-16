@@ -70,6 +70,7 @@ public class MenuUsuarioViewController {
         cargarVistaGestionCuentasUsuario();
         cargarVistaGestionDinero();
         cargarVistaGestionCategorias();
+        cargarVistaGestionPresupuestos();
     }
 
     /**
@@ -86,7 +87,7 @@ public class MenuUsuarioViewController {
             } else if (newTab == tab_categorias) {
                 cargarVistaGestionCategorias();
             } else if (newTab == tab_presupuestos) {
-                System.out.println();
+                cargarVistaGestionPresupuestos();
             } else if (newTab == tab_transacciones) {
                 System.out.println();
             }
@@ -98,10 +99,23 @@ public class MenuUsuarioViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
                     "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/EditarPerfil.fxml"));
             AnchorPane nuevaVista = loader.load();
-            EditarPerfilViewController editarPerfilViewController = loader.getController();
-            editarPerfilViewController.setUsuario(usuario);
-            editarPerfilViewController.setControladorPadre(this);
+            EditarPerfilViewController viewController = loader.getController();
+            viewController.setUsuario(usuario);
+            viewController.setControladorPadre(this);
             sp_editarPerfil.getItems().setAll(nuevaVista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cargarVistaGestionPresupuestos() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/GestionPresupuestos.fxml"));
+            AnchorPane nuevaVista = loader.load();
+            GestionPresupuestosViewController viewController = loader.getController();
+            viewController.setUsuario(usuario);
+            sp_presupuestos.getItems().setAll(nuevaVista);
         } catch (IOException e) {
             e.printStackTrace();
         }

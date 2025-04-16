@@ -5,6 +5,8 @@ import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.HEADER;
+
 public class MetodosReutilizables {
 
     public static boolean mostrarMensajeConfirmacion(String mensaje) {
@@ -19,10 +21,10 @@ public class MetodosReutilizables {
         return false;
     }
 
-    public static void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
+    public static void mostrarMensaje(String titulo, String contenido, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(titulo);
-        alert.setHeaderText("Notificacion");
+        alert.setHeaderText(HEADER);
         alert.setContentText(contenido);
         alert.showAndWait();
     }
@@ -32,8 +34,8 @@ public class MetodosReutilizables {
             return false;
         }
         try {
-            Integer.parseInt(text);
-            return true;
+            int numero = Integer.parseInt(text);
+            return numero > 0;
         } catch (NumberFormatException e) {
             return false;
         }
@@ -44,8 +46,8 @@ public class MetodosReutilizables {
             return false;
         }
         try {
-            Long.parseLong(text);
-            return true;
+            long numero = Long.parseLong(text);
+            return numero > 0;
         } catch (NumberFormatException e) {
             return false;
         }
@@ -56,8 +58,8 @@ public class MetodosReutilizables {
             return false;
         }
         try {
-            Double.parseDouble(text);
-            return true;
+            double numero = Double.parseDouble(text);
+            return numero > 0;
         } catch (NumberFormatException e) {
             return false;
         }

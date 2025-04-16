@@ -13,7 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.isInteger;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.*;
 
 public class GestionCategoriasViewController {
 
@@ -44,9 +45,6 @@ public class GestionCategoriasViewController {
     private Label lb_nombreCategoria;
 
     @FXML
-    private Label lb_presupuestoAsignado;
-
-    @FXML
     private Button bt_nuevo;
 
     @FXML
@@ -72,9 +70,6 @@ public class GestionCategoriasViewController {
 
     @FXML
     private Button bt_limpiar;
-
-    @FXML
-    private ComboBox<String> cb_presupuestoAsignado;
 
     @FXML
     private TableColumn<CategoriaDto, String> cl_presupuestoAsignado;
@@ -105,13 +100,11 @@ public class GestionCategoriasViewController {
     public void setUsuario(UsuarioDto usuario) {
         this.usuario = usuario;
         initView();
-        cb_presupuestoAsignado.getItems().
-                addAll(gestionCategoriasController.obtenerPresupuestosNombres(usuario.idUsuario()));
     }
 
     private CategoriaDto crearCategoria() {
         return new CategoriaDto(Integer.parseInt(tf_idCategoria.getText()), usuario.idUsuario(),
-                tf_nombreCategoria.getText(), tf_descripcion.getText(), cb_presupuestoAsignado.getValue());
+                tf_nombreCategoria.getText(), tf_descripcion.getText(), null);
     }
 
     private void agregarCategoria() {
@@ -122,8 +115,18 @@ public class GestionCategoriasViewController {
                     listaCategorias.add(categoria);
                     tb_categorias.refresh();
                     limpiarSeleccion();
+                    mostrarMensaje(TITULO_CATEGORIA_AGREGADA, BODY_CATEGORIA_AGREGADA, Alert.AlertType.INFORMATION);
+                }
+                else {
+                    mostrarMensaje(TITULO_CATEGORIA_NO_AGREGADA, BODY_CATEGORIA_NO_AGREGADA, Alert.AlertType.ERROR);
                 }
             }
+            else {
+                mostrarMensaje(TITULO_INCORRECTO, BODY_INCORRECTO, Alert.AlertType.WARNING);
+            }
+        }
+        else {
+            mostrarMensaje(TITULO_CATEGORIA_NO_AGREGADA, BODY_CATEGORIA_NO_AGREGADA, Alert.AlertType.WARNING);
         }
     }
 
@@ -137,19 +140,43 @@ public class GestionCategoriasViewController {
                         intercambiarCategorias(categoriaSeleccionada.idCategoria(), categoriaNueva);
                         limpiarSeleccion();
                         tb_categorias.refresh();
+                        mostrarMensaje(TITULO_CATEGORIA_ACTUALIZADA,
+                                BODY_CATEGORIA_ACTUALIZADA, Alert.AlertType.INFORMATION);
+                    }
+                    else {
+                        mostrarMensaje(TITULO_CATEGORIA_NO_ACTUALIZADA,
+                                BODY_CATEGORIA_NO_ACTUALIZADA, Alert.AlertType.ERROR);
                     }
                 }
+                else {
+                    mostrarMensaje(TITULO_INCORRECTO, BODY_INCORRECTO, Alert.AlertType.WARNING);
+                }
+            }
+            else {
+                mostrarMensaje(TITULO_CATEGORIA_NO_AGREGADA,
+                        BODY_CATEGORIA_NO_AGREGADA, Alert.AlertType.WARNING);
             }
         }
+        else {
+            mostrarMensaje(TITULO_CATEGORIA_NO_SELECCIONADA,
+                    BODY_CATEGORIA_NO_SELECCIONADA, Alert.AlertType.WARNING);
+        }
     }
-    //mostrarMensajeConfirmacion()
+
+
     private void eliminarCategoria() {
         if (categoriaSeleccionada != null) {
-            if (gestionCategoriasController.
-                    eliminarCategoria(usuario.idUsuario(), categoriaSeleccionada.idCategoria())) {
+            if (mostrarMensajeConfirmacion(BODY_CONFIRMACION_ELIMINAR_CATEGORIA) &&
+                    gestionCategoriasController.
+                            eliminarCategoria(usuario.idUsuario(), categoriaSeleccionada.idCategoria())) {
                 listaCategorias.remove(categoriaSeleccionada);
                 limpiarSeleccion();
+                mostrarMensaje(TITULO_CATEGORIA_ELIMINADA, BODY_CATEGORIA_ELIMINADA, Alert.AlertType.INFORMATION);
             }
+        }
+        else {
+            mostrarMensaje(TITULO_CATEGORIA_NO_SELECCIONADA,
+                    BODY_CATEGORIA_NO_SELECCIONADA, Alert.AlertType.WARNING);
         }
     }
 
@@ -176,7 +203,6 @@ public class GestionCategoriasViewController {
             tf_nombreCategoria.setText(categoria.nombre());
             tf_descripcion.setText(categoria.descripcion());
             tf_idCategoria.setText(String.valueOf(categoria.idCategoria()));
-            cb_presupuestoAsignado.getSelectionModel().select(categoria.nombrePresupuesto());
         }
     }
 
@@ -215,20 +241,16 @@ public class GestionCategoriasViewController {
         tf_nombreCategoria.clear();
         tf_idCategoria.clear();
         tf_descripcion.clear();
-        cb_presupuestoAsignado.getSelectionModel().select(0);
     }
 
     @FXML
     void initialize() {
         gestionCategoriasController = new GestionCategoriasController();
-        cb_presupuestoAsignado.getItems().add("Sin presupuesto asignado");
-        cb_presupuestoAsignado.getSelectionModel().select(0);
         assert bt_eliminar != null : "fx:id=\"bt_eliminar\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
         assert tf_nombreCategoria != null : "fx:id=\"tf_nombreCategoria\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
         assert lb_idCategoria != null : "fx:id=\"lb_idCategoria\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
         assert bt_actualizar != null : "fx:id=\"bt_actualizar\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
         assert lb_nombreCategoria != null : "fx:id=\"lb_nombreCategoria\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert lb_presupuestoAsignado != null : "fx:id=\"lb_presupuestoAsignado\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
         assert bt_nuevo != null : "fx:id=\"bt_nuevo\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
         assert tf_descripcion != null : "fx:id=\"tf_descripcion\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
         assert tf_idCategoria != null : "fx:id=\"tf_idCategoria\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
@@ -238,7 +260,6 @@ public class GestionCategoriasViewController {
         assert cl_nombre != null : "fx:id=\"cl_nombre\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
         assert lb_descripcion != null : "fx:id=\"lb_descripcion\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
         assert bt_limpiar != null : "fx:id=\"bt_limpiar\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert cb_presupuestoAsignado != null : "fx:id=\"cb_presupuestoAsignado\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
         assert cl_presupuestoAsignado != null : "fx:id=\"cl_presupuestoAsignado\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
         assert cl_idCategoria != null : "fx:id=\"cl_idCategoria\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
 

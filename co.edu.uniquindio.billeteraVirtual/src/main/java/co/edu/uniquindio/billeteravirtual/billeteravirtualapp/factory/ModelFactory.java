@@ -1,13 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory;
 
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.CategoriaDto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.CuentaDto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.CategoriaMappingImpl;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.CuentaMappingImpl;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.TransaccionMapplingImpl;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.UsuarioMappingImpl;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.*;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.DataUtil;
@@ -22,6 +16,7 @@ public class ModelFactory implements IModelFactoryService {
     private ICuentaMapping cuentaMapper;
     private ITransaccionMapping transaccionMapper;
     private ICategoriaMapping categoriaMapper;
+    private IPresupuestoMapping presupuestoMapper;
 
     /**
      * Metodo para obtener la instancia unica de la clase ModelFactory
@@ -42,6 +37,7 @@ public class ModelFactory implements IModelFactoryService {
         cuentaMapper = new CuentaMappingImpl();
         transaccionMapper = new TransaccionMapplingImpl();
         categoriaMapper = new CategoriaMappingImpl();
+        presupuestoMapper = new PresupuestoMappingImpl();
         billeteraVirtual = DataUtil.inicializarDatos();
         administrador = billeteraVirtual.getAdministrador();
     }
@@ -60,7 +56,7 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean agregarUsuario(UsuarioDto usuario) {
-        return administrador.agregarUsuario(usuarioMapper.usuarioDtoToUsuario(usuario, billeteraVirtual));
+        return administrador.agregarUsuario(usuarioDtoToUsuario(usuario));
     }
 
     public boolean eliminarUsuario(String id) {
@@ -68,7 +64,7 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean actualizarUsuario(String id, UsuarioDto usuarioNuevo) {
-        return administrador.actualizarUsuario(id, usuarioMapper.usuarioDtoToUsuario(usuarioNuevo, billeteraVirtual));
+        return administrador.actualizarUsuario(id, usuarioDtoToUsuario(usuarioNuevo));
     }
 
     public UsuarioDto obtenerUsuarioToUsuarioDto(String id) {
@@ -81,8 +77,7 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean agregarCuenta(CuentaDto cuenta) {
-        return administrador.agregarCuenta(cuentaMapper.cuentaDtoToCuenta(cuenta, billeteraVirtual,
-                        obtenerUsuario(cuenta.idUsuarioAsociado())));
+        return administrador.agregarCuenta(cuentaDtoToCuenta(cuenta));
     }
 
     public boolean eliminarCuenta(int idCuenta, String numCuenta) {
@@ -90,11 +85,8 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean actualizarCuenta(CuentaDto cuentaVieja, CuentaDto cuentaNueva) {
-        return administrador.actualizarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaVieja, billeteraVirtual,
-                        obtenerUsuario(cuentaVieja.idUsuarioAsociado())),
-                cuentaVieja.idUsuarioAsociado(), cuentaNueva.idUsuarioAsociado(),
-                cuentaMapper.cuentaDtoToCuenta(cuentaNueva, billeteraVirtual,
-                        obtenerUsuario(cuentaNueva.idUsuarioAsociado())));
+        return administrador.actualizarCuenta(cuentaDtoToCuenta(cuentaVieja), cuentaVieja.idUsuarioAsociado(),
+                cuentaNueva.idUsuarioAsociado(), cuentaDtoToCuenta(cuentaNueva));
     }
 
     public LinkedList<String> obtenerUsuariosId() {
@@ -110,17 +102,12 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean agregarCuentaUsuario(String idUsuario, CuentaDto cuentaDto) {
-        return obtenerUsuario(idUsuario).
-                agregarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaDto, billeteraVirtual,
-                        obtenerUsuario(idUsuario)));
+        return obtenerUsuario(idUsuario).agregarCuenta(cuentaDtoToCuenta(cuentaDto));
     }
 
     public boolean actualizarCuentaUsuario(String idUsuario, CuentaDto cuentaVieja, CuentaDto cuentaNueva) {
-        return obtenerUsuario(idUsuario).
-                actualizarCuenta(cuentaMapper.cuentaDtoToCuenta(cuentaVieja, billeteraVirtual,
-                                obtenerUsuario(idUsuario)),
-                        cuentaMapper.cuentaDtoToCuenta(cuentaNueva, billeteraVirtual,
-                                obtenerUsuario(idUsuario)));
+        return obtenerUsuario(idUsuario).actualizarCuenta(cuentaDtoToCuenta(cuentaVieja),
+                cuentaDtoToCuenta(cuentaNueva));
     }
 
     public boolean eliminarCuentaUsuario(String idUsuario, int idCuenta, String numCuenta) {
@@ -145,20 +132,12 @@ public class ModelFactory implements IModelFactoryService {
 
     public boolean agregarTransaccion(TransaccionDto transaccion, String idUsuario) {
         return obtenerUsuario(idUsuario).
-                agregarTransaccion(transaccionDtoToTransaccion(transaccion, idUsuario));
+                agregarTransaccion(transaccionDtoToTransaccion(transaccion));
     }
 
     public boolean saldoCuentaEsSuficiente(TransaccionDto transaccion, String idUsuario) {
         return obtenerUsuario(idUsuario).
-                saldoCuentaEsSuficiente(transaccionDtoToTransaccion(transaccion, idUsuario));
-    }
-
-    private Transaccion transaccionDtoToTransaccion(TransaccionDto transaccion, String idUsuario){
-        return transaccionMapper.transaccionDtoToTransaccion(transaccion, billeteraVirtual,
-                obtenerUsuario(idUsuario),
-                obtenerCategoriaPorNombre(transaccion.nombreCategoria()),
-                obtenerCuentaNumCuenta(transaccion.numCuentaOrigen()),
-                obtenerCuentaNumCuenta(transaccion.numCuentaDestino()));
+                saldoCuentaEsSuficiente(transaccionDtoToTransaccion(transaccion));
     }
 
     public boolean cuentasExisten(String numCuentaOrigen, String numCuentaDestino) {
@@ -167,9 +146,7 @@ public class ModelFactory implements IModelFactoryService {
 
     public boolean agregarCategoria(CategoriaDto categoria, String idUsuario) {
         return obtenerUsuario(idUsuario).
-                agregarCategoria(categoriaMapper.categoriaDtoToCategoria(categoria, billeteraVirtual,
-                        obtenerUsuario(idUsuario),
-                        obtenerPresupuestoNombre(categoria.nombrePresupuesto(), idUsuario)));
+                agregarCategoria(categoriaDtoToCategoria(categoria));
     }
 
     public boolean eliminarCategoria(String idUsuario, int idCategoria) {
@@ -177,8 +154,7 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public boolean actualizarCategoria(String idUsuario, int idCategoria, CategoriaDto nuevaCategoria){
-        return obtenerUsuario(idUsuario).actualizarCategoria(idCategoria, categoriaMapper.categoriaDtoToCategoria(nuevaCategoria, billeteraVirtual, obtenerUsuario(idUsuario),
-                obtenerPresupuestoNombre(nuevaCategoria.nombrePresupuesto(), idUsuario)));
+        return obtenerUsuario(idUsuario).actualizarCategoria(idCategoria, categoriaDtoToCategoria(nuevaCategoria));
     }
 
     private Usuario obtenerUsuario(String idUsuario) {
@@ -189,16 +165,16 @@ public class ModelFactory implements IModelFactoryService {
         return billeteraVirtual.obtenerCategoria(idCategoria);
     }
 
+    private Categoria obtenerCategoriaPorNombre(String nombreCategoria) {
+        return billeteraVirtual.obtenerCategoriaPorNombre(nombreCategoria);
+    }
+
     private Presupuesto obtenerPresupuesto(int idPresupuesto) {
         return billeteraVirtual.obtenerPresupuesto(idPresupuesto);
     }
 
     private Presupuesto obtenerPresupuestoNombre(String nombrePresupuesto, String idUsuario) {
         return obtenerUsuario(idUsuario).obtenerPresupuestoNombre(nombrePresupuesto);
-    }
-
-    private Categoria obtenerCategoriaPorNombre(String nombreCategoria) {
-        return billeteraVirtual.obtenerCategoriaPorNombre(nombreCategoria);
     }
 
     private Cuenta obtenerCuentaNumCuenta(String numCuenta) {
@@ -212,5 +188,61 @@ public class ModelFactory implements IModelFactoryService {
 
     public LinkedList<String> obtenerPresupuestosNombres(String idUsuario) {
         return obtenerUsuario(idUsuario).obtenerPresupuestosNombres();
+    }
+
+    public boolean transaccionPasaPresupuesto(String idUsuario, TransaccionDto transaccion,
+                                              String nombrePresupuesto) {
+        return obtenerUsuario(idUsuario).transaccionPasaPresupuesto(transaccionDtoToTransaccion(transaccion),
+                obtenerPresupuestoNombre(nombrePresupuesto, idUsuario));
+    }
+
+    public boolean agregarPresupuesto(PresupuestoDto presupuestoDto) {
+        return obtenerUsuario(presupuestoDto.idUsuario())
+                .agregarPresupuesto(presupuestoDtoToPresupuesto(presupuestoDto));
+    }
+
+    public boolean eliminarPresupuesto(int idPresupuesto, String idUsuario) {
+        return obtenerUsuario(idUsuario).eliminarPresupuesto(idPresupuesto);
+    }
+
+    public boolean actualizarPresupuesto(int idPresupuestoViejo, PresupuestoDto presupuestoDto) {
+        return obtenerUsuario(presupuestoDto.idUsuario())
+                .actualizarPresupuesto(idPresupuestoViejo, presupuestoDtoToPresupuesto(presupuestoDto));
+    }
+
+    private Usuario usuarioDtoToUsuario(UsuarioDto usuarioDto) {
+        return usuarioMapper.usuarioDtoToUsuario(usuarioDto, billeteraVirtual);
+    }
+
+    private Cuenta cuentaDtoToCuenta(CuentaDto cuentaDto) {
+        return cuentaMapper.cuentaDtoToCuenta(cuentaDto, billeteraVirtual,
+                obtenerUsuario(cuentaDto.idUsuarioAsociado()));
+    }
+
+    private Transaccion transaccionDtoToTransaccion(TransaccionDto transaccion){
+        return transaccionMapper.transaccionDtoToTransaccion(transaccion, billeteraVirtual,
+                obtenerUsuario(transaccion.idUsuario()),
+                obtenerCategoriaPorNombre(transaccion.nombreCategoria()),
+                obtenerCuentaNumCuenta(transaccion.numCuentaOrigen()),
+                obtenerCuentaNumCuenta(transaccion.numCuentaDestino()));
+    }
+
+    private Categoria categoriaDtoToCategoria(CategoriaDto categoriaDto) {
+        return categoriaMapper.categoriaDtoToCategoria(categoriaDto, billeteraVirtual,
+                obtenerUsuario(categoriaDto.idUsuario()));
+    }
+
+    private Presupuesto presupuestoDtoToPresupuesto(PresupuestoDto presupuestoDto) {
+        return presupuestoMapper.presupuestoDtoToPresupuesto(presupuestoDto, billeteraVirtual,
+                obtenerUsuario(presupuestoDto.idUsuario()),
+                obtenerCategoriaPorNombre(presupuestoDto.nombreCategoria()));
+    }
+
+    public LinkedList<PresupuestoDto> obtenerPresupuestos(String idUsuario) {
+        return presupuestoMapper.getPresupuestosDto(obtenerUsuario(idUsuario).getListaPresupuestos());
+    }
+
+    public boolean verificarDisponibilidadCategoria(String nombreCategoria, String idUsuario) {
+        return obtenerUsuario(idUsuario).verificarDisponibilidadCategoria(nombreCategoria);
     }
 }

@@ -132,18 +132,18 @@ public class GestionCuentasViewController {
                     listaCuentas.add(cuenta);
                     tb_cuentas.refresh();
                     limpiarSeleccion();
-                    mostrarMensaje(TITULO_CUENTA_AGREGADA, HEADER, BODY_CUENTA_AGREGADA, Alert.AlertType.INFORMATION);
+                    mostrarMensaje(TITULO_CUENTA_AGREGADA, BODY_CUENTA_AGREGADA, Alert.AlertType.INFORMATION);
                 }
                 else{
-                    mostrarMensaje(TITULO_CUENTA_NO_AGREGADA, HEADER, BODY_CUENTA_NO_AGREGADA, Alert.AlertType.ERROR);
+                    mostrarMensaje(TITULO_CUENTA_NO_AGREGADA, BODY_CUENTA_NO_AGREGADA, Alert.AlertType.ERROR);
                 }
             }
             else{
-                mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
+                mostrarMensaje(TITULO_INCORRECTO, BODY_INCORRECTO, Alert.AlertType.WARNING);
             }
         }
         else {
-            mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
+            mostrarMensaje(TITULO_INCOMPLETO, BODY_INCOMPLETO, Alert.AlertType.WARNING);
         }
     }
 
@@ -156,22 +156,22 @@ public class GestionCuentasViewController {
                         intercambiarCuentas(cuentaSeleccionada.idCuenta(), cuentaNueva);
                         limpiarSeleccion();
                         tb_cuentas.refresh();
-                        mostrarMensaje(TITULO_CUENTA_ACTUALIZADA, HEADER, BODY_CUENTA_ACTUALIZADA, Alert.AlertType.INFORMATION);
+                        mostrarMensaje(TITULO_CUENTA_ACTUALIZADA, BODY_CUENTA_ACTUALIZADA, Alert.AlertType.INFORMATION);
                     }
                     else {
                         mostrarMensajeNoActualizarCuenta(cuentaSeleccionada);
                     }
                 }
                 else {
-                    mostrarMensaje(TITULO_INCORRECTO, HEADER, BODY_INCORRECTO, Alert.AlertType.WARNING);
+                    mostrarMensaje(TITULO_INCORRECTO, BODY_INCORRECTO, Alert.AlertType.WARNING);
                 }
             }
             else {
-                mostrarMensaje(TITULO_INCOMPLETO, HEADER, BODY_INCOMPLETO, Alert.AlertType.WARNING);
+                mostrarMensaje(TITULO_INCOMPLETO, BODY_INCOMPLETO, Alert.AlertType.WARNING);
             }
         }
         else {
-            mostrarMensaje(TITULO_CUENTA_NO_SELECCIONADA, HEADER, BODY_CUENTA_NO_SELECCIONADA, Alert.AlertType.WARNING);
+            mostrarMensaje(TITULO_CUENTA_NO_SELECCIONADA, BODY_CUENTA_NO_SELECCIONADA, Alert.AlertType.WARNING);
         }
     }
 
@@ -180,11 +180,11 @@ public class GestionCuentasViewController {
         String numCuenta = tf_numeroCuenta.getText();
         if (gestionCuentasController.verificarCuentaId(idCuenta)
         && cuenta.idCuenta() != idCuenta) {
-            mostrarMensaje(TITULO_CUENTA_NO_ACTUALIZADA, HEADER, BODY_CUENTA_NO_ACTUALIZADA_ID, Alert.AlertType.ERROR);
+            mostrarMensaje(TITULO_CUENTA_NO_ACTUALIZADA, BODY_CUENTA_NO_ACTUALIZADA_ID, Alert.AlertType.ERROR);
         }
         if (gestionCuentasController.verificarCuentaNumCuenta(numCuenta)
                 && !cuenta.numCuenta().equals(numCuenta)) {
-            mostrarMensaje(TITULO_CUENTA_NO_ACTUALIZADA, HEADER, BODY_CUENTA_NO_ACTUALIZADA_NUM_CUENTA, Alert.AlertType.ERROR);
+            mostrarMensaje(TITULO_CUENTA_NO_ACTUALIZADA, BODY_CUENTA_NO_ACTUALIZADA_NUM_CUENTA, Alert.AlertType.ERROR);
         }
     }
 
@@ -203,11 +203,11 @@ public class GestionCuentasViewController {
                     gestionCuentasController.eliminarCuenta(cuentaSeleccionada.idCuenta(), cuentaSeleccionada.numCuenta())) {
                 listaCuentas.remove(cuentaSeleccionada);
                 limpiarSeleccion();
-                mostrarMensaje(TITULO_CUENTA_ELIMINADA, HEADER, BODY_CUENTA_ELIMINADA, Alert.AlertType.INFORMATION);
+                mostrarMensaje(TITULO_CUENTA_ELIMINADA, BODY_CUENTA_ELIMINADA, Alert.AlertType.INFORMATION);
             }
         }
         else {
-            mostrarMensaje(TITULO_CUENTA_NO_SELECCIONADA, HEADER, BODY_CUENTA_NO_SELECCIONADA, Alert.AlertType.WARNING);
+            mostrarMensaje(TITULO_CUENTA_NO_SELECCIONADA, BODY_CUENTA_NO_SELECCIONADA, Alert.AlertType.WARNING);
         }
     }
 

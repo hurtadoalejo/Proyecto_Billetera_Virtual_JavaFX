@@ -155,10 +155,22 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
                 else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.RETIRO)){
                     retirarDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta());
                 }
+                actualizarMontoGastadoPresupuesto(transaccion);
                 return true;
             }
         }
         return false;
+    }
+
+    private void actualizarMontoGastadoPresupuesto(Transaccion transaccion) {
+        if (!transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)){
+            Categoria categoria = transaccion.getCategoriaTransaccion();
+            if (categoria != null){
+                if (categoria.getPresupuestoAsignado() != null){
+                    categoria.getPresupuestoAsignado().aumentarMontoGastado(transaccion.getMonto());
+                }
+            }
+        }
     }
 
     @Override
@@ -223,19 +235,24 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
     }
 
     private boolean esTransaccionPosible(Transaccion transaccion) {
-        Categoria categoria = transaccion.getCategoriaTransaccion();
-        if (categoria != null) {
-            Presupuesto presupuesto = categoria.getPresupuestoAsignado();
-            if (presupuesto != null) {
-                return transaccionPasaPrespuesto(transaccion.getMonto(), presupuesto);
+        if (!transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)){
+            Categoria categoria = transaccion.getCategoriaTransaccion();
+            if (categoria != null) {
+                Presupuesto presupuesto = categoria.getPresupuestoAsignado();
+                if (presupuesto != null) {
+                    return transaccionPasaPresupuesto(transaccion, presupuesto);
+                }
             }
         }
         return true;
     }
 
-    private boolean transaccionPasaPrespuesto(Double montoTransaccion, Presupuesto presupuesto) {
-        double montoGastadoFuturo = montoTransaccion + presupuesto.getMontoGastado();
-        return montoGastadoFuturo <= presupuesto.getMontoTotalAsignado();
+    public boolean transaccionPasaPresupuesto(Transaccion transaccion, Presupuesto presupuesto) {
+        if (presupuesto != null) {
+            double montoGastadoFuturo = transaccion.getMonto() + presupuesto.getMontoGastado();
+            return montoGastadoFuturo <= presupuesto.getMontoTotalAsignado();
+        }
+        return true;
     }
 
     public boolean saldoCuentaEsSuficiente(Transaccion transaccion) {
@@ -255,8 +272,26 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
 
     private Categoria obtenerCategoria(Categoria categoria) {
         for (Categoria categoriaTemporal : listaCategorias){
-            if (categoriaTemporal.getNombre().equals(categoria.getNombre()) &&
+            if (categoriaTemporal.getNombre().equals(categoria.getNombre()) ||
             categoriaTemporal.getIdCategoria() == categoria.getIdCategoria()) {
+                return categoria;
+            }
+        }
+        return null;
+    }
+
+    private Categoria obtenerCategoria(int idCategoria) {
+        for (Categoria categoria : listaCategorias){
+            if (categoria.getIdCategoria() == idCategoria){
+                return categoria;
+            }
+        }
+        return null;
+    }
+
+    private Categoria obtenerCategoria(String nombreCategoria) {
+        for (Categoria categoria : listaCategorias){
+            if (categoria.getNombre().equalsIgnoreCase(nombreCategoria)){
                 return categoria;
             }
         }
@@ -268,7 +303,60 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
     }
 
     public boolean actualizarCategoria(int idCategoriaVieja, Categoria nuevaCategoria) {
-        return billeteraVirtual.actualizarCategoria(idCategoriaVieja, nuevaCategoria);
+        if (verificarActualizacionCategoria(idCategoriaVieja, nuevaCategoria)) {
+            return billeteraVirtual.actualizarCategoria(idCategoriaVieja, nuevaCategoria);
+        }
+        return false;
+    }
+
+    public boolean verificarActualizacionCategoria(int idCategoriaVieja, Categoria nuevaCategoria) {
+        Categoria categoriaVieja = obtenerCategoria(idCategoriaVieja);
+        if (categoriaVieja != null) {
+            if (obtenerCategoria(nuevaCategoria.getNombre()) == null ||
+                    categoriaVieja.getNombre().equalsIgnoreCase(nuevaCategoria.getNombre())) {
+                return obtenerCategoria(nuevaCategoria.getIdCategoria()) == null ||
+                        categoriaVieja.getIdCategoria() == nuevaCategoria.getIdCategoria();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public boolean agregarPresupuesto(Presupuesto presupuesto) {
+        if (obtenerPresupuesto(presupuesto.getIdPresupuesto()) == null &&
+                verificarDisponibilidadCategoria(presupuesto.getCategoriaPresupuesto().getNombre())) {
+            if (billeteraVirtual.agregarPresupuesto(presupuesto)){
+                listaPresupuestos.add(presupuesto);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Presupuesto obtenerPresupuesto(int idPresupuesto) {
+        for (Presupuesto presupuesto : listaPresupuestos){
+            if (presupuesto.getIdPresupuesto() == idPresupuesto){
+                return presupuesto;
+            }
+        }
+        return null;
+    }
+
+    public boolean verificarDisponibilidadCategoria(String nombreCategoria){
+        for (Categoria categoria : listaCategorias){
+            if (categoria.getNombre().equalsIgnoreCase(nombreCategoria)){
+                return categoria.getPresupuestoAsignado() == null;
+            }
+        }
+        return false;
+    }
+
+    public boolean actualizarPresupuesto(int idPresupuestoViejo, Presupuesto presupuestoNuevo) {
+        return billeteraVirtual.actualizarPresupuesto(idPresupuestoViejo, presupuestoNuevo);
+    }
+
+    public boolean eliminarPresupuesto(int idPresupuesto) {
+        return billeteraVirtual.eliminarPresupuesto(idPresupuesto);
     }
 
     public Presupuesto obtenerPresupuestoNombre(String nombrePresupuesto) {

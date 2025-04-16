@@ -32,11 +32,10 @@ public class CategoriaMappingImpl implements ICategoriaMapping {
 
     @Override
     public Categoria categoriaDtoToCategoria(CategoriaDto categoriaDto, BilleteraVirtual billeteraVirtual,
-                                             Usuario usuario, Presupuesto presupuesto) {
+                                             Usuario usuario) {
         Categoria categoria = new Categoria();
         categoria.setBilleteraVirtual(billeteraVirtual);
         categoria.setUsuarioAsociado(usuario);
-        categoria.setPresupuestoAsignado(presupuesto);
         categoria.setNombre(categoriaDto.nombre());
         categoria.setDescripcionOpcional(categoriaDto.descripcion());
         categoria.setIdCategoria(categoriaDto.idCategoria());

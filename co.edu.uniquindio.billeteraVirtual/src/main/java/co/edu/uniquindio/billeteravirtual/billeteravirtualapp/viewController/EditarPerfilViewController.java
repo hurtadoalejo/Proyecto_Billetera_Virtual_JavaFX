@@ -91,21 +91,21 @@ public class EditarPerfilViewController {
                     usuario = usuarioNuevo;
                     menuUsuarioViewController.setUsuario(usuario);
                     limpiarCampos();
-                    mostrarMensaje(TITULO_USUARIO_ACTUALIZADO, HEADER,
+                    mostrarMensaje(TITULO_USUARIO_ACTUALIZADO,
                             BODY_USUARIO_ACTUALIZADO, Alert.AlertType.INFORMATION);
                 }
                 else{
-                    mostrarMensaje(TITULO_USUARIO_NO_ACTUALIZADO, HEADER,
+                    mostrarMensaje(TITULO_USUARIO_NO_ACTUALIZADO,
                             BODY_USUARIO_NO_ACTUALIZADO, Alert.AlertType.ERROR);
                 }
             }
             else{
-                mostrarMensaje(TITULO_INCORRECTO, HEADER,
+                mostrarMensaje(TITULO_INCORRECTO,
                         BODY_INCORRECTO, Alert.AlertType.WARNING);
             }
         }
         else{
-            mostrarMensaje(TITULO_INCOMPLETO, HEADER,
+            mostrarMensaje(TITULO_INCOMPLETO,
                     BODY_INCOMPLETO, Alert.AlertType.WARNING);
         }
     }

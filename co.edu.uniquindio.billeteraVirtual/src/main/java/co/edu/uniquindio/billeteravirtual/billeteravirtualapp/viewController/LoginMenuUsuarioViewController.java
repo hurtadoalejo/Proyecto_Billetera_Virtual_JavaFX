@@ -100,25 +100,27 @@ public class LoginMenuUsuarioViewController {
             if (verificarCambosCorrectos()){
                 if (loginMenuUsuarioController.verificarCredencialesUsuario(ta_id.getText(), Integer.parseInt(ta_clave.getText()))){
                     UsuarioDto usuarioDto = loginMenuUsuarioController.obtenerUsuario(ta_id.getText());
-                    mostrarMensaje(TITULO_BIENVENIDA,HEADER,
-                            BODY_BIENVENIDA + usuarioDto.nombreCompleto(),
+                    mostrarMensaje(TITULO_BIENVENIDA, BODY_BIENVENIDA + usuarioDto.nombreCompleto(),
                             Alert.AlertType.INFORMATION);
                     cambiarVistaLogeado(usuarioDto);
                 }
                 else{
-                    mostrarMensaje(TITULO_CREDENCIALES_INCORRECTAS, HEADER, BODY_CREDENCIALES_INCORRECTAS, Alert.AlertType.WARNING);
+                    mostrarMensaje(TITULO_CREDENCIALES_INCORRECTAS,
+                            BODY_CREDENCIALES_INCORRECTAS, Alert.AlertType.WARNING);
                     ta_clave.clear();
                     ta_id.clear();
                 }
             }
             else {
-                mostrarMensaje(TITULO_CREDENCIALES_NO_VALIDAS, HEADER, BODY_CREDENCIALES_NO_VALIDAS, Alert.AlertType.WARNING);
+                mostrarMensaje(TITULO_CREDENCIALES_NO_VALIDAS,
+                        BODY_CREDENCIALES_NO_VALIDAS, Alert.AlertType.WARNING);
                 ta_clave.clear();
                 ta_id.clear();
             }
         }
         else {
-            mostrarMensaje(TITULO_CREDENCIALES_NO_RELLENAS, HEADER, BODY_CREDENCIALES_NO_RELLENAS, Alert.AlertType.WARNING);
+            mostrarMensaje(TITULO_CREDENCIALES_NO_RELLENAS,
+                    BODY_CREDENCIALES_NO_RELLENAS, Alert.AlertType.WARNING);
         }
     }
 

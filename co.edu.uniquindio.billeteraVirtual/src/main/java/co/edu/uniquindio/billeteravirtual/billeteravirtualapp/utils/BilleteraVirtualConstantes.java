@@ -20,7 +20,6 @@ public class BilleteraVirtualConstantes {
     public static final String TITULO_USUARIO_CREADO = "Usuario creado";
     public static final String BODY_USUARIO_CREADO = "El usuario se creó exitosamente, ya puedes iniciar sesión con tus credenciales";
 
-
     public static final String TITULO_USUARIO_ACTUALIZADO = "Usuario actualizado";
     public static final String BODY_USUARIO_ACTUALIZADO = "El usuario se actualizó exitosamente";
 
@@ -35,6 +34,8 @@ public class BilleteraVirtualConstantes {
 
     public static final String BODY_CONFIRMACION_ELIMINAR_USUARIO = "¿Está seguro de eliminar el usuario?";
     public static final String BODY_CONFIRMACION_ELIMINAR_CUENTA = "¿Está seguro de eliminar la cuenta?";
+    public static final String BODY_CONFIRMACION_ELIMINAR_CATEGORIA =
+            "¿Está seguro de eliminar la categoria?";
 
     public static final String TITULO_PASSWORD_INCORRECTA = "Contraseña incorrecta";
     public static final String BODY_PASSWORD_INCORRECTA = "La contraseña es incorrecta";
@@ -87,4 +88,27 @@ public class BilleteraVirtualConstantes {
     public static final String TITULO_TRANSFERENCIA_NO_EXITOSA = "Transferencia no exitosa";
     public static final String BODY_TRANSFERENCIA_NO_EXITOSA_DINERO = "Su cuenta no tiene el saldo suficiente a transferir";
     public static final String BODY_TRANSFERENCIA_NO_EXITOSA_CUENTA = "La cuenta a la que quiere transferir no existe";
+
+    public static final String TITULO_CATEGORIA_NO_SELECCIONADA = "Categoria no seleccionada";
+    public static final String BODY_CATEGORIA_NO_SELECCIONADA = "No hay ninguna Categoria seleccionada";
+
+    public static final String TITULO_CATEGORIA_NO_AGREGADA = "Categoria no agregada";
+    public static final String BODY_CATEGORIA_NO_AGREGADA = "La categoria no se pudo agregar, ya existe";
+
+    public static final String TITULO_CATEGORIA_AGREGADA = "Categoria agregada";
+    public static final String BODY_CATEGORIA_AGREGADA = "La categoria se agregó exitosamente";
+
+    public static final String TITULO_CATEGORIA_ELIMINADA = "Categoria eliminada";
+    public static final String BODY_CATEGORIA_ELIMINADA = "La categoria se eliminó exitosamente";
+
+    public static final String TITULO_CATEGORIA_ACTUALIZADA = "Categoria actualizada";
+    public static final String BODY_CATEGORIA_ACTUALIZADA = "La categoria se actualizó exitosamente";
+
+    public static final String TITULO_CATEGORIA_NO_ACTUALIZADA = "Categoria no actualizada";
+    public static final String BODY_CATEGORIA_NO_ACTUALIZADA = "La categoria no se actualizó exitosamente," +
+            " ya existe";
+
+    public static final String TITULO_PRESUPUESTO_SUPERADO = "Presupuesto superado";
+    public static final String BODY_PRESUPUESTO_SUPERADO = "No se puede realizar el movimiento ya que" +
+            " superaría el presupuesto en su categoria";
 }

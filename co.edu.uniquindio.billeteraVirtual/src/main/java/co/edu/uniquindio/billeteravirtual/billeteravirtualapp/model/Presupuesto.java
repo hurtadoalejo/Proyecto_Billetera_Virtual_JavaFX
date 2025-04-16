@@ -74,4 +74,8 @@ public class Presupuesto {
     public void setCategoriaPresupuesto(Categoria categoriaPresupuesto) {
         this.categoriaPresupuesto = categoriaPresupuesto;
     }
+
+    public void aumentarMontoGastado(double monto) {
+        montoGastado += monto;
+    }
 }

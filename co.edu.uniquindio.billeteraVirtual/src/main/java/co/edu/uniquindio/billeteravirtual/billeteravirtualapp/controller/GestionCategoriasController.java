@@ -27,8 +27,4 @@ public class GestionCategoriasController {
     public boolean eliminarCategoria(String idUsuario, int idCategoria) {
         return modelFactory.eliminarCategoria(idUsuario, idCategoria);
     }
-
-    public LinkedList<String> obtenerPresupuestosNombres(String idUsuario) {
-        return modelFactory.obtenerPresupuestosNombres(idUsuario);
-    }
 }

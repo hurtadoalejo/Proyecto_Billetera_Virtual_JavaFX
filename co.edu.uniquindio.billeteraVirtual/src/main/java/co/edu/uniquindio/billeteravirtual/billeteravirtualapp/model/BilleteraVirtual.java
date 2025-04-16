@@ -310,6 +310,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     public boolean agregarPresupuesto(Presupuesto presupuesto) {
         if (obtenerPresupuesto(presupuesto.getIdPresupuesto()) == null){
             listaPresupuestos.add(presupuesto);
+            presupuesto.getCategoriaPresupuesto().setPresupuestoAsignado(presupuesto);
             return true;
         }
         return false;
@@ -335,18 +336,28 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     public boolean actualizarPresupuesto(int id, Presupuesto nuevoPresupuesto) {
         for (Presupuesto presupuesto : listaPresupuestos){
             if (presupuesto.getIdPresupuesto() == id){
-                if (obtenerPresupuesto(nuevoPresupuesto.getIdPresupuesto()) == null || presupuesto.getIdPresupuesto() == id){
-                    presupuesto.setIdPresupuesto(id);
-                    presupuesto.setNombre(nuevoPresupuesto.getNombre());
-                    presupuesto.setMontoTotalAsignado(nuevoPresupuesto.getMontoTotalAsignado());
-                    presupuesto.setMontoGastado(nuevoPresupuesto.getMontoGastado());
-                    presupuesto.setUsuarioAsociado(nuevoPresupuesto.getUsuarioAsociado());
-                    presupuesto.setCategoriaPresupuesto(nuevoPresupuesto.getCategoriaPresupuesto());
-                    return true;
+                if (verificarCambioCategoriaPresupuesto(presupuesto, nuevoPresupuesto)) {
+                    if (obtenerPresupuesto(nuevoPresupuesto.getIdPresupuesto()) == null ||
+                            presupuesto.getIdPresupuesto() == id){
+                        presupuesto.setIdPresupuesto(id);
+                        presupuesto.setNombre(nuevoPresupuesto.getNombre());
+                        presupuesto.setMontoTotalAsignado(nuevoPresupuesto.getMontoTotalAsignado());
+                        presupuesto.setMontoGastado(nuevoPresupuesto.getMontoGastado());
+                        presupuesto.setCategoriaPresupuesto(nuevoPresupuesto.getCategoriaPresupuesto());
+                        return true;
+                    }
                 }
             }
         }
         return false;
+    }
+
+    private boolean verificarCambioCategoriaPresupuesto(Presupuesto presupuesto, Presupuesto nuevoPresupuesto) {
+        if (presupuesto.getCategoriaPresupuesto().getIdCategoria()
+                != nuevoPresupuesto.getCategoriaPresupuesto().getIdCategoria()){
+            return obtenerCategoria(presupuesto.getCategoriaPresupuesto().getIdCategoria()) == null;
+        }
+        return true;
     }
 
     @Override
@@ -392,14 +403,14 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
     @Override
     public boolean actualizarTransaccion(int idTransaccion, Transaccion nuevaTransaccion) {
-        for (int i = 0; i < listaTransacciones.size(); i++) {
-            if (listaTransacciones.get(i).getIdTransaccion() == idTransaccion){
-                if (obtenerTransaccion(nuevaTransaccion.getIdTransaccion()) == null || nuevaTransaccion.getIdTransaccion() == idTransaccion){
+        for (Transaccion transaccion : listaTransacciones) {
+            if (transaccion.getIdTransaccion() == idTransaccion) {
+                if (obtenerTransaccion(nuevaTransaccion.getIdTransaccion()) == null || nuevaTransaccion.getIdTransaccion() == idTransaccion) {
                     intercambiarInstanciasTransaccionBilletera(idTransaccion, nuevaTransaccion);
-                    intercambiarInstanciasTransaccionUsuario(listaTransacciones.get(i), nuevaTransaccion);
-                    intercambiarInstanciasTransaccionCategoria(listaTransacciones.get(i), nuevaTransaccion);
-                    intercambiarInstanciasTransaccionCuentaOrigen(listaTransacciones.get(i), nuevaTransaccion);
-                    intercambiarInstanciasTransaccionCuentaDestino(listaTransacciones.get(i), nuevaTransaccion);
+                    intercambiarInstanciasTransaccionUsuario(transaccion, nuevaTransaccion);
+                    intercambiarInstanciasTransaccionCategoria(transaccion, nuevaTransaccion);
+                    intercambiarInstanciasTransaccionCuentaOrigen(transaccion, nuevaTransaccion);
+                    intercambiarInstanciasTransaccionCuentaDestino(transaccion, nuevaTransaccion);
                     return true;
                 }
             }
@@ -469,10 +480,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     }
 
     public boolean verificarClaveAdmin(int clave) {
-        if (administrador.getClave() == clave){
-            return true;
-        }
-        return false;
+        return administrador.getClave() == clave;
     }
 
     public boolean verificarCredencialesUsuario(String id, int clave) {

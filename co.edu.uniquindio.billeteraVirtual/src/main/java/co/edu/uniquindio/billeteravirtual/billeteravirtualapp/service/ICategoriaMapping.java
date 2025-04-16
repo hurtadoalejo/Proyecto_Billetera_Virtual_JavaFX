@@ -13,8 +13,7 @@ public interface ICategoriaMapping {
 
     CategoriaDto categoriaToCategoriaDto(Categoria categoria);
 
-    Categoria categoriaDtoToCategoria(CategoriaDto categoriaDto, BilleteraVirtual billeteraVirtual, Usuario usuario,
-                                      Presupuesto presupuesto);
+    Categoria categoriaDtoToCategoria(CategoriaDto categoriaDto, BilleteraVirtual billeteraVirtual, Usuario usuario);
 
     String mapNombrePresupuesto(Presupuesto presupuesto);
 }

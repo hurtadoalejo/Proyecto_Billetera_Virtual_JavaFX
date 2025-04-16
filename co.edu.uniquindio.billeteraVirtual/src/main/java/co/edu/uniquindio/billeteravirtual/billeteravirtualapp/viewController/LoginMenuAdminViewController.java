@@ -67,17 +67,17 @@ public class LoginMenuAdminViewController {
                     cambiarVista();
                 }
                 else{
-                    mostrarMensaje(TITULO_PASSWORD_INCORRECTA, HEADER, BODY_PASSWORD_INCORRECTA, Alert.AlertType.ERROR);
+                    mostrarMensaje(TITULO_PASSWORD_INCORRECTA, BODY_PASSWORD_INCORRECTA, Alert.AlertType.ERROR);
                     ta_clave.clear();
                 }
             }
             else{
-                mostrarMensaje(TITULO_PASSWORD_NO_VALIDA, HEADER, BODY_PASSWORD_NO_VALIDA, Alert.AlertType.WARNING);
+                mostrarMensaje(TITULO_PASSWORD_NO_VALIDA, BODY_PASSWORD_NO_VALIDA, Alert.AlertType.WARNING);
                 ta_clave.clear();
             }
         }
         else{
-            mostrarMensaje(TITULO_PASSWORD_NO_RELLENA, HEADER, BODY_PASSWORD_NO_RELLENA, Alert.AlertType.WARNING);
+            mostrarMensaje(TITULO_PASSWORD_NO_RELLENA, BODY_PASSWORD_NO_RELLENA, Alert.AlertType.WARNING);
         }
     }
 

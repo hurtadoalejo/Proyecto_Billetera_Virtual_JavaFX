@@ -132,7 +132,7 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     public LinkedList<String> obtenerCategoriasNombresDeUsuario(String idUsuario) {
-        return billeteraVirtual.obtenerCategoriasNombresDeUsuario(idUsuario);
+        return obtenerUsuario(idUsuario).obtenerCategoriasNombres();
     }
 
     public LinkedList<String> obtenerNumCuentasUsuario(String idUsuario) {
@@ -206,8 +206,8 @@ public class ModelFactory implements IModelFactoryService {
     }
 
     @Override
-    public LinkedList<CategoriaDto> obtenerCategorias() {
-        return categoriaMapper.getListaCategorias(billeteraVirtual.getListaCategorias());
+    public LinkedList<CategoriaDto> obtenerCategorias(String idUsuario) {
+        return categoriaMapper.getListaCategorias(obtenerUsuario(idUsuario).getListaCategorias());
     }
 
     public LinkedList<String> obtenerPresupuestosNombres(String idUsuario) {

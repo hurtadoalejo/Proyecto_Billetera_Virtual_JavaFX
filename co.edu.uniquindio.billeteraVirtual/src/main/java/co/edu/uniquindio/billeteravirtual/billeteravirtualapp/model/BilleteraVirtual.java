@@ -249,6 +249,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     public boolean agregarCategoria(Categoria categoria) {
         if (obtenerCategoria(categoria.getIdCategoria()) == null){
             listaCategorias.add(categoria);
+            categoria.getUsuarioAsociado().getListaCategorias().add(categoria);
             return true;
         }
         return false;
@@ -276,7 +277,9 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         Categoria categoria = obtenerCategoria(idCategoria);
         if (categoria != null){
             listaCategorias.remove(categoria);
+            categoria.getUsuarioAsociado().getListaCategorias().remove(categoria);
             listaPresupuestos.remove(categoria.getPresupuestoAsignado());
+            categoria.getUsuarioAsociado().getListaPresupuestos().remove(categoria.getPresupuestoAsignado());
             return true;
         }
         return false;

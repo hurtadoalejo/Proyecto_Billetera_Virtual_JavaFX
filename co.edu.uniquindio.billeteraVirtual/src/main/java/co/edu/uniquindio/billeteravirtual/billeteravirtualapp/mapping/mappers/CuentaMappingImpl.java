@@ -52,6 +52,8 @@ public class CuentaMappingImpl implements ICuentaMapping {
         cuenta.setNumeroCuenta(cuentaDto.numCuenta());
         cuenta.setTipoCuenta(cuentaDto.tipoCuenta());
         cuenta.setSaldo(cuentaDto.saldo());
+        cuenta.setBilleteraVirtual(billeteraVirtual);
+        cuenta.setUsuarioAsociado(usuario);
         return cuenta;
     }
 }

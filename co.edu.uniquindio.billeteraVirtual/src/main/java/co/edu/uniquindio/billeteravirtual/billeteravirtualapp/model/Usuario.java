@@ -287,4 +287,12 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
         }
         return listaPresupuestosNombres;
     }
+
+    public LinkedList<String> obtenerCategoriasNombres() {
+        LinkedList<String> listaCategoriasNombres = new LinkedList<>();
+        for (Categoria categoria : listaCategorias) {
+            listaCategoriasNombres.add(categoria.getNombre());
+        }
+        return listaCategoriasNombres;
+    }
 }

@@ -181,7 +181,7 @@ public class GestionCategoriasViewController {
     }
 
     private void obtenerCategorias() {
-        listaCategorias.addAll(gestionCategoriasController.obtenerCategorias());
+        listaCategorias.addAll(gestionCategoriasController.obtenerCategorias(usuario.idUsuario()));
     }
 
     private void initView() {

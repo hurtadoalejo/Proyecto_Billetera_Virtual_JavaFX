@@ -12,8 +12,8 @@ public class GestionCategoriasController {
         modelFactory = ModelFactory.getInstance();
     }
 
-    public LinkedList<CategoriaDto> obtenerCategorias() {
-        return modelFactory.obtenerCategorias();
+    public LinkedList<CategoriaDto> obtenerCategorias(String idUsuario) {
+        return modelFactory.obtenerCategorias(idUsuario);
     }
 
     public boolean agregarCategoria(CategoriaDto categoria, String idUsuario) {

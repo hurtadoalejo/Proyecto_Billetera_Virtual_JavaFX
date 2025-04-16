@@ -86,17 +86,17 @@ public class GestionDineroViewController {
         realizarMovimiento();
     }
 
+    public void setUsuario(UsuarioDto usuario) {
+        this.usuario = usuario;
+        inicializarComboBox();
+    }
+
     private TransaccionDto crearTransaccion(){
         return new TransaccionDto(gestionDineroController.obtenerNuevoIdTransaccion(), dp_fecha.getValue(),
                 Double.parseDouble(tf_monto.getText()), tf_descripcion.getText(),
                 cb_tipoMovimiento.getSelectionModel().getSelectedItem(), usuario.idUsuario(),
                 cb_cuentaOrigen.getSelectionModel().getSelectedItem(), tf_cuentaDestino.getText(),
                 cb_categoria.getSelectionModel().getSelectedItem());
-    }
-
-    public void setUsuario(UsuarioDto usuario) {
-        this.usuario = usuario;
-        inicializarComboBox();
     }
 
     private void inicializarComboBox() {

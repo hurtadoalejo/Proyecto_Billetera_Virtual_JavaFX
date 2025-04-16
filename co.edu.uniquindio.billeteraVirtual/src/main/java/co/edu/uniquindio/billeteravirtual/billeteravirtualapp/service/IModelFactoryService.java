@@ -9,5 +9,5 @@ import java.util.LinkedList;
 public interface IModelFactoryService {
     LinkedList<UsuarioDto> obtenerUsuarios();
     LinkedList<CuentaDto> obtenerCuentas();
-    LinkedList<CategoriaDto> obtenerCategorias();
+    LinkedList<CategoriaDto> obtenerCategorias(String idUsuario);
 }

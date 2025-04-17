@@ -37,8 +37,7 @@ public class GestionDineroController {
         return modelFactory.cuentasExisten(numCuentaOrigen, numCuentaDestino);
     }
 
-    public boolean transaccionPasaPresupuesto(String idUsuario, TransaccionDto transaccion,
-                                              String nombrePresupuesto) {
-        return modelFactory.transaccionPasaPresupuesto(idUsuario, transaccion, nombrePresupuesto);
+    public boolean transaccionPasaPresupuesto(String idUsuario, TransaccionDto transaccion) {
+        return modelFactory.transaccionPasaPresupuesto(idUsuario, transaccion);
     }
 }

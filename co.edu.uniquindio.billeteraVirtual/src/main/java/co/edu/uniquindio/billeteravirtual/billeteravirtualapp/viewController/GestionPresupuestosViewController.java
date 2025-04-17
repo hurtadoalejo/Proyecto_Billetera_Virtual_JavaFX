@@ -12,15 +12,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
-import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.isDouble;
-import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.isInteger;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.*;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
 
 public class GestionPresupuestosViewController {
 
@@ -119,6 +114,16 @@ public class GestionPresupuestosViewController {
         initView();
     }
 
+    private PresupuestoDto crearPresupuesto() {
+        return new PresupuestoDto(Integer.parseInt(tf_idPresupuesto.getText()), tf_nombrePresupuesto.getText(),
+                Double.parseDouble(tf_tope.getText()), 0, usuario.idUsuario(), cb_categoria.getValue());
+    }
+
+    private PresupuestoDto crearPresupuesto(double montoGastado) {
+        return new PresupuestoDto(Integer.parseInt(tf_idPresupuesto.getText()), tf_nombrePresupuesto.getText(),
+                Double.parseDouble(tf_tope.getText()), montoGastado, usuario.idUsuario(), cb_categoria.getValue());
+    }
+
     private void agregarPresupuesto() {
         if (verificarCamposLlenos()){
             if (verificarCamposCorrectos()) {
@@ -129,10 +134,25 @@ public class GestionPresupuestosViewController {
                         listaPresupuestos.add(presupuestoDto);
                         tb_presupuestos.refresh();
                         limpiarSeleccion();
-                        System.out.println("Se pudo");
+                        mostrarMensaje(TITULO_PRESUPUESTO_AGREGADO,
+                                BODY_PRESUPUESTO_AGREGADO, Alert.AlertType.INFORMATION);
+                    }
+                    else {
+                        mostrarMensaje(TITULO_PRESUPUESTO_NO_AGREGADO,
+                                BODY_PRESUPUESTO_NO_AGREGADO, Alert.AlertType.ERROR);
                     }
                 }
+                else {
+                    mostrarMensaje(TITULO_CATEGORIA_NO_DISPONIBLE,
+                            BODY_CATEGORIA_NO_DISPONIBLE, Alert.AlertType.ERROR);
+                }
             }
+            else {
+                mostrarMensaje(TITULO_INCORRECTO, BODY_INCORRECTO, Alert.AlertType.WARNING);
+            }
+        }
+        else {
+            mostrarMensaje(TITULO_INCOMPLETO, BODY_INCOMPLETO, Alert.AlertType.WARNING);
         }
     }
 
@@ -151,35 +171,52 @@ public class GestionPresupuestosViewController {
                                 intercambiarPresupuestos(presupuestoSeleccionado.idPresupuesto(), presupuestoNuevo);
                                 limpiarSeleccion();
                                 tb_presupuestos.refresh();
-                                System.out.println("Se pudo");
+                                mostrarMensaje(TITULO_PRESUPUESTO_ACTUALIZADO,
+                                        BODY_PRESUPUESTO_ACTUALIZADO, Alert.AlertType.INFORMATION);
+                            }
+                            else {
+                                mostrarMensaje(TITULO_PRESUPUESTO_NO_ACTUALIZADO,
+                                        BODY_PRESUPUESTO_NO_ACTUALIZADO, Alert.AlertType.ERROR);
                             }
                         }
+                        else {
+                            mostrarMensaje(TITULO_CATEGORIA_NO_DISPONIBLE,
+                                    BODY_CATEGORIA_NO_DISPONIBLE, Alert.AlertType.ERROR);
+                        }
+                    }
+                    else {
+                        mostrarMensaje(TITULO_PRESUPUESTO_TOPE_INVALIDO,
+                                BODY_PRESUPUESTO_TOPE_INVALIDO, Alert.AlertType.ERROR);
                     }
                 }
+                else {
+                    mostrarMensaje(TITULO_INCORRECTO, BODY_INCORRECTO, Alert.AlertType.WARNING);
+                }
             }
+            else {
+                mostrarMensaje(TITULO_INCOMPLETO, BODY_INCOMPLETO, Alert.AlertType.WARNING);
+            }
+        }
+        else {
+            mostrarMensaje(TITULO_PRESUPUESTO_NO_SELECCIONADO,
+                    BODY_PRESUPUESTO_NO_SELECCIONADO, Alert.AlertType.WARNING);
         }
     }
 
     private void eliminarPresupuesto() {
         if (presupuestoSeleccionado != null) {
-            if (
-                    gestionPresupuestoController
+            if (mostrarMensajeConfirmacion(BODY_CONFIRMACION_ELIMINAR_PRESUPUESTO) && gestionPresupuestoController
                     .eliminarPresupuesto(presupuestoSeleccionado.idPresupuesto(), usuario.idUsuario())){
                 listaPresupuestos.remove(presupuestoSeleccionado);
                 limpiarSeleccion();
-                System.out.println("Se pudo");
+                mostrarMensaje(TITULO_PRESUPUESTO_ELIMINADO,
+                        BODY_PRESUPUESTO_ELIMINADO, Alert.AlertType.INFORMATION);
             }
         }
-    }
-
-    private PresupuestoDto crearPresupuesto() {
-        return new PresupuestoDto(Integer.parseInt(tf_idPresupuesto.getText()), tf_nombrePresupuesto.getText(),
-                Double.parseDouble(tf_tope.getText()), 0, usuario.idUsuario(), cb_categoria.getValue());
-    }
-
-    private PresupuestoDto crearPresupuesto(double montoGastado) {
-        return new PresupuestoDto(Integer.parseInt(tf_idPresupuesto.getText()), tf_nombrePresupuesto.getText(),
-                Double.parseDouble(tf_tope.getText()), montoGastado, usuario.idUsuario(), cb_categoria.getValue());
+        else {
+            mostrarMensaje(TITULO_PRESUPUESTO_NO_SELECCIONADO,
+                    BODY_PRESUPUESTO_NO_SELECCIONADO, Alert.AlertType.WARNING);
+        }
     }
 
     private void intercambiarPresupuestos(int idPresupuesto, PresupuestoDto presupuestoNuevo) {

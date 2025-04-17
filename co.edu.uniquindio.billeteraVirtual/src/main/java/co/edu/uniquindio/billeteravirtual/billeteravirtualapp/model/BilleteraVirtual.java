@@ -338,12 +338,11 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
             if (presupuesto.getIdPresupuesto() == id){
                 if (verificarCambioCategoriaPresupuesto(presupuesto, nuevoPresupuesto)) {
                     if (obtenerPresupuesto(nuevoPresupuesto.getIdPresupuesto()) == null ||
-                            presupuesto.getIdPresupuesto() == id){
-                        presupuesto.setIdPresupuesto(id);
+                            nuevoPresupuesto.getIdPresupuesto() == id){
+                        presupuesto.setIdPresupuesto(nuevoPresupuesto.getIdPresupuesto());
                         presupuesto.setNombre(nuevoPresupuesto.getNombre());
                         presupuesto.setMontoTotalAsignado(nuevoPresupuesto.getMontoTotalAsignado());
-                        presupuesto.setMontoGastado(nuevoPresupuesto.getMontoGastado());
-                        presupuesto.setCategoriaPresupuesto(nuevoPresupuesto.getCategoriaPresupuesto());
+                        cambiarCategoriaPresupuesto(presupuesto, nuevoPresupuesto.getCategoriaPresupuesto());
                         return true;
                     }
                 }
@@ -352,12 +351,18 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         return false;
     }
 
-    private boolean verificarCambioCategoriaPresupuesto(Presupuesto presupuesto, Presupuesto nuevoPresupuesto) {
-        if (presupuesto.getCategoriaPresupuesto().getIdCategoria()
-                != nuevoPresupuesto.getCategoriaPresupuesto().getIdCategoria()){
-            return obtenerCategoria(presupuesto.getCategoriaPresupuesto().getIdCategoria()) == null;
+    private void cambiarCategoriaPresupuesto(Presupuesto presupuesto, Categoria categoriaNueva) {
+        if (presupuesto.getCategoriaPresupuesto().getIdCategoria() != categoriaNueva.getIdCategoria()){
+            presupuesto.getCategoriaPresupuesto().setPresupuestoAsignado(null);
+            categoriaNueva.setPresupuestoAsignado(presupuesto);
+            presupuesto.setCategoriaPresupuesto(categoriaNueva);
         }
-        return true;
+    }
+
+    private boolean verificarCambioCategoriaPresupuesto(Presupuesto presupuesto, Presupuesto nuevoPresupuesto) {
+        return presupuesto.getCategoriaPresupuesto().getIdCategoria()
+                != nuevoPresupuesto.getCategoriaPresupuesto().getIdCategoria() ||
+                obtenerCategoria(nuevoPresupuesto.getCategoriaPresupuesto().getIdCategoria()) == null;
     }
 
     @Override

@@ -190,10 +190,8 @@ public class ModelFactory implements IModelFactoryService {
         return obtenerUsuario(idUsuario).obtenerPresupuestosNombres();
     }
 
-    public boolean transaccionPasaPresupuesto(String idUsuario, TransaccionDto transaccion,
-                                              String nombrePresupuesto) {
-        return obtenerUsuario(idUsuario).transaccionPasaPresupuesto(transaccionDtoToTransaccion(transaccion),
-                obtenerPresupuestoNombre(nombrePresupuesto, idUsuario));
+    public boolean transaccionPasaPresupuesto(String idUsuario, TransaccionDto transaccion) {
+        return obtenerUsuario(idUsuario).transaccionPasaPresupuesto(transaccionDtoToTransaccion(transaccion));
     }
 
     public boolean agregarPresupuesto(PresupuestoDto presupuestoDto) {

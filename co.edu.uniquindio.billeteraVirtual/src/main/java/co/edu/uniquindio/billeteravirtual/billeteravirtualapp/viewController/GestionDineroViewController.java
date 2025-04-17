@@ -183,8 +183,7 @@ public class GestionDineroViewController {
 
     private boolean transaccionPasaPresupuesto(TransaccionDto transaccion) {
         if (!cb_categoria.getSelectionModel().isEmpty()) {
-            return gestionDineroController.transaccionPasaPresupuesto(usuario.idUsuario(), transaccion,
-                    cb_categoria.getValue());
+            return gestionDineroController.transaccionPasaPresupuesto(usuario.idUsuario(), transaccion);
         }
         return true;
     }

@@ -238,16 +238,14 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
         if (!transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)){
             Categoria categoria = transaccion.getCategoriaTransaccion();
             if (categoria != null) {
-                Presupuesto presupuesto = categoria.getPresupuestoAsignado();
-                if (presupuesto != null) {
-                    return transaccionPasaPresupuesto(transaccion, presupuesto);
-                }
+                return transaccionPasaPresupuesto(transaccion);
             }
         }
         return true;
     }
 
-    public boolean transaccionPasaPresupuesto(Transaccion transaccion, Presupuesto presupuesto) {
+    public boolean transaccionPasaPresupuesto(Transaccion transaccion) {
+        Presupuesto presupuesto = transaccion.getCategoriaTransaccion().getPresupuestoAsignado();
         if (presupuesto != null) {
             double montoGastadoFuturo = transaccion.getMonto() + presupuesto.getMontoGastado();
             return montoGastadoFuturo <= presupuesto.getMontoTotalAsignado();
@@ -319,7 +317,7 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
             }
             return false;
         }
-        return true;
+        return false;
     }
 
     public boolean agregarPresupuesto(Presupuesto presupuesto) {
@@ -342,6 +340,15 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
         return null;
     }
 
+    private Presupuesto obtenerPresupuesto(String nombrePresupuesto) {
+        for (Presupuesto presupuesto : listaPresupuestos){
+            if (presupuesto.getNombre().equalsIgnoreCase(nombrePresupuesto)){
+                return presupuesto;
+            }
+        }
+        return null;
+    }
+
     public boolean verificarDisponibilidadCategoria(String nombreCategoria){
         for (Categoria categoria : listaCategorias){
             if (categoria.getNombre().equalsIgnoreCase(nombreCategoria)){
@@ -352,7 +359,23 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
     }
 
     public boolean actualizarPresupuesto(int idPresupuestoViejo, Presupuesto presupuestoNuevo) {
-        return billeteraVirtual.actualizarPresupuesto(idPresupuestoViejo, presupuestoNuevo);
+        if (verificarActualizacionPresupuesto(idPresupuestoViejo, presupuestoNuevo)) {
+            return billeteraVirtual.actualizarPresupuesto(idPresupuestoViejo, presupuestoNuevo);
+        }
+        return false;
+    }
+
+    private boolean verificarActualizacionPresupuesto(int idPresupuestoViejo, Presupuesto presupuestoNuevo) {
+        Presupuesto presupuestoViejo = obtenerPresupuesto(idPresupuestoViejo);
+        if (presupuestoViejo != null) {
+            if (obtenerPresupuesto(presupuestoNuevo.getNombre()) == null ||
+                    presupuestoNuevo.getNombre().equalsIgnoreCase(presupuestoViejo.getNombre())) {
+                return obtenerPresupuesto(presupuestoNuevo.getIdPresupuesto()) == null ||
+                        presupuestoNuevo.getIdPresupuesto() == presupuestoViejo.getIdPresupuesto();
+            }
+            return false;
+        }
+        return false;
     }
 
     public boolean eliminarPresupuesto(int idPresupuesto) {

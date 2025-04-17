@@ -36,6 +36,8 @@ public class BilleteraVirtualConstantes {
     public static final String BODY_CONFIRMACION_ELIMINAR_CUENTA = "¿Está seguro de eliminar la cuenta?";
     public static final String BODY_CONFIRMACION_ELIMINAR_CATEGORIA =
             "¿Está seguro de eliminar la categoria?";
+    public static final String BODY_CONFIRMACION_ELIMINAR_PRESUPUESTO =
+            "¿Está seguro de eliminar el presupuesto?";
 
     public static final String TITULO_PASSWORD_INCORRECTA = "Contraseña incorrecta";
     public static final String BODY_PASSWORD_INCORRECTA = "La contraseña es incorrecta";
@@ -111,4 +113,29 @@ public class BilleteraVirtualConstantes {
     public static final String TITULO_PRESUPUESTO_SUPERADO = "Presupuesto superado";
     public static final String BODY_PRESUPUESTO_SUPERADO = "No se puede realizar el movimiento ya que" +
             " superaría el presupuesto en su categoria";
+
+    public static final String TITULO_PRESUPUESTO_NO_AGREGADO = "Presupuesto no agregado";
+    public static final String BODY_PRESUPUESTO_NO_AGREGADO = "El presupuesto no se pudo agregar, ya existe";
+
+    public static final String TITULO_PRESUPUESTO_AGREGADO = "Presupuesto agregado";
+    public static final String BODY_PRESUPUESTO_AGREGADO = "El presupuesto se agregó exitosamente";
+
+    public static final String TITULO_PRESUPUESTO_NO_SELECCIONADO = "Presupuesto no seleccionado";
+    public static final String BODY_PRESUPUESTO_NO_SELECCIONADO = "No hay ningún presupuesto seleccionado";
+
+    public static final String TITULO_PRESUPUESTO_ELIMINADO = "Presupuesto eliminado";
+    public static final String BODY_PRESUPUESTO_ELIMINADO = "El presupuesto se eliminó exitosamente";
+
+    public static final String TITULO_CATEGORIA_NO_DISPONIBLE = "Categoria no disponible";
+    public static final String BODY_CATEGORIA_NO_DISPONIBLE = "La categoria ya tiene un presupuesto asignado";
+
+    public static final String TITULO_PRESUPUESTO_ACTUALIZADO = "Presupuesto actualizado";
+    public static final String BODY_PRESUPUESTO_ACTUALIZADO = "El presupuesto se actualizó exitosamente";
+
+    public static final String TITULO_PRESUPUESTO_NO_ACTUALIZADO = "Presupuesto no actualizado";
+    public static final String BODY_PRESUPUESTO_NO_ACTUALIZADO = "El presupuesto no se actualizó exitosamente," +
+            " ya existe";
+
+    public static final String TITULO_PRESUPUESTO_TOPE_INVALIDO = "Tope invalido";
+    public static final String BODY_PRESUPUESTO_TOPE_INVALIDO = "El tope del presupuesto es mayor al monto ya gastado";
 }

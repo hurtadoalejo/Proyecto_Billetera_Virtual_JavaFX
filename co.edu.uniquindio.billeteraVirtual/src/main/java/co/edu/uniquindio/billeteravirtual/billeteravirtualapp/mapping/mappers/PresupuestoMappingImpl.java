@@ -1,10 +1,7 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.PresupuestoDto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.BilleteraVirtual;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Categoria;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Presupuesto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Usuario;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IPresupuestoMapping;
 
 import java.util.LinkedList;
@@ -43,5 +40,9 @@ public class PresupuestoMappingImpl implements IPresupuestoMapping {
         presupuesto.setUsuarioAsociado(usuario);
         presupuesto.setCategoriaPresupuesto(categoria);
         return presupuesto;
+    }
+
+    public String mapNombreCuenta(Categoria categoria) {
+        return (categoria != null) ? categoria.getNombre() : null;
     }
 }

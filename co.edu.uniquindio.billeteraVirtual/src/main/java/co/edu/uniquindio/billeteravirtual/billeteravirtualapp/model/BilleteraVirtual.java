@@ -361,8 +361,8 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
     private boolean verificarCambioCategoriaPresupuesto(Presupuesto presupuesto, Presupuesto nuevoPresupuesto) {
         return presupuesto.getCategoriaPresupuesto().getIdCategoria()
-                != nuevoPresupuesto.getCategoriaPresupuesto().getIdCategoria() ||
-                obtenerCategoria(nuevoPresupuesto.getCategoriaPresupuesto().getIdCategoria()) == null;
+                == nuevoPresupuesto.getCategoriaPresupuesto().getIdCategoria() ||
+                nuevoPresupuesto.getCategoriaPresupuesto().getPresupuestoAsignado() == null;
     }
 
     @Override

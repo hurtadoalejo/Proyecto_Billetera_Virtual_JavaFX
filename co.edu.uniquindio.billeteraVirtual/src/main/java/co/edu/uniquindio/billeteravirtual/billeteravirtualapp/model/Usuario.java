@@ -321,7 +321,7 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
     }
 
     public boolean agregarPresupuesto(Presupuesto presupuesto) {
-        if (obtenerPresupuesto(presupuesto.getIdPresupuesto()) == null &&
+        if (obtenerPresupuesto(presupuesto) == null &&
                 verificarDisponibilidadCategoria(presupuesto.getCategoriaPresupuesto().getNombre())) {
             if (billeteraVirtual.agregarPresupuesto(presupuesto)){
                 listaPresupuestos.add(presupuesto);
@@ -329,6 +329,16 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
             }
         }
         return false;
+    }
+
+    private Presupuesto obtenerPresupuesto(Presupuesto presupuesto) {
+        for (Presupuesto presupuestoTemporal : listaPresupuestos) {
+            if (presupuestoTemporal.getNombre().equalsIgnoreCase(presupuesto.getNombre()) ||
+            presupuestoTemporal.getIdPresupuesto() == presupuesto.getIdPresupuesto()) {
+                return presupuestoTemporal;
+            }
+        }
+        return null;
     }
 
     private Presupuesto obtenerPresupuesto(int idPresupuesto) {

@@ -413,7 +413,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
                 if (obtenerTransaccion(nuevaTransaccion.getIdTransaccion()) == null || nuevaTransaccion.getIdTransaccion() == idTransaccion) {
                     intercambiarInstanciasTransaccionBilletera(idTransaccion, nuevaTransaccion);
                     intercambiarInstanciasTransaccionUsuario(transaccion, nuevaTransaccion);
-                    intercambiarInstanciasTransaccionCategoria(transaccion, nuevaTransaccion);
+                    actualizarIntercambioCategoriaTransaccion(transaccion, nuevaTransaccion);
                     intercambiarInstanciasTransaccionCuentaOrigen(transaccion, nuevaTransaccion);
                     intercambiarInstanciasTransaccionCuentaDestino(transaccion, nuevaTransaccion);
                     return true;
@@ -421,6 +421,64 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
             }
         }
         return false;
+    }
+
+    private void actualizarIntercambioCategoriaTransaccion(Transaccion transaccion, Transaccion nuevaTransaccion) {
+        Categoria categoriaAnterior = transaccion.getCategoriaTransaccion();
+        Categoria categoriaNueva = nuevaTransaccion.getCategoriaTransaccion();
+        if (categoriaAnterior != null && categoriaNueva != null) {
+            actualizarCategoriaTransaccion(transaccion, nuevaTransaccion);
+        }
+        else if (categoriaAnterior == null && categoriaNueva != null){
+            asignarCategoriaTransaccion(nuevaTransaccion);
+        }
+        else if (categoriaAnterior != null && categoriaNueva == null){
+            desasociarCategoriaTransaccion(transaccion);
+        }
+    }
+
+    private void desasociarCategoriaTransaccion(Transaccion transaccion) {
+        Categoria categoria = transaccion.getCategoriaTransaccion();
+        if (categoria.getPresupuestoAsignado() != null &&
+                transaccion.getTipoTransaccion() != TipoTransaccion.DEPOSITO) {
+            categoria.getPresupuestoAsignado().aumentarMontoGastado(transaccion.getMonto()*-1);
+        }
+        categoria.getListaTransacciones().remove(transaccion);
+    }
+
+    private void asignarCategoriaTransaccion(Transaccion nuevaTransaccion) {
+        Categoria categoria = nuevaTransaccion.getCategoriaTransaccion();
+        if (categoria.getPresupuestoAsignado() != null &&
+                nuevaTransaccion.getTipoTransaccion() != TipoTransaccion.DEPOSITO) {
+            categoria.getPresupuestoAsignado().aumentarMontoGastado(nuevaTransaccion.getMonto());
+        }
+        categoria.getListaTransacciones().add(nuevaTransaccion);
+    }
+
+    private void actualizarCategoriaTransaccion(Transaccion transaccion, Transaccion nuevaTransaccion) {
+        Categoria categoriaAnterior = transaccion.getCategoriaTransaccion();
+        Categoria categoriaNueva = nuevaTransaccion.getCategoriaTransaccion();
+        if (categoriaAnterior.getIdCategoria() == categoriaNueva.getIdCategoria()) {
+            intercambiarInstanciasTransaccionCategoria(transaccion, nuevaTransaccion);
+        }
+        else {
+            if (nuevaTransaccion.getTipoTransaccion() != TipoTransaccion.DEPOSITO) {
+                if (categoriaAnterior.getPresupuestoAsignado() != null ) {
+                    categoriaAnterior.getPresupuestoAsignado().aumentarMontoGastado(transaccion.getMonto()*-1);
+                }
+                if (categoriaNueva.getPresupuestoAsignado() != null) {
+                    categoriaNueva.getPresupuestoAsignado().aumentarMontoGastado(nuevaTransaccion.getMonto());
+                }
+            }
+            categoriaAnterior.getListaTransacciones().remove(transaccion);
+            categoriaNueva.getListaTransacciones().add(nuevaTransaccion);
+        }
+    }
+
+    private void intercambiarInstanciasTransaccionCategoria(Transaccion transaccion, Transaccion nuevaTransaccion) {
+        LinkedList<Transaccion> listaTransacciones = transaccion.getCategoriaTransaccion().getListaTransacciones();
+        int indiceTransaccion = listaTransacciones.indexOf(transaccion);
+        listaTransacciones.set(indiceTransaccion, nuevaTransaccion);
     }
 
     private void intercambiarInstanciasTransaccionCuentaOrigen(Transaccion viejaTransaccion, Transaccion nuevaTransaccion) {
@@ -438,16 +496,6 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
             return;
         }
         LinkedList<Transaccion> listaTransacciones = viejaTransaccion.getCuentaDestino().getListaTransacciones();
-        for (int i = 0; i < listaTransacciones.size(); i++) {
-            if (listaTransacciones.get(i).getIdTransaccion() == viejaTransaccion.getIdTransaccion()){
-                listaTransacciones.set(i, nuevaTransaccion);
-            }
-        }
-    }
-
-    private void intercambiarInstanciasTransaccionCategoria(Transaccion viejaTransaccion, Transaccion nuevaTransaccion) {
-        LinkedList<Transaccion> listaTransacciones = viejaTransaccion.getCategoriaTransaccion()
-                .getListaTransacciones();
         for (int i = 0; i < listaTransacciones.size(); i++) {
             if (listaTransacciones.get(i).getIdTransaccion() == viejaTransaccion.getIdTransaccion()){
                 listaTransacciones.set(i, nuevaTransaccion);

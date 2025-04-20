@@ -71,6 +71,7 @@ public class MenuUsuarioViewController {
         cargarVistaGestionDinero();
         cargarVistaGestionCategorias();
         cargarVistaGestionPresupuestos();
+        cargarVistaGestionTransaccionesUsuario();
     }
 
     /**
@@ -89,7 +90,7 @@ public class MenuUsuarioViewController {
             } else if (newTab == tab_presupuestos) {
                 cargarVistaGestionPresupuestos();
             } else if (newTab == tab_transacciones) {
-                System.out.println();
+                cargarVistaGestionTransaccionesUsuario();
             }
         });
     }
@@ -155,6 +156,19 @@ public class MenuUsuarioViewController {
             GestionCategoriasViewController viewController = loader.getController();
             viewController.setUsuario(usuario);
             sp_categorias.getItems().setAll(nuevaVista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cargarVistaGestionTransaccionesUsuario() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/GestionTransaccionesUsuario.fxml"));
+            AnchorPane nuevaVista = loader.load();
+            GestionTransaccionesUsuarioViewController viewController = loader.getController();
+            viewController.setUsuario(usuario);
+            sp_transacciones.getItems().setAll(nuevaVista);
         } catch (IOException e) {
             e.printStackTrace();
         }

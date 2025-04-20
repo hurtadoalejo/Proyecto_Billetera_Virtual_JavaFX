@@ -53,7 +53,9 @@ public class TransaccionMapplingImpl implements ITransaccionMapping {
                 .tipoTransaccion(transaccionDto.tipoTransaccion())
                 .usuarioAsociado(usuarioAsociado)
                 .categoriaTransaccion(categoria)
-                .cuentaOrigen(cuentaOrigen).cuentaDestino(cuentaDestino).build();
+                .cuentaOrigen(cuentaOrigen)
+                .cuentaDestino(cuentaDestino)
+                .build();
     }
 
     @Override

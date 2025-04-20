@@ -243,4 +243,17 @@ public class ModelFactory implements IModelFactoryService {
     public boolean verificarDisponibilidadCategoria(String nombreCategoria, String idUsuario) {
         return obtenerUsuario(idUsuario).verificarDisponibilidadCategoria(nombreCategoria);
     }
+
+    public LinkedList<String> obtenerCategoriasPorNombreUsuario(String idUsuario) {
+        return billeteraVirtual.obtenerCategoriasNombresDeUsuario(idUsuario);
+    }
+
+    public LinkedList<TransaccionDto> obtenerTransacciones(String idUsuario) {
+        return transaccionMapper.getTransaccionDto(obtenerUsuario(idUsuario).getListaTransacciones());
+    }
+
+    public boolean actualizarTransaccion(int idTransaccion, TransaccionDto transaccionDto) {
+        return obtenerUsuario(transaccionDto.idUsuario()).actualizarTransaccion(idTransaccion,
+                transaccionDtoToTransaccion(transaccionDto));
+    }
 }

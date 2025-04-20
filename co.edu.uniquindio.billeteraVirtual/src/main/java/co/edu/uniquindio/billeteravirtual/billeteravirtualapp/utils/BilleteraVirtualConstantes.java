@@ -49,7 +49,8 @@ public class BilleteraVirtualConstantes {
     public static final String TITULO_CREDENCIALES_INCORRECTAS = "Credenciales incorrectas";
     public static final String BODY_CREDENCIALES_INCORRECTAS = "No existe un usuario con esas credenciales";
     public static final String TITULO_CREDENCIALES_NO_VALIDAS = "Credenciales no validas";
-    public static final String BODY_CREDENCIALES_NO_VALIDAS = "El id y la contraseña solo pueden llevar numeros";
+    public static final String BODY_CREDENCIALES_NO_VALIDAS = "El id y la contraseña solo pueden " +
+            "llevar numeros";
     public static final String TITULO_CREDENCIALES_NO_RELLENAS = "Credenciales vacias";
     public static final String BODY_CREDENCIALES_NO_RELLENAS = "Introduzca las dos credenciales";
 
@@ -63,8 +64,10 @@ public class BilleteraVirtualConstantes {
     public static final String BODY_CUENTA_ACTUALIZADA = "La cuenta se actualizó exitosamente";
 
     public static final String TITULO_CUENTA_NO_ACTUALIZADA = "Cuenta no actualizada";
-    public static final String BODY_CUENTA_NO_ACTUALIZADA_ID = "La cuenta no se actualizó exitosamente, ya está en uso el id administrado";
-    public static final String BODY_CUENTA_NO_ACTUALIZADA_NUM_CUENTA = "La cuenta no se actualizó exitosamente, ya está en uso el número de cuenta administrado";
+    public static final String BODY_CUENTA_NO_ACTUALIZADA_ID = "La cuenta no se actualizó exitosamente, " +
+            "ya está en uso el id administrado";
+    public static final String BODY_CUENTA_NO_ACTUALIZADA_NUM_CUENTA = "La cuenta no se actualizó exitosamente, " +
+            "ya está en uso el número de cuenta administrado";
 
     public static final String TITULO_CUENTA_NO_AGREGADA = "Cuenta no agregada";
     public static final String BODY_CUENTA_NO_AGREGADA = "La cuenta no se pudo agregar, ya existe";
@@ -78,7 +81,7 @@ public class BilleteraVirtualConstantes {
     public static final String TITULO_DEPOSITO_EXITOSO = "Deposito exitoso";
     public static final String BODY_DEPOSITO_EXITOSO = "Se han depositado exitosamente: ";
     public static final String TITULO_DEPOSITO_NO_EXITOSO = "Deposito no exitoso";
-    public static final String BODY_DEPOSITO_NO_EXITOSO = "No se ha podido depositadar";
+    public static final String BODY_DEPOSITO_NO_EXITOSO = "No se ha podido depositar";
 
     public static final String TITULO_RETIRO_EXITOSO = "Retiro exitoso";
     public static final String BODY_RETIRO_EXITOSO = "Se retiraron exitosamente: ";
@@ -138,4 +141,18 @@ public class BilleteraVirtualConstantes {
 
     public static final String TITULO_PRESUPUESTO_TOPE_INVALIDO = "Tope invalido";
     public static final String BODY_PRESUPUESTO_TOPE_INVALIDO = "El tope del presupuesto es mayor al monto ya gastado";
+
+    public static final String TITULO_TRANSACCION_NO_SELECCIONADA = "Transaccion no seleccionada";
+    public static final String BODY_TRANSACCION_NO_SELECCIONADA = "Se requiere seleccionar una" +
+            " transaccion";
+
+    public static final String TITULO_TRANSACCION_ACTUALIZADA = "Transaccion actualizada";
+    public static final String BODY_TRANSACCION_ACTUALIZADA = "La transacción se ha actualizado " +
+            "exitosamente";
+
+    public static final String TITULO_TRANSACCION_NO_ACTUALIZADA = "Transaccion no actualizada";
+    public static final String BODY_TRANSACCION_NO_ACTUALIZADA = "La transaccion no se pudo actualizar debido a que superaría el presupuesto asignado a la categoría";
+
+    public static final String TITULO_CATEGORIA_REPETIDA = "Categoria repetida";
+    public static final String BODY_CATEGORIA_REPETIDA = "Debe seleccionar una categoria diferente a la actual";
 }

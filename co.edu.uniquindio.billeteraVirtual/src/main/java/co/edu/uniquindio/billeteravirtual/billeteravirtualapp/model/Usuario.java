@@ -145,6 +145,7 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
     public boolean agregarTransaccion(Transaccion transaccion) {
         if (esTransaccionPosible(transaccion) && saldoCuentaEsSuficiente(transaccion)) {
             if (billeteraVirtual.agregarTransaccion(transaccion)) {
+                listaTransacciones.add(transaccion);
                 if (transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)){
                     agregarDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta());
                 }
@@ -175,7 +176,7 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
 
     @Override
     public boolean actualizarTransaccion(int idTransaccion, Transaccion nuevaTransaccion) {
-        return false;
+        return billeteraVirtual.actualizarTransaccion(idTransaccion, nuevaTransaccion);
     }
 
     @Override

@@ -240,8 +240,10 @@ public class GestionTransaccionesUsuarioViewController {
     }
 
     private boolean transaccionPasaPresupuesto(TransaccionDto transaccion) {
-        if (transaccion.nombreCategoria() != null) {
-            return gestionTransaccionesUsuarioController.transaccionPasaPresupuesto(usuario.idUsuario(), transaccion);
+        if (transaccion.tipoTransaccion() != TipoTransaccion.DEPOSITO) {
+            if (transaccion.nombreCategoria() != null) {
+                return gestionTransaccionesUsuarioController.transaccionPasaPresupuesto(usuario.idUsuario(), transaccion);
+            }
         }
         return true;
     }

@@ -264,7 +264,6 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
                     categoria.setIdCategoria(nuevaCategoria.getIdCategoria());
                     categoria.setNombre(nuevaCategoria.getNombre());
                     categoria.setDescripcionOpcional(nuevaCategoria.getDescripcionOpcional());
-                    categoria.setPresupuestoAsignado(nuevaCategoria.getPresupuestoAsignado());
                     return true;
                 }
             }

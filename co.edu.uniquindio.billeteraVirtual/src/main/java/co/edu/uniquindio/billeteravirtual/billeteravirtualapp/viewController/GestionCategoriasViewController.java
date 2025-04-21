@@ -107,6 +107,11 @@ public class GestionCategoriasViewController {
                 tf_nombreCategoria.getText(), tf_descripcion.getText(), null);
     }
 
+    private CategoriaDto crearCategoria(CategoriaDto categoria) {
+        return new CategoriaDto(Integer.parseInt(tf_idCategoria.getText()), usuario.idUsuario(),
+                tf_nombreCategoria.getText(), tf_descripcion.getText(), categoria.nombrePresupuesto());
+    }
+
     private void agregarCategoria() {
         if (verificarCamposLlenos()) {
             if (verificarCamposCorrectos()) {
@@ -134,7 +139,7 @@ public class GestionCategoriasViewController {
         if (categoriaSeleccionada != null) {
             if (verificarCamposLlenos()) {
                 if (verificarCamposCorrectos()) {
-                    CategoriaDto categoriaNueva = crearCategoria();
+                    CategoriaDto categoriaNueva = crearCategoria(categoriaSeleccionada);
                     if (gestionCategoriasController.actualizarCategoria(usuario.idUsuario(),
                             categoriaSeleccionada.idCategoria(), categoriaNueva)){
                         intercambiarCategorias(categoriaSeleccionada.idCategoria(), categoriaNueva);

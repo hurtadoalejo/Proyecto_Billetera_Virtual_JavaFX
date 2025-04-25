@@ -29,6 +29,7 @@ public class GestionTransaccionesUsuarioViewController {
     private String categoriaSeleccionada;
     private LocalDate fechaDesdeSeleccionada;
     private LocalDate fechaHastaSeleccionada;
+    private FilteredList<TransaccionDto> listaFiltrada;
     ObservableList<TransaccionDto> listaTransacciones = FXCollections.observableArrayList();
     TransaccionDto transaccionSeleccionada;
 
@@ -109,43 +110,43 @@ public class GestionTransaccionesUsuarioViewController {
     }
 
     private void crearListaFiltrada() {
-        FilteredList<TransaccionDto> listaFiltrada = new FilteredList<>(listaTransacciones, p -> true);
+        listaFiltrada = new FilteredList<>(listaTransacciones, p -> true);
         tb_transacciones.setItems(listaFiltrada);
-        listenerComboBoxTipo(listaFiltrada);
-        listenerComboBoxCategoria(listaFiltrada);
-        listenerFechaDesde(listaFiltrada);
-        listenerFechaHasta(listaFiltrada);
+        listenerComboBoxTipo();
+        listenerComboBoxCategoria();
+        listenerFechaDesde();
+        listenerFechaHasta();
     }
 
-    private void listenerComboBoxTipo(FilteredList<TransaccionDto> listaFiltrada) {
+    private void listenerComboBoxTipo() {
         cb_tipoTransaccion.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
            tipoSeleccionado = newSelection;
-            aplicarFiltro(listaFiltrada);
+            aplicarFiltro();
         });
     }
 
-    private void listenerComboBoxCategoria(FilteredList<TransaccionDto> listaFiltrada) {
+    private void listenerComboBoxCategoria() {
         cb_CategoriaFiltrar.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             categoriaSeleccionada = newSelection;
-            aplicarFiltro(listaFiltrada);
+            aplicarFiltro();
         });
     }
 
-    private void listenerFechaDesde(FilteredList<TransaccionDto> listaFiltrada) {
+    private void listenerFechaDesde() {
         datePicker_FechaInicio.valueProperty().addListener((obs, oldDate, newDate) -> {
             fechaDesdeSeleccionada = newDate;
-            aplicarFiltro(listaFiltrada);
+            aplicarFiltro();
         });
     }
 
-    private void listenerFechaHasta(FilteredList<TransaccionDto> listaFiltrada) {
+    private void listenerFechaHasta() {
         datePicker_FechaFin.valueProperty().addListener((obs, oldDate, newDate) -> {
             fechaHastaSeleccionada = newDate;
-            aplicarFiltro(listaFiltrada);
+            aplicarFiltro();
         });
     }
 
-    private void aplicarFiltro(FilteredList<TransaccionDto> listaFiltrada) {
+    private void aplicarFiltro() {
         listaFiltrada.setPredicate(transaccionDto -> {
 
             boolean coincideTipo = (tipoSeleccionado == null ||

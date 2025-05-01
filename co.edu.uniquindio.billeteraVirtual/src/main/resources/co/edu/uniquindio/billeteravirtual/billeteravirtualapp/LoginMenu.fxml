@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="ap_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.LoginMenuViewController">
+   <children>
+      <Label layoutX="526.0" layoutY="82.0" text="Iniciar Sesión">
+         <font>
+            <Font name="Segoe UI" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="313.0" layoutY="258.0" text="Ingrese número de identificación:">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="bt_ingresar" layoutX="533.0" layoutY="472.0" mnemonicParsing="false" onAction="#onIngresar" text="Iniciar Sesión">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </Button>
+      <TextField fx:id="ta_id" layoutX="600.0" layoutY="250.0" prefHeight="0.0" prefWidth="269.0">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </TextField>
+      <Label layoutX="373.0" layoutY="323.0" text="Ingrese clave del usuario:">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="ta_clave" layoutX="600.0" layoutY="315.0" prefHeight="24.0" prefWidth="269.0">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

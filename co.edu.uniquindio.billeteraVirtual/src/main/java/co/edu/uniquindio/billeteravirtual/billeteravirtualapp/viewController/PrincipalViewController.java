@@ -23,53 +23,47 @@ public class PrincipalViewController {
     private URL location;
 
     @FXML
-    private AnchorPane ap_admin;
-
-
-    @FXML
     private AnchorPane ap_principal;
 
     @FXML
-    private AnchorPane ap_usuario;
+    private SplitPane sp_login;
+
+    @FXML
+    private Tab tab_login;
 
     @FXML
     private TabPane tp_principal;
 
     @FXML
-    private Tab tab_admin;
+    private AnchorPane ap_login;
 
     @FXML
-    private SplitPane sp_admin;
+    private Tab tab_registro;
 
     @FXML
-    private SplitPane sp_usuario;
+    private AnchorPane ap_registro;
 
     @FXML
-    private Tab tab_usuario;
+    private SplitPane sp_registro;
 
-    /**
-     * Metodo para cargar la vista del login menu admin
-     */
-    private void cargarVistaAdmin() {
+
+    private void cargarVistaLogin() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/LoginMenuAdmin.fxml"));
+                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/LoginMenu.fxml"));
             AnchorPane nuevaVista = loader.load();
-            sp_admin.getItems().setAll(nuevaVista);
+            sp_login.getItems().setAll(nuevaVista);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Metodo para cargar la vista del login menu usuario
-     */
-    private void cargarVistaUsuario() {
+    private void cargarVistaRegistro() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/LoginMenuUsuario.fxml"));
+                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/RegistrarMenu.fxml"));
             AnchorPane nuevaVista = loader.load();
-            sp_usuario.getItems().setAll(nuevaVista);
+            sp_registro.getItems().setAll(nuevaVista);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,10 +74,10 @@ public class PrincipalViewController {
      */
     private void configurarCambioDeTab() {
         tp_principal.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
-            if (newTab == tab_admin) {
-                cargarVistaAdmin();
-            } else if (newTab == tab_usuario) {
-                cargarVistaUsuario();
+            if (newTab == tab_login) {
+                cargarVistaLogin();
+            } else if (newTab == tab_registro) {
+                cargarVistaRegistro();
             }
         });
     }
@@ -95,13 +89,5 @@ public class PrincipalViewController {
     void initialize() {
         configurarCambioDeTab();
         principalController = new PrincipalController();
-        assert ap_admin != null : "fx:id=\"ap_admin\" was not injected: check your FXML file 'PrincipalView.fxml'.";
-        assert ap_principal != null : "fx:id=\"ap_principal\" was not injected: check your FXML file 'PrincipalView.fxml'.";
-        assert tp_principal != null : "fx:id=\"tp_principal\" was not injected: check your FXML file 'PrincipalView.fxml'.";
-        assert ap_usuario != null : "fx:id=\"ap_usuario\" was not injected: check your FXML file 'PrincipalView.fxml'.";
-        assert tab_admin != null : "fx:id=\"tab_admin\" was not injected: check your FXML file 'PrincipalView.fxml'.";
-        assert sp_admin != null : "fx:id=\"sp_admin\" was not injected: check your FXML file 'PrincipalView.fxml'.";
-        assert sp_usuario != null : "fx:id=\"sp_usuario\" was not injected: check your FXML file 'PrincipalView.fxml'.";
-        assert tab_usuario != null : "fx:id=\"tab_usuario\" was not injected: check your FXML file 'PrincipalView.fxml'.";
     }
 }

@@ -81,7 +81,8 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
     @Override
     public boolean agregarUsuario(Usuario usuario) {
-        if (obtenerUsuario(usuario.getIdUsuario()) == null){
+        if (obtenerUsuario(usuario.getIdUsuario()) == null
+                && !usuario.getIdUsuario().equals(String.valueOf(administrador.getClave()))){
             listaUsuarios.add(usuario);
             return true;
         }

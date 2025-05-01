@@ -27,28 +27,13 @@ public class RegistrarUsuarioViewController {
     private URL location;
 
     @FXML
-    private Button bt_ingresar;
-
-    @FXML
-    private TextField tf_correo;
-
-    @FXML
-    private Button bt_registrar;
-
-    @FXML
     private TextField tf_telefono;
-
-    @FXML
-    private Label lb_direccion;
-
-    @FXML
-    private Label lb_titulo;
 
     @FXML
     private TextField tf_direccion;
 
     @FXML
-    private Label lb_nombre;
+    private TextField tf_correo;
 
     @FXML
     private TextField tf_nombre;
@@ -57,27 +42,13 @@ public class RegistrarUsuarioViewController {
     private TextField tf_id;
 
     @FXML
-    private Label lb_telefono;
-
-    @FXML
-    private Label lb_correo;
-
-    @FXML
-    private Label lb_clave;
-
-    @FXML
-    private Label lb_numeroId;
+    private Button bt_registrar;
 
     @FXML
     private AnchorPane ap_registrarUsuario;
 
     @FXML
     private TextField tf_clave;
-
-    @FXML
-    void onIngresar() {
-        ingresar();
-    }
 
     @FXML
     void onRegistrar() {
@@ -88,7 +59,7 @@ public class RegistrarUsuarioViewController {
     private void cambiarVista() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource
-                    ("/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/LoginMenuUsuario.fxml"));
+                    ("/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/LoginMenu.fxml"));
             AnchorPane loginUsuario = loader.load();
 
             SplitPane splitPane = (SplitPane) ap_registrarUsuario.getParent().getParent();
@@ -131,19 +102,19 @@ public class RegistrarUsuarioViewController {
     }
 
     private boolean verificarCamposLlenos() {
-        if (tf_correo.getText().isEmpty() || tf_telefono.getText().isEmpty() || tf_direccion.getText().isEmpty()
-                || tf_clave.getText().isEmpty() || tf_id.getText().isEmpty() || tf_nombre.getText().isEmpty()) {
-            return false;
-        }
-        return true;
+        return !tf_correo.getText().isEmpty()
+                && !tf_telefono.getText().isEmpty()
+                && !tf_direccion.getText().isEmpty()
+                && !tf_clave.getText().isEmpty()
+                && !tf_id.getText().isEmpty()
+                && !tf_nombre.getText().isEmpty();
     }
 
     private boolean verificarCamposCorrectos(){
-        if (isInteger(tf_clave.getText()) && isLong(tf_telefono.getText()) &&
-                isLong(tf_id.getText()) && esCorreoValido(tf_correo.getText())) {
-            return true;
-        }
-        return false;
+        return isInteger(tf_clave.getText())
+                && isLong(tf_telefono.getText())
+                && isLong(tf_id.getText())
+                && esCorreoValido(tf_correo.getText());
     }
 
     private void limpiarCamposTexto() {
@@ -182,22 +153,5 @@ public class RegistrarUsuarioViewController {
     @FXML
     void initialize() {
         registrarUsuarioController = new RegistrarUsuarioController();
-        assert bt_ingresar != null : "fx:id=\"bt_ingresar\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert tf_correo != null : "fx:id=\"tf_correo\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert bt_registrar != null : "fx:id=\"bt_registrar\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert tf_telefono != null : "fx:id=\"tf_telefono\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert lb_direccion != null : "fx:id=\"lb_direccion\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert lb_titulo != null : "fx:id=\"lb_titulo\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert tf_direccion != null : "fx:id=\"tf_direccion\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert lb_nombre != null : "fx:id=\"lb_nombre\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert tf_nombre != null : "fx:id=\"tf_nombre\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert tf_id != null : "fx:id=\"tf_id\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert lb_telefono != null : "fx:id=\"lb_telefono\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert lb_correo != null : "fx:id=\"lb_correo\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert lb_clave != null : "fx:id=\"lb_clave\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert lb_numeroId != null : "fx:id=\"lb_numeroId\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert ap_registrarUsuario != null : "fx:id=\"ap_registrarUsuario\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-        assert tf_clave != null : "fx:id=\"tf_clave\" was not injected: check your FXML file 'RegistrarUsuario.fxml'.";
-
     }
 }

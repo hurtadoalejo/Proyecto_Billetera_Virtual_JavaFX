@@ -8,26 +8,26 @@
    <children>
       <TabPane fx:id="tp_principal" layoutX="10.0" layoutY="10.0" prefHeight="630.0" prefWidth="1180.0" style="-fx-border-width: 2px;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="tab_admin" style="-fx-font-size: 14px;" text="Administrador">
+          <Tab fx:id="tab_login" style="-fx-font-size: 14px;" text="Iniciar Sesión">
             <content>
-              <AnchorPane fx:id="ap_admin" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1180.0">
+              <AnchorPane fx:id="ap_login" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1180.0">
                      <children>
-                        <SplitPane fx:id="sp_admin" layoutY="1.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="1180.0">
+                        <SplitPane fx:id="sp_login" layoutY="1.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="1180.0">
                           <items>
-                            <fx:include source="LoginMenuAdmin.fxml" />
+                            <fx:include source="LoginMenu.fxml" />
                           </items>
                         </SplitPane>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="tab_usuario" style="-fx-font-size: 14px;" text="Usuario">
+          <Tab fx:id="tab_registro" style="-fx-font-size: 14px;" text="Registrar Usuario">
             <content>
-              <AnchorPane fx:id="ap_usuario" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="ap_registro" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane fx:id="sp_usuario" layoutX="-1.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="1180.0">
+                        <SplitPane fx:id="sp_registro" layoutX="-1.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="1180.0">
                            <items>
-                               <fx:include source="LoginMenuUsuario.fxml" />
+                               <fx:include source="RegistrarMenu.fxml" />
                            </items>
                         </SplitPane>
                      </children></AnchorPane>

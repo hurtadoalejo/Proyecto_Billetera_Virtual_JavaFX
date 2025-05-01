@@ -156,27 +156,11 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
                 else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.RETIRO)){
                     retirarDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta());
                 }
-                actualizarMontoGastadoPresupuesto(transaccion);
+                //actualizarMontoGastadoPresupuesto(transaccion);
                 return true;
             }
         }
         return false;
-    }
-
-    private void actualizarMontoGastadoPresupuesto(Transaccion transaccion) {
-        if (!transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)){
-            Categoria categoria = transaccion.getCategoriaTransaccion();
-            if (categoria != null){
-                if (categoria.getPresupuestoAsignado() != null){
-                    categoria.getPresupuestoAsignado().aumentarMontoGastado(transaccion.getMonto());
-                }
-            }
-        }
-    }
-
-    @Override
-    public boolean actualizarTransaccion(int idTransaccion, Transaccion nuevaTransaccion) {
-        return billeteraVirtual.actualizarTransaccion(idTransaccion, nuevaTransaccion);
     }
 
     @Override
@@ -219,7 +203,10 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
     }
 
     public boolean agregarCuenta(Cuenta cuenta) {
-        return billeteraVirtual.agregarCuenta(cuenta);
+        if (cuenta.getPresupuestoAsociado().getCuentaAsociada() == null) {
+            return billeteraVirtual.agregarCuenta(cuenta);
+        }
+        return false;
     }
 
     public boolean actualizarCuenta(Cuenta cuentaVieja, Cuenta nuevaCuenta) {
@@ -228,7 +215,12 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
     }
 
     public boolean eliminarCuenta(int idCuenta, String numCuenta) {
-        return billeteraVirtual.eliminarCuenta(idCuenta, numCuenta);
+        Cuenta cuenta = obtenerCuenta(idCuenta);
+        if (billeteraVirtual.eliminarCuenta(idCuenta, numCuenta)) {
+            cuenta.getPresupuestoAsociado().setCuentaAsociada(null);
+            return true;
+        }
+        return false;
     }
 
     private void modificarSaldoTotal(double saldoDado) {
@@ -246,7 +238,8 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
     }
 
     public boolean transaccionPasaPresupuesto(Transaccion transaccion) {
-        Presupuesto presupuesto = transaccion.getCategoriaTransaccion().getPresupuestoAsignado();
+        Presupuesto presupuesto = null;
+        //Presupuesto presupuesto = transaccion.getCuentaDestino().getPresupuestoAsociado();
         if (presupuesto != null) {
             double montoGastadoFuturo = transaccion.getMonto() + presupuesto.getMontoGastado();
             return montoGastadoFuturo <= presupuesto.getMontoTotalAsignado();
@@ -322,8 +315,7 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
     }
 
     public boolean agregarPresupuesto(Presupuesto presupuesto) {
-        if (obtenerPresupuesto(presupuesto) == null &&
-                verificarDisponibilidadCategoria(presupuesto.getCategoriaPresupuesto().getNombre())) {
+        if (obtenerPresupuesto(presupuesto) == null) {
             if (billeteraVirtual.agregarPresupuesto(presupuesto)){
                 listaPresupuestos.add(presupuesto);
                 return true;
@@ -360,15 +352,6 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
         return null;
     }
 
-    public boolean verificarDisponibilidadCategoria(String nombreCategoria){
-        for (Categoria categoria : listaCategorias){
-            if (categoria.getNombre().equalsIgnoreCase(nombreCategoria)){
-                return categoria.getPresupuestoAsignado() == null;
-            }
-        }
-        return false;
-    }
-
     public boolean actualizarPresupuesto(int idPresupuestoViejo, Presupuesto presupuestoNuevo) {
         if (verificarActualizacionPresupuesto(idPresupuestoViejo, presupuestoNuevo)) {
             return billeteraVirtual.actualizarPresupuesto(idPresupuestoViejo, presupuestoNuevo);
@@ -400,6 +383,16 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
             }
         }
         return null;
+    }
+
+    public LinkedList<String> obtenerPresupuestosDisponiblesNombres() {
+        LinkedList<String> listaPresupuestosNombres = new LinkedList<>();
+        for (Presupuesto presupuesto : listaPresupuestos) {
+            if (presupuesto.getCuentaAsociada() == null) {
+                listaPresupuestosNombres.add(presupuesto.getNombre());
+            }
+        }
+        return listaPresupuestosNombres;
     }
 
     public LinkedList<String> obtenerPresupuestosNombres(){

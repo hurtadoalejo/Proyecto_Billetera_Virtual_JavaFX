@@ -94,7 +94,7 @@ public class GestionTransaccionesUsuarioViewController {
 
     @FXML
     void onActualizar() {
-        actualizarTransaccion();
+        System.out.println();
     }
 
     @FXML
@@ -200,32 +200,6 @@ public class GestionTransaccionesUsuarioViewController {
                 categoriaSeleccionada.isEmpty()) ||
                 categoriaSeleccionada.equalsIgnoreCase("Sin categoría asignada")
                 ? null : categoriaSeleccionada;
-    }
-
-    private void actualizarTransaccion() {
-        if (transaccionSeleccionada != null) {
-            if (validarSeleccionCategoria(transaccionSeleccionada)) {
-                TransaccionDto transaccionDto = crearTransaccion(transaccionSeleccionada);
-                if (transaccionPasaPresupuesto(transaccionDto)) {
-                    if (gestionTransaccionesUsuarioController
-                            .actualizarTransaccion(transaccionSeleccionada.idTransaccion(), transaccionDto)) {
-                        intercambiarTransacciones(transaccionSeleccionada, transaccionDto);
-                        limpiarSeleccion();
-                        mostrarMensaje(TITULO_TRANSACCION_ACTUALIZADA, BODY_TRANSACCION_ACTUALIZADA,
-                                Alert.AlertType.INFORMATION);
-                    }
-                } else {
-                    mostrarMensaje(TITULO_TRANSACCION_NO_ACTUALIZADA,
-                            BODY_TRANSACCION_NO_ACTUALIZADA, Alert.AlertType.ERROR);
-                }
-            } else {
-                mostrarMensaje(TITULO_CATEGORIA_REPETIDA, BODY_CATEGORIA_REPETIDA, Alert.AlertType.WARNING);
-            }
-        }
-        else {
-            mostrarMensaje(TITULO_TRANSACCION_NO_SELECCIONADA, BODY_TRANSACCION_NO_SELECCIONADA,
-                    Alert.AlertType.WARNING);
-        }
     }
 
     private boolean validarSeleccionCategoria(TransaccionDto transaccionDto) {

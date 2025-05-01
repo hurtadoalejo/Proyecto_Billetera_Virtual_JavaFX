@@ -173,6 +173,10 @@ public class ModelFactory implements IModelFactoryService {
         return billeteraVirtual.obtenerPresupuesto(idPresupuesto);
     }
 
+    public LinkedList<String> obtenerPresupuestoDisponiblesNombres(String idUsuario) {
+        return obtenerUsuario(idUsuario).obtenerPresupuestosDisponiblesNombres();
+    }
+
     private Presupuesto obtenerPresupuestoNombre(String nombrePresupuesto, String idUsuario) {
         return obtenerUsuario(idUsuario).obtenerPresupuestoNombre(nombrePresupuesto);
     }
@@ -214,7 +218,8 @@ public class ModelFactory implements IModelFactoryService {
 
     private Cuenta cuentaDtoToCuenta(CuentaDto cuentaDto) {
         return cuentaMapper.cuentaDtoToCuenta(cuentaDto, billeteraVirtual,
-                obtenerUsuario(cuentaDto.idUsuarioAsociado()));
+                obtenerUsuario(cuentaDto.idUsuarioAsociado()),
+                obtenerPresupuestoNombre(cuentaDto.presupuestoAsociado(), cuentaDto.idUsuarioAsociado()));
     }
 
     private Transaccion transaccionDtoToTransaccion(TransaccionDto transaccion){
@@ -233,15 +238,11 @@ public class ModelFactory implements IModelFactoryService {
     private Presupuesto presupuestoDtoToPresupuesto(PresupuestoDto presupuestoDto) {
         return presupuestoMapper.presupuestoDtoToPresupuesto(presupuestoDto, billeteraVirtual,
                 obtenerUsuario(presupuestoDto.idUsuario()),
-                obtenerCategoriaPorNombre(presupuestoDto.nombreCategoria()));
+                obtenerCuentaNumCuenta(presupuestoDto.cuentaAsociada()));
     }
 
     public LinkedList<PresupuestoDto> obtenerPresupuestos(String idUsuario) {
         return presupuestoMapper.getPresupuestosDto(obtenerUsuario(idUsuario).getListaPresupuestos());
-    }
-
-    public boolean verificarDisponibilidadCategoria(String nombreCategoria, String idUsuario) {
-        return obtenerUsuario(idUsuario).verificarDisponibilidadCategoria(nombreCategoria);
     }
 
     public LinkedList<String> obtenerCategoriasPorNombreUsuario(String idUsuario) {
@@ -250,10 +251,5 @@ public class ModelFactory implements IModelFactoryService {
 
     public LinkedList<TransaccionDto> obtenerTransacciones(String idUsuario) {
         return transaccionMapper.getTransaccionDto(obtenerUsuario(idUsuario).getListaTransacciones());
-    }
-
-    public boolean actualizarTransaccion(int idTransaccion, TransaccionDto transaccionDto) {
-        return obtenerUsuario(transaccionDto.idUsuario()).actualizarTransaccion(idTransaccion,
-                transaccionDtoToTransaccion(transaccionDto));
     }
 }

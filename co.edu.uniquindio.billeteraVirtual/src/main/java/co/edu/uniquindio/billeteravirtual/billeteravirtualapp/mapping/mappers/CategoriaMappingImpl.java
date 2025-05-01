@@ -26,8 +26,7 @@ public class CategoriaMappingImpl implements ICategoriaMapping {
     @Override
     public CategoriaDto categoriaToCategoriaDto(Categoria categoria) {
         return new CategoriaDto(categoria.getIdCategoria(), categoria.getUsuarioAsociado().getIdUsuario(),
-                categoria.getNombre(), categoria.getDescripcionOpcional(),
-                mapNombrePresupuesto(categoria.getPresupuestoAsignado()));
+                categoria.getNombre(), categoria.getDescripcionOpcional());
     }
 
     @Override
@@ -40,10 +39,5 @@ public class CategoriaMappingImpl implements ICategoriaMapping {
         categoria.setDescripcionOpcional(categoriaDto.descripcion());
         categoria.setIdCategoria(categoriaDto.idCategoria());
         return categoria;
-    }
-
-    @Override
-    public String mapNombrePresupuesto(Presupuesto presupuesto) {
-        return (presupuesto != null) ? presupuesto.getNombre() : null;
     }
 }

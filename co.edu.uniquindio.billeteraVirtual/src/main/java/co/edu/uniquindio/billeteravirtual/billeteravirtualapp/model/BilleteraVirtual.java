@@ -154,6 +154,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         if (obtenerCuenta(cuenta.getIdCuenta(), cuenta.getNumeroCuenta()) == null){
             listaCuentas.add(cuenta);
             cuenta.getUsuarioAsociado().getListaCuentas().add(cuenta);
+            cuenta.getPresupuestoAsociado().setCuentaAsociada(cuenta);
             return true;
         }
         return false;
@@ -184,11 +185,21 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
                     cambiarUsuarioCuenta(cuenta, nuevaCuenta);
                     cuenta.setTipoCuenta(nuevaCuenta.getTipoCuenta());
                     cuenta.setUsuarioAsociado(nuevaCuenta.getUsuarioAsociado());
+                    cambiarPresupuestosCuentas(cuenta, nuevaCuenta);
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    private void cambiarPresupuestosCuentas(Cuenta cuenta, Cuenta nuevaCuenta) {
+        Presupuesto presupuesto = cuenta.getPresupuestoAsociado();
+        Presupuesto presupuestoNuevo = nuevaCuenta.getPresupuestoAsociado();
+        if (presupuesto.getIdPresupuesto() != presupuestoNuevo.getIdPresupuesto()){
+            presupuesto.setCuentaAsociada(null);
+            presupuestoNuevo.setCuentaAsociada(cuenta);
+        }
     }
 
     private Cuenta obtenerCuentaId(int id){
@@ -278,8 +289,6 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         if (categoria != null){
             listaCategorias.remove(categoria);
             categoria.getUsuarioAsociado().getListaCategorias().remove(categoria);
-            listaPresupuestos.remove(categoria.getPresupuestoAsignado());
-            categoria.getUsuarioAsociado().getListaPresupuestos().remove(categoria.getPresupuestoAsignado());
             return true;
         }
         return false;
@@ -310,7 +319,6 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     public boolean agregarPresupuesto(Presupuesto presupuesto) {
         if (obtenerPresupuesto(presupuesto.getIdPresupuesto()) == null){
             listaPresupuestos.add(presupuesto);
-            presupuesto.getCategoriaPresupuesto().setPresupuestoAsignado(presupuesto);
             return true;
         }
         return false;
@@ -319,50 +327,26 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     @Override
     public boolean eliminarPresupuesto(int idPresupuesto) {
         Presupuesto presupuesto = obtenerPresupuesto(idPresupuesto);
-        if (presupuesto != null){
-            desasociarPresupuestoModelo(presupuesto);
+        if (presupuesto != null && presupuesto.getCuentaAsociada() == null){
+            listaPresupuestos.remove(presupuesto);
+            presupuesto.getUsuarioAsociado().getListaPresupuestos().remove(presupuesto);
             return true;
         }
         return false;
-    }
-
-    private void desasociarPresupuestoModelo(Presupuesto presupuesto) {
-        presupuesto.getUsuarioAsociado().getListaPresupuestos().remove(presupuesto);
-        presupuesto.getCategoriaPresupuesto().setPresupuestoAsignado(null);
-        listaPresupuestos.remove(presupuesto);
     }
 
     @Override
     public boolean actualizarPresupuesto(int id, Presupuesto nuevoPresupuesto) {
         for (Presupuesto presupuesto : listaPresupuestos){
             if (presupuesto.getIdPresupuesto() == id){
-                if (verificarCambioCategoriaPresupuesto(presupuesto, nuevoPresupuesto)) {
-                    if (obtenerPresupuesto(nuevoPresupuesto.getIdPresupuesto()) == null ||
-                            nuevoPresupuesto.getIdPresupuesto() == id){
-                        presupuesto.setIdPresupuesto(nuevoPresupuesto.getIdPresupuesto());
-                        presupuesto.setNombre(nuevoPresupuesto.getNombre());
-                        presupuesto.setMontoTotalAsignado(nuevoPresupuesto.getMontoTotalAsignado());
-                        cambiarCategoriaPresupuesto(presupuesto, nuevoPresupuesto.getCategoriaPresupuesto());
-                        return true;
-                    }
-                }
+                presupuesto.setIdPresupuesto(nuevoPresupuesto.getIdPresupuesto());
+                presupuesto.setNombre(nuevoPresupuesto.getNombre());
+                presupuesto.setMontoTotalAsignado(nuevoPresupuesto.getMontoTotalAsignado());
+                presupuesto.setTipoPresupuesto(nuevoPresupuesto.getTipoPresupuesto());
+                return true;
             }
         }
         return false;
-    }
-
-    private void cambiarCategoriaPresupuesto(Presupuesto presupuesto, Categoria categoriaNueva) {
-        if (presupuesto.getCategoriaPresupuesto().getIdCategoria() != categoriaNueva.getIdCategoria()){
-            presupuesto.getCategoriaPresupuesto().setPresupuestoAsignado(null);
-            categoriaNueva.setPresupuestoAsignado(presupuesto);
-            presupuesto.setCategoriaPresupuesto(categoriaNueva);
-        }
-    }
-
-    private boolean verificarCambioCategoriaPresupuesto(Presupuesto presupuesto, Presupuesto nuevoPresupuesto) {
-        return presupuesto.getCategoriaPresupuesto().getIdCategoria()
-                == nuevoPresupuesto.getCategoriaPresupuesto().getIdCategoria() ||
-                nuevoPresupuesto.getCategoriaPresupuesto().getPresupuestoAsignado() == null;
     }
 
     @Override
@@ -404,122 +388,6 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
             return cuentaOrigen !=null && cuentaDestino != null;
         }
         return false;
-    }
-
-    @Override
-    public boolean actualizarTransaccion(int idTransaccion, Transaccion nuevaTransaccion) {
-        for (Transaccion transaccion : listaTransacciones) {
-            if (transaccion.getIdTransaccion() == idTransaccion) {
-                if (obtenerTransaccion(nuevaTransaccion.getIdTransaccion()) == null || nuevaTransaccion.getIdTransaccion() == idTransaccion) {
-                    intercambiarInstanciasTransaccionBilletera(idTransaccion, nuevaTransaccion);
-                    intercambiarInstanciasTransaccionUsuario(transaccion, nuevaTransaccion);
-                    actualizarIntercambioCategoriaTransaccion(transaccion, nuevaTransaccion);
-                    intercambiarInstanciasTransaccionCuentaOrigen(transaccion, nuevaTransaccion);
-                    intercambiarInstanciasTransaccionCuentaDestino(transaccion, nuevaTransaccion);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private void actualizarIntercambioCategoriaTransaccion(Transaccion transaccion, Transaccion nuevaTransaccion) {
-        Categoria categoriaAnterior = transaccion.getCategoriaTransaccion();
-        Categoria categoriaNueva = nuevaTransaccion.getCategoriaTransaccion();
-        if (categoriaAnterior != null && categoriaNueva != null) {
-            actualizarCategoriaTransaccion(transaccion, nuevaTransaccion);
-        }
-        else if (categoriaAnterior == null && categoriaNueva != null){
-            asignarCategoriaTransaccion(nuevaTransaccion);
-        }
-        else if (categoriaAnterior != null && categoriaNueva == null){
-            desasociarCategoriaTransaccion(transaccion);
-        }
-    }
-
-    private void desasociarCategoriaTransaccion(Transaccion transaccion) {
-        Categoria categoria = transaccion.getCategoriaTransaccion();
-        if (categoria.getPresupuestoAsignado() != null &&
-                transaccion.getTipoTransaccion() != TipoTransaccion.DEPOSITO) {
-            categoria.getPresupuestoAsignado().aumentarMontoGastado(transaccion.getMonto()*-1);
-        }
-        categoria.getListaTransacciones().remove(transaccion);
-    }
-
-    private void asignarCategoriaTransaccion(Transaccion nuevaTransaccion) {
-        Categoria categoria = nuevaTransaccion.getCategoriaTransaccion();
-        if (categoria.getPresupuestoAsignado() != null &&
-                nuevaTransaccion.getTipoTransaccion() != TipoTransaccion.DEPOSITO) {
-            categoria.getPresupuestoAsignado().aumentarMontoGastado(nuevaTransaccion.getMonto());
-        }
-        categoria.getListaTransacciones().add(nuevaTransaccion);
-    }
-
-    private void actualizarCategoriaTransaccion(Transaccion transaccion, Transaccion nuevaTransaccion) {
-        Categoria categoriaAnterior = transaccion.getCategoriaTransaccion();
-        Categoria categoriaNueva = nuevaTransaccion.getCategoriaTransaccion();
-        if (categoriaAnterior.getIdCategoria() == categoriaNueva.getIdCategoria()) {
-            intercambiarInstanciasTransaccionCategoria(transaccion, nuevaTransaccion);
-        }
-        else {
-            if (nuevaTransaccion.getTipoTransaccion() != TipoTransaccion.DEPOSITO) {
-                if (categoriaAnterior.getPresupuestoAsignado() != null ) {
-                    categoriaAnterior.getPresupuestoAsignado().aumentarMontoGastado(transaccion.getMonto()*-1);
-                }
-                if (categoriaNueva.getPresupuestoAsignado() != null) {
-                    categoriaNueva.getPresupuestoAsignado().aumentarMontoGastado(nuevaTransaccion.getMonto());
-                }
-            }
-            categoriaAnterior.getListaTransacciones().remove(transaccion);
-            categoriaNueva.getListaTransacciones().add(nuevaTransaccion);
-        }
-    }
-
-    private void intercambiarInstanciasTransaccionCategoria(Transaccion transaccion, Transaccion nuevaTransaccion) {
-        LinkedList<Transaccion> listaTransacciones = transaccion.getCategoriaTransaccion().getListaTransacciones();
-        int indiceTransaccion = listaTransacciones.indexOf(transaccion);
-        listaTransacciones.set(indiceTransaccion, nuevaTransaccion);
-    }
-
-    private void intercambiarInstanciasTransaccionCuentaOrigen(Transaccion viejaTransaccion, Transaccion nuevaTransaccion) {
-        LinkedList<Transaccion> listaTransacciones = viejaTransaccion.getCuentaOrigen()
-                .getListaTransacciones();
-        for (int i = 0; i < listaTransacciones.size(); i++) {
-            if (listaTransacciones.get(i).getIdTransaccion() == viejaTransaccion.getIdTransaccion()){
-                listaTransacciones.set(i, nuevaTransaccion);
-            }
-        }
-    }
-
-    private void intercambiarInstanciasTransaccionCuentaDestino(Transaccion viejaTransaccion, Transaccion nuevaTransaccion) {
-        if (viejaTransaccion.getCuentaDestino() == null){
-            return;
-        }
-        LinkedList<Transaccion> listaTransacciones = viejaTransaccion.getCuentaDestino().getListaTransacciones();
-        for (int i = 0; i < listaTransacciones.size(); i++) {
-            if (listaTransacciones.get(i).getIdTransaccion() == viejaTransaccion.getIdTransaccion()){
-                listaTransacciones.set(i, nuevaTransaccion);
-            }
-        }
-    }
-
-    private void intercambiarInstanciasTransaccionUsuario(Transaccion viejaTransaccion, Transaccion nuevaTransaccion) {
-        LinkedList<Transaccion> listaTransacciones = viejaTransaccion.getUsuarioAsociado()
-                .getListaTransacciones();
-        for (int i = 0; i < listaTransacciones.size(); i++) {
-            if (listaTransacciones.get(i).getIdTransaccion() == viejaTransaccion.getIdTransaccion()){
-                listaTransacciones.set(i, nuevaTransaccion);
-            }
-        }
-    }
-
-    private void intercambiarInstanciasTransaccionBilletera(int idTransaccion, Transaccion nuevaTransaccion) {
-        for (int i = 0; i < listaTransacciones.size(); i++) {
-            if (listaTransacciones.get(i).getIdTransaccion() == idTransaccion){
-                listaTransacciones.set(i, nuevaTransaccion);
-                break;
-            }
-        }
     }
 
     @Override

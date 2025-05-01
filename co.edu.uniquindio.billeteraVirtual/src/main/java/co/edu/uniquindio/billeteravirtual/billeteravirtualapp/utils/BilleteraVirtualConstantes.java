@@ -129,9 +129,6 @@ public class BilleteraVirtualConstantes {
     public static final String TITULO_PRESUPUESTO_ELIMINADO = "Presupuesto eliminado";
     public static final String BODY_PRESUPUESTO_ELIMINADO = "El presupuesto se eliminó exitosamente";
 
-    public static final String TITULO_CATEGORIA_NO_DISPONIBLE = "Categoria no disponible";
-    public static final String BODY_CATEGORIA_NO_DISPONIBLE = "La categoria ya tiene un presupuesto asignado";
-
     public static final String TITULO_PRESUPUESTO_ACTUALIZADO = "Presupuesto actualizado";
     public static final String BODY_PRESUPUESTO_ACTUALIZADO = "El presupuesto se actualizó exitosamente";
 
@@ -141,18 +138,4 @@ public class BilleteraVirtualConstantes {
 
     public static final String TITULO_PRESUPUESTO_TOPE_INVALIDO = "Tope invalido";
     public static final String BODY_PRESUPUESTO_TOPE_INVALIDO = "El tope del presupuesto es mayor al monto ya gastado";
-
-    public static final String TITULO_TRANSACCION_NO_SELECCIONADA = "Transaccion no seleccionada";
-    public static final String BODY_TRANSACCION_NO_SELECCIONADA = "Se requiere seleccionar una" +
-            " transaccion";
-
-    public static final String TITULO_TRANSACCION_ACTUALIZADA = "Transaccion actualizada";
-    public static final String BODY_TRANSACCION_ACTUALIZADA = "La transacción se ha actualizado " +
-            "exitosamente";
-
-    public static final String TITULO_TRANSACCION_NO_ACTUALIZADA = "Transaccion no actualizada";
-    public static final String BODY_TRANSACCION_NO_ACTUALIZADA = "La transaccion no se pudo actualizar debido a que superaría el presupuesto asignado a la categoría";
-
-    public static final String TITULO_CATEGORIA_REPETIDA = "Categoria repetida";
-    public static final String BODY_CATEGORIA_REPETIDA = "Debe seleccionar una categoria diferente a la actual";
 }

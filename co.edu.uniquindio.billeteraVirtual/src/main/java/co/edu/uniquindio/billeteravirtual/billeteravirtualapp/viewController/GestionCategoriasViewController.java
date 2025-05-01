@@ -72,9 +72,6 @@ public class GestionCategoriasViewController {
     private Button bt_limpiar;
 
     @FXML
-    private TableColumn<CategoriaDto, String> cl_presupuestoAsignado;
-
-    @FXML
     private TableColumn<CategoriaDto, Integer> cl_idCategoria;
 
     @FXML
@@ -97,6 +94,11 @@ public class GestionCategoriasViewController {
         eliminarCategoria();
     }
 
+    @FXML
+    void initialize() {
+        gestionCategoriasController = new GestionCategoriasController();
+    }
+
     public void setUsuario(UsuarioDto usuario) {
         this.usuario = usuario;
         initView();
@@ -104,12 +106,7 @@ public class GestionCategoriasViewController {
 
     private CategoriaDto crearCategoria() {
         return new CategoriaDto(Integer.parseInt(tf_idCategoria.getText()), usuario.idUsuario(),
-                tf_nombreCategoria.getText(), tf_descripcion.getText(), null);
-    }
-
-    private CategoriaDto crearCategoria(CategoriaDto categoria) {
-        return new CategoriaDto(Integer.parseInt(tf_idCategoria.getText()), usuario.idUsuario(),
-                tf_nombreCategoria.getText(), tf_descripcion.getText(), categoria.nombrePresupuesto());
+                tf_nombreCategoria.getText(), tf_descripcion.getText());
     }
 
     private void agregarCategoria() {
@@ -139,7 +136,7 @@ public class GestionCategoriasViewController {
         if (categoriaSeleccionada != null) {
             if (verificarCamposLlenos()) {
                 if (verificarCamposCorrectos()) {
-                    CategoriaDto categoriaNueva = crearCategoria(categoriaSeleccionada);
+                    CategoriaDto categoriaNueva = crearCategoria();
                     if (gestionCategoriasController.actualizarCategoria(usuario.idUsuario(),
                             categoriaSeleccionada.idCategoria(), categoriaNueva)){
                         intercambiarCategorias(categoriaSeleccionada.idCategoria(), categoriaNueva);
@@ -227,7 +224,6 @@ public class GestionCategoriasViewController {
         cl_nombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombre()));
         cl_idCategoria.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().idCategoria()).asObject());
         cl_descripcion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().descripcion()));
-        cl_presupuestoAsignado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombrePresupuesto()));
     }
 
     private void listenerSelection(){
@@ -246,27 +242,5 @@ public class GestionCategoriasViewController {
         tf_nombreCategoria.clear();
         tf_idCategoria.clear();
         tf_descripcion.clear();
-    }
-
-    @FXML
-    void initialize() {
-        gestionCategoriasController = new GestionCategoriasController();
-        assert bt_eliminar != null : "fx:id=\"bt_eliminar\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert tf_nombreCategoria != null : "fx:id=\"tf_nombreCategoria\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert lb_idCategoria != null : "fx:id=\"lb_idCategoria\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert bt_actualizar != null : "fx:id=\"bt_actualizar\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert lb_nombreCategoria != null : "fx:id=\"lb_nombreCategoria\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert bt_nuevo != null : "fx:id=\"bt_nuevo\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert tf_descripcion != null : "fx:id=\"tf_descripcion\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert tf_idCategoria != null : "fx:id=\"tf_idCategoria\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert lb_titulo != null : "fx:id=\"lb_titulo\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert cl_descripcion != null : "fx:id=\"cl_descripcion\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert tb_categorias != null : "fx:id=\"tb_categorias\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert cl_nombre != null : "fx:id=\"cl_nombre\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert lb_descripcion != null : "fx:id=\"lb_descripcion\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert bt_limpiar != null : "fx:id=\"bt_limpiar\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert cl_presupuestoAsignado != null : "fx:id=\"cl_presupuestoAsignado\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-        assert cl_idCategoria != null : "fx:id=\"cl_idCategoria\" was not injected: check your FXML file 'GestionCategorias.fxml'.";
-
     }
 }

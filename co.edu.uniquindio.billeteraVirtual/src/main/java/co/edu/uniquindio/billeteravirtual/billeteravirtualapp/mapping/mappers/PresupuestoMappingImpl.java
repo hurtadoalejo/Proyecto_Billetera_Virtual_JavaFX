@@ -22,15 +22,22 @@ public class PresupuestoMappingImpl implements IPresupuestoMapping {
 
     @Override
     public PresupuestoDto presupuestoToPresupuestoDto(Presupuesto presupuesto) {
-       return new PresupuestoDto(presupuesto.getIdPresupuesto(), presupuesto.getNombre(),
-               presupuesto.getMontoTotalAsignado(), presupuesto.getMontoGastado(),
+        String numCuenta = presupuesto.getCuentaAsociada() != null
+                ? presupuesto.getCuentaAsociada().getNumeroCuenta() : null;
+
+       return new PresupuestoDto(
+               presupuesto.getIdPresupuesto(),
+               presupuesto.getNombre(),
+               presupuesto.getMontoTotalAsignado(),
+               presupuesto.getMontoGastado(),
                presupuesto.getUsuarioAsociado().getIdUsuario(),
-               presupuesto.getCategoriaPresupuesto().getNombre());
+               numCuenta,
+               presupuesto.getTipoPresupuesto());
     }
 
     @Override
     public Presupuesto presupuestoDtoToPresupuesto(PresupuestoDto presupuestoDto, BilleteraVirtual billeteraVirtual,
-                                                   Usuario usuario, Categoria categoria) {
+                                                   Usuario usuario, Cuenta cuenta) {
         Presupuesto presupuesto = new Presupuesto();
         presupuesto.setBilleteraVirtual(billeteraVirtual);
         presupuesto.setIdPresupuesto(presupuestoDto.idPresupuesto());
@@ -38,7 +45,8 @@ public class PresupuestoMappingImpl implements IPresupuestoMapping {
         presupuesto.setMontoTotalAsignado(presupuestoDto.montoTotalAsignado());
         presupuesto.setMontoGastado(presupuestoDto.montoGastado());
         presupuesto.setUsuarioAsociado(usuario);
-        presupuesto.setCategoriaPresupuesto(categoria);
+        presupuesto.setCuentaAsociada(cuenta);
+        presupuesto.setTipoPresupuesto(presupuestoDto.tipoPresupuesto());
         return presupuesto;
     }
 

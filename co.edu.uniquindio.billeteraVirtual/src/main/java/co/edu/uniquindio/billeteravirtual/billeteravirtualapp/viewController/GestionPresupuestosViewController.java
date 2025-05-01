@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.GestionPresupuestoController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.PresupuestoDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.TipoPresupuesto;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -34,34 +35,25 @@ public class GestionPresupuestosViewController {
     private Button bt_eliminar;
 
     @FXML
+    private TableColumn<PresupuestoDto, String> cl_cuentaAsociada;
+
+    @FXML
     private TableColumn<PresupuestoDto, Double> cl_tope;
+
+    @FXML
+    private ComboBox<TipoPresupuesto> cb_tipoPresupuesto;
 
     @FXML
     private Button bt_actualizar;
 
     @FXML
-    private ComboBox<String> cb_categoria;
-
-    @FXML
     private TextField tf_idPresupuesto;
-
-    @FXML
-    private Label lb_idPresupuesto;
-
-    @FXML
-    private Label lb_nombrePresupuesto;
 
     @FXML
     private Button bt_nuevo;
 
     @FXML
     private TextField tf_tope;
-
-    @FXML
-    private Label lb_titulo;
-
-    @FXML
-    private Label lb_tope;
 
     @FXML
     private TableColumn<PresupuestoDto, String> cl_nombre;
@@ -73,6 +65,9 @@ public class GestionPresupuestosViewController {
     private TableColumn<PresupuestoDto, Integer> cl_idPresupuesto;
 
     @FXML
+    private TableColumn<PresupuestoDto, String> cl_tipoPresupuesto;
+
+    @FXML
     private TextField tf_nombrePresupuesto;
 
     @FXML
@@ -80,12 +75,6 @@ public class GestionPresupuestosViewController {
 
     @FXML
     private Button bt_limpiar;
-
-    @FXML
-    private Label lb_categoria;
-
-    @FXML
-    private TableColumn<PresupuestoDto, String> cl_categoriaAsociada;
 
     @FXML
     void onNuevo() {
@@ -107,44 +96,42 @@ public class GestionPresupuestosViewController {
         eliminarPresupuesto();
     }
 
+    @FXML
+    void initialize() {
+        gestionPresupuestoController = new GestionPresupuestoController();
+    }
+
     public void setUsuario(UsuarioDto usuario) {
         this.usuario = usuario;
-        cb_categoria.getItems().addAll(gestionPresupuestoController
-                .obtenerCategoriasNombresDeUsuario(usuario.idUsuario()));
+        cb_tipoPresupuesto.getItems().addAll(TipoPresupuesto.values());
         initView();
     }
 
     private PresupuestoDto crearPresupuesto() {
         return new PresupuestoDto(Integer.parseInt(tf_idPresupuesto.getText()), tf_nombrePresupuesto.getText(),
-                Double.parseDouble(tf_tope.getText()), 0, usuario.idUsuario(), cb_categoria.getValue());
+                Double.parseDouble(tf_tope.getText()), 0, usuario.idUsuario(), null, cb_tipoPresupuesto.getValue());
     }
 
-    private PresupuestoDto crearPresupuesto(double montoGastado) {
+    private PresupuestoDto crearPresupuesto(double montoGastado, String numCuenta) {
         return new PresupuestoDto(Integer.parseInt(tf_idPresupuesto.getText()), tf_nombrePresupuesto.getText(),
-                Double.parseDouble(tf_tope.getText()), montoGastado, usuario.idUsuario(), cb_categoria.getValue());
+                Double.parseDouble(tf_tope.getText()), montoGastado, usuario.idUsuario(), numCuenta,
+                cb_tipoPresupuesto.getValue());
     }
 
     private void agregarPresupuesto() {
         if (verificarCamposLlenos()){
             if (verificarCamposCorrectos()) {
                 PresupuestoDto presupuestoDto = crearPresupuesto();
-                if (gestionPresupuestoController
-                        .verificarDisponibilidadCategoria(presupuestoDto.nombreCategoria(), usuario.idUsuario())){
-                    if (gestionPresupuestoController.agregarPresupuesto(presupuestoDto)){
-                        listaPresupuestos.add(presupuestoDto);
-                        tb_presupuestos.refresh();
-                        limpiarSeleccion();
-                        mostrarMensaje(TITULO_PRESUPUESTO_AGREGADO,
-                                BODY_PRESUPUESTO_AGREGADO, Alert.AlertType.INFORMATION);
-                    }
-                    else {
-                        mostrarMensaje(TITULO_PRESUPUESTO_NO_AGREGADO,
-                                BODY_PRESUPUESTO_NO_AGREGADO, Alert.AlertType.ERROR);
-                    }
+                if (gestionPresupuestoController.agregarPresupuesto(presupuestoDto)){
+                    listaPresupuestos.add(presupuestoDto);
+                    tb_presupuestos.refresh();
+                    limpiarSeleccion();
+                    mostrarMensaje(TITULO_PRESUPUESTO_AGREGADO,
+                            BODY_PRESUPUESTO_AGREGADO, Alert.AlertType.INFORMATION);
                 }
                 else {
-                    mostrarMensaje(TITULO_CATEGORIA_NO_DISPONIBLE,
-                            BODY_CATEGORIA_NO_DISPONIBLE, Alert.AlertType.ERROR);
+                    mostrarMensaje(TITULO_PRESUPUESTO_NO_AGREGADO,
+                            BODY_PRESUPUESTO_NO_AGREGADO, Alert.AlertType.ERROR);
                 }
             }
             else {
@@ -160,28 +147,20 @@ public class GestionPresupuestosViewController {
         if (presupuestoSeleccionado != null) {
             if (verificarCamposLlenos()){
                 if (verificarCamposCorrectos()) {
-                    PresupuestoDto presupuestoNuevo = crearPresupuesto(presupuestoSeleccionado.montoGastado());
+                    PresupuestoDto presupuestoNuevo = crearPresupuesto(
+                            presupuestoSeleccionado.montoGastado(), presupuestoSeleccionado.cuentaAsociada());
                     if (verificarTopeCorrecto(presupuestoNuevo)){
-                        if (presupuestoSeleccionado.nombreCategoria()
-                                .equalsIgnoreCase(presupuestoNuevo.nombreCategoria()) ||
-                                gestionPresupuestoController.verificarDisponibilidadCategoria
-                                (presupuestoNuevo.nombreCategoria(), usuario.idUsuario())){
-                            if (gestionPresupuestoController.actualizarPresupuesto
-                                    (presupuestoSeleccionado.idPresupuesto(), presupuestoNuevo)){
-                                intercambiarPresupuestos(presupuestoSeleccionado.idPresupuesto(), presupuestoNuevo);
-                                limpiarSeleccion();
-                                tb_presupuestos.refresh();
-                                mostrarMensaje(TITULO_PRESUPUESTO_ACTUALIZADO,
-                                        BODY_PRESUPUESTO_ACTUALIZADO, Alert.AlertType.INFORMATION);
-                            }
-                            else {
-                                mostrarMensaje(TITULO_PRESUPUESTO_NO_ACTUALIZADO,
-                                        BODY_PRESUPUESTO_NO_ACTUALIZADO, Alert.AlertType.ERROR);
-                            }
+                        if (gestionPresupuestoController.actualizarPresupuesto
+                                (presupuestoSeleccionado.idPresupuesto(), presupuestoNuevo)){
+                            intercambiarPresupuestos(presupuestoSeleccionado.idPresupuesto(), presupuestoNuevo);
+                            limpiarSeleccion();
+                            tb_presupuestos.refresh();
+                            mostrarMensaje(TITULO_PRESUPUESTO_ACTUALIZADO,
+                                    BODY_PRESUPUESTO_ACTUALIZADO, Alert.AlertType.INFORMATION);
                         }
                         else {
-                            mostrarMensaje(TITULO_CATEGORIA_NO_DISPONIBLE,
-                                    BODY_CATEGORIA_NO_DISPONIBLE, Alert.AlertType.ERROR);
+                            mostrarMensaje(TITULO_PRESUPUESTO_NO_ACTUALIZADO,
+                                    BODY_PRESUPUESTO_NO_ACTUALIZADO, Alert.AlertType.ERROR);
                         }
                     }
                     else {
@@ -236,7 +215,7 @@ public class GestionPresupuestosViewController {
         return !tf_nombrePresupuesto.getText().isEmpty() &&
                 !tf_tope.getText().isEmpty() &&
                 !tf_idPresupuesto.getText().isEmpty() &&
-                !cb_categoria.getSelectionModel().isEmpty();
+                !cb_tipoPresupuesto.getSelectionModel().isEmpty();
     }
 
     private boolean verificarCamposCorrectos(){
@@ -248,7 +227,7 @@ public class GestionPresupuestosViewController {
             tf_nombrePresupuesto.setText(presupuesto.nombre());
             tf_idPresupuesto.setText(String.valueOf(presupuesto.idPresupuesto()));
             tf_tope.setText(String.valueOf(presupuesto.montoTotalAsignado()));
-            cb_categoria.getSelectionModel().select(presupuesto.nombreCategoria());
+            cb_tipoPresupuesto.getSelectionModel().select(presupuesto.tipoPresupuesto());
         }
     }
 
@@ -267,9 +246,10 @@ public class GestionPresupuestosViewController {
     private void initDataBinding() {
         cl_nombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombre()));
         cl_idPresupuesto.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().idPresupuesto()).asObject());
+        cl_cuentaAsociada.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().cuentaAsociada()));
         cl_tope.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().montoTotalAsignado()).asObject());
         cl_montoGastado.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().montoGastado()).asObject());
-        cl_categoriaAsociada.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombreCategoria()));
+        cl_tipoPresupuesto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tipoPresupuesto().name()));
     }
 
     private void listenerSelection(){
@@ -288,30 +268,6 @@ public class GestionPresupuestosViewController {
         tf_nombrePresupuesto.clear();
         tf_idPresupuesto.clear();
         tf_tope.clear();
-        cb_categoria.getSelectionModel().clearSelection();
-    }
-
-    @FXML
-    void initialize() {
-        gestionPresupuestoController = new GestionPresupuestoController();
-        assert bt_eliminar != null : "fx:id=\"bt_eliminar\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert cl_tope != null : "fx:id=\"cl_tope\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert bt_actualizar != null : "fx:id=\"bt_actualizar\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert cb_categoria != null : "fx:id=\"cb_categoria\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert tf_idPresupuesto != null : "fx:id=\"tf_idPresupuesto\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert lb_idPresupuesto != null : "fx:id=\"lb_idPresupuesto\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert lb_nombrePresupuesto != null : "fx:id=\"lb_nombrePresupuesto\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert bt_nuevo != null : "fx:id=\"bt_nuevo\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert tf_tope != null : "fx:id=\"tf_tope\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert lb_titulo != null : "fx:id=\"lb_titulo\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert lb_tope != null : "fx:id=\"lb_tope\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert cl_nombre != null : "fx:id=\"cl_nombre\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert cl_montoGastado != null : "fx:id=\"cl_montoGastado\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert cl_idPresupuesto != null : "fx:id=\"cl_idPresupuesto\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert tf_nombrePresupuesto != null : "fx:id=\"tf_nombrePresupuesto\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert tb_presupuestos != null : "fx:id=\"tb_presupuestos\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert bt_limpiar != null : "fx:id=\"bt_limpiar\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert lb_categoria != null : "fx:id=\"lb_categoria\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
-        assert cl_categoriaAsociada != null : "fx:id=\"cl_categoriaAsociada\" was not injected: check your FXML file 'GestionPresupuestos.fxml'.";
+        cb_tipoPresupuesto.getSelectionModel().clearSelection();
     }
 }

@@ -12,16 +12,8 @@ public class GestionPresupuestoController {
         this.modelFactory = ModelFactory.getInstance();
     }
 
-    public LinkedList<String> obtenerCategoriasNombresDeUsuario(String idUsuario) {
-        return modelFactory.obtenerCategoriasNombresDeUsuario(idUsuario);
-    }
-
     public LinkedList<PresupuestoDto> obtenerPresupuestos(String idUsuario) {
         return modelFactory.obtenerPresupuestos(idUsuario);
-    }
-
-    public boolean verificarDisponibilidadCategoria(String nombreCategoria, String idUsuario) {
-        return modelFactory.verificarDisponibilidadCategoria(nombreCategoria, idUsuario);
     }
 
     public boolean agregarPresupuesto(PresupuestoDto presupuestoDto) {

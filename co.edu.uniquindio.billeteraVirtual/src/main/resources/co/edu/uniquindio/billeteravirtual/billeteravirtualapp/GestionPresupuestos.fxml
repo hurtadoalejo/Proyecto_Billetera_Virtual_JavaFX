@@ -7,83 +7,84 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1180.0" style="-fx-background-color: #2ECC71;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.GestionPresupuestosViewController">
    <children>
-      <SplitPane dividerPositions="0.5247349823321554" orientation="VERTICAL" prefHeight="568.0" prefWidth="1180.0" style="-fx-background-color: #2ECC71;">
+      <SplitPane dividerPositions="0.5247349823321554" orientation="VERTICAL" prefHeight="568.0" prefWidth="1180.0">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="294.0" prefWidth="1178.0">
                <children>
-                  <Label fx:id="lb_idPresupuesto" layoutX="166.0" layoutY="153.0" text="Id Presupuesto:">
+                  <Label layoutX="166.0" layoutY="153.0" text="Id Presupuesto:">
                      <font>
-                        <Font name="Segoe UI Bold Italic" size="16.0" />
+                        <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lb_nombrePresupuesto" layoutX="120.0" layoutY="98.0" text="Nombre Presupuesto:">
+                  <Label layoutX="120.0" layoutY="98.0" text="Nombre Presupuesto:">
                      <font>
-                        <Font name="Segoe UI Bold Italic" size="16.0" />
+                        <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
                   <Separator layoutX="53.0" layoutY="204.0" prefHeight="12.0" prefWidth="1075.0" />
-                  <TextField fx:id="tf_nombrePresupuesto" layoutX="294.0" layoutY="90.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                  <TextField fx:id="tf_nombrePresupuesto" layoutX="294.0" layoutY="90.0" prefHeight="31.0" prefWidth="289.0">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="tf_idPresupuesto" layoutX="294.0" layoutY="146.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                  <TextField fx:id="tf_idPresupuesto" layoutX="294.0" layoutY="146.0" prefHeight="31.0" prefWidth="289.0">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="bt_nuevo" layoutX="310.0" layoutY="235.0" mnemonicParsing="false" onAction="#onNuevo" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Nuevo">
+                  <Button fx:id="bt_nuevo" layoutX="310.0" layoutY="235.0" mnemonicParsing="false" onAction="#onNuevo" prefHeight="31.0" prefWidth="118.0" text="Nuevo">
                      <font>
-                        <Font name="Segoe UI Bold" size="16.0" />
+                        <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="bt_actualizar" layoutX="530.0" layoutY="235.0" mnemonicParsing="false" onAction="#onActualizar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Actualizar">
+                  <Button fx:id="bt_actualizar" layoutX="530.0" layoutY="235.0" mnemonicParsing="false" onAction="#onActualizar" prefHeight="31.0" prefWidth="118.0" text="Actualizar">
                      <font>
-                        <Font name="Segoe UI Bold" size="16.0" />
+                        <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="bt_limpiar" layoutX="750.0" layoutY="235.0" mnemonicParsing="false" onAction="#onLimpiar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Limpiar">
+                  <Button fx:id="bt_limpiar" layoutX="750.0" layoutY="235.0" mnemonicParsing="false" onAction="#onLimpiar" prefHeight="31.0" prefWidth="118.0" text="Limpiar">
                      <font>
-                        <Font name="Segoe UI Bold" size="16.0" />
+                        <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Button>
-                  <Label fx:id="lb_titulo" layoutX="478.0" layoutY="30.0" text="Gestión Presupuestos">
+                  <Label layoutX="495.0" layoutY="29.0" text="Gestión Presupuestos">
                      <font>
-                        <Font name="Segoe UI Bold" size="22.0" />
+                        <Font name="Segoe UI" size="20.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lb_categoria" layoutX="672.0" layoutY="154.0" text="Categoría:">
+                  <Label layoutX="623.0" layoutY="152.0" text="Tipo Presupuesto:">
                      <font>
-                        <Font name="Segoe UI Bold Italic" size="16.0" />
+                        <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cb_categoria" layoutX="770.0" layoutY="148.0" prefHeight="29.0" prefWidth="289.0" style="-fx-font-size: 15px; -fx-font-family: &quot;Segoe UI&quot;;" />
-                  <TextField fx:id="tf_tope" layoutX="770.0" layoutY="91.0" prefHeight="31.0" prefWidth="289.0" style="-fx-border-width: 2px; -fx-border-radius: 5px; -fx-text-fill: #000000; -fx-background-radius: 7px; -fx-border-color: #2ECC71; -fx-background-color: #DFE2E1;">
+                  <ComboBox fx:id="cb_tipoPresupuesto" layoutX="770.0" layoutY="148.0" prefHeight="29.0" prefWidth="289.0" style="-fx-font-family: &quot;Segoe UI&quot;;" />
+                  <TextField fx:id="tf_tope" layoutX="770.0" layoutY="91.0" prefHeight="31.0" prefWidth="289.0">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="lb_tope" layoutX="706.0" layoutY="97.0" text="Tope:">
+                  <Label layoutX="706.0" layoutY="97.0" text="Tope:">
                      <font>
-                        <Font name="Segoe UI Bold Italic" size="16.0" />
+                        <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="249.0" prefWidth="1178.0">
                <children>
-                  <Button fx:id="bt_eliminar" layoutX="530.0" layoutY="211.0" mnemonicParsing="false" onAction="#onEliminar" prefHeight="31.0" prefWidth="118.0" style="-fx-background-radius: 5px; -fx-background-color: #27AE60; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-border-color: #12502c;" text="Eliminar">
+                  <Button fx:id="bt_eliminar" layoutX="530.0" layoutY="211.0" mnemonicParsing="false" onAction="#onEliminar" prefHeight="31.0" prefWidth="118.0" text="Eliminar">
                      <font>
-                        <Font name="Segoe UI Bold" size="16.0" />
+                        <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Button>
-                  <TableView fx:id="tb_presupuestos" layoutX="79.0" layoutY="14.0" prefHeight="184.0" prefWidth="1020.0" style="-fx-font-size: 14px; -fx-border-color: #12502c; -fx-border-width: 2px; -fx-background-color: #DFE2E1;">
+                  <TableView fx:id="tb_presupuestos" layoutX="79.0" layoutY="14.0" prefHeight="184.0" prefWidth="1020.0" style="-fx-font-size: 14px;">
                      <columns>
-                        <TableColumn fx:id="cl_nombre" prefWidth="205.0" text="Nombre" />
-                        <TableColumn fx:id="cl_idPresupuesto" prefWidth="175.0" text="Id Presupuesto" />
-                        <TableColumn fx:id="cl_tope" prefWidth="180.0" text="Tope" />
-                        <TableColumn fx:id="cl_montoGastado" prefWidth="214.0" text="Monto Gastado" />
-                        <TableColumn fx:id="cl_categoriaAsociada" prefWidth="242.0" text="Categoría Asociada" />
+                        <TableColumn fx:id="cl_nombre" prefWidth="172.0" text="Nombre" />
+                        <TableColumn fx:id="cl_idPresupuesto" prefWidth="161.0" text="Id Presupuesto" />
+                        <TableColumn fx:id="cl_cuentaAsociada" prefWidth="189.0" text="Cuenta Asociada" />
+                        <TableColumn fx:id="cl_tope" prefWidth="144.0" text="Tope" />
+                        <TableColumn fx:id="cl_montoGastado" prefWidth="154.0" text="Monto Gastado" />
+                        <TableColumn fx:id="cl_tipoPresupuesto" prefWidth="199.0" text="Tipo Presupuesto" />
                      </columns>
                   </TableView>
                </children>

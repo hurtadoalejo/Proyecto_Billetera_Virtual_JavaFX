@@ -12,10 +12,6 @@ public class GestionTransaccionesUsuarioController {
         modelFactory = ModelFactory.getInstance();
     }
 
-    public boolean actualizarTransaccion(int idTransaccion, TransaccionDto transaccionDto) {
-        return modelFactory.actualizarTransaccion(idTransaccion, transaccionDto);
-    }
-
     public LinkedList<String> obtenerCategoriasPorNombreUsuario(String idUsuario) {
         return modelFactory.obtenerCategoriasPorNombreUsuario(idUsuario);
     }

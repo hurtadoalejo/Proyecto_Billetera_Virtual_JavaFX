@@ -10,9 +10,9 @@
         <tabs>
           <Tab fx:id="tab_login" style="-fx-font-size: 14px;" text="Iniciar Sesión">
             <content>
-              <AnchorPane fx:id="ap_login" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1180.0">
+              <AnchorPane fx:id="ap_login" minHeight="0.0" minWidth="0.0" prefHeight="595.0" prefWidth="1175.0">
                      <children>
-                        <SplitPane fx:id="sp_login" layoutY="1.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="1180.0">
+                        <SplitPane fx:id="sp_login" layoutY="-1.0" orientation="VERTICAL" prefHeight="595.0" prefWidth="1175.0" style="-fx-border-width: 2px; -fx-border-color: #dddddd;">
                           <items>
                             <fx:include source="LoginMenu.fxml" />
                           </items>
@@ -21,11 +21,11 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="tab_registro" style="-fx-font-size: 14px;" text="Registrar Usuario">
+          <Tab fx:id="tab_registro" style="-fx-font-size: 14px; -fx-border-width: 2px;" text="Registrar Usuario">
             <content>
-              <AnchorPane fx:id="ap_registro" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="ap_registro" minHeight="0.0" minWidth="0.0" prefHeight="595.0" prefWidth="1175.0">
                      <children>
-                        <SplitPane fx:id="sp_registro" layoutX="-1.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="1180.0">
+                        <SplitPane fx:id="sp_registro" layoutX="-1.0" layoutY="-2.0" orientation="VERTICAL" prefHeight="595.0" prefWidth="1175.0" style="-fx-border-color: #dddddd; -fx-border-width: 3px;">
                            <items>
                                <fx:include source="RegistrarMenu.fxml" />
                            </items>

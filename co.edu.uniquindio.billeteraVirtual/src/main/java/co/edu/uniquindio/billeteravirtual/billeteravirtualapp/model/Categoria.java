@@ -7,19 +7,17 @@ public class Categoria {
     private int idCategoria;
     private Usuario usuarioAsociado;
     private String nombre, descripcionOpcional;
-    private Presupuesto presupuestoAsignado;
     private LinkedList<Transaccion> listaTransacciones;
 
     public Categoria() {
         this.listaTransacciones = new LinkedList<>();
     }
 
-    public Categoria(int idCategoria, String nombre, String descripcionOpcional, Presupuesto presupuesto,
-                     Usuario usuario,BilleteraVirtual billeteraVirtual) {
+    public Categoria(int idCategoria, String nombre, String descripcionOpcional, Usuario usuario,
+                     BilleteraVirtual billeteraVirtual) {
         this.idCategoria = idCategoria;
         this.nombre = nombre;
         this.usuarioAsociado = usuario;
-        this.presupuestoAsignado = presupuesto;
         this.descripcionOpcional = descripcionOpcional;
         this.billeteraVirtual = billeteraVirtual;
         this.listaTransacciones = new LinkedList<>();
@@ -71,13 +69,5 @@ public class Categoria {
 
     public void setUsuarioAsociado(Usuario usuarioAsociado) {
         this.usuarioAsociado = usuarioAsociado;
-    }
-
-    public Presupuesto getPresupuestoAsignado() {
-        return presupuestoAsignado;
-    }
-
-    public void setPresupuestoAsignado(Presupuesto presupuestoAsignado) {
-        this.presupuestoAsignado = presupuestoAsignado;
     }
 }

@@ -116,12 +116,12 @@ public class GestionCuentasViewController {
 
     private CuentaDto crearCuenta() {
         return new CuentaDto(Integer.parseInt(tf_idCuenta.getText()), tf_nombreBanco.getText(),
-                tf_numeroCuenta.getText(), cb_usuarioAsociado.getValue(), cb_tipoCuenta.getValue(), 0);
+                tf_numeroCuenta.getText(), cb_usuarioAsociado.getValue(), cb_tipoCuenta.getValue(), 0, null);
     }
 
     private CuentaDto crearCuentaConSaldo(Double saldo) {
         return new CuentaDto(Integer.parseInt(tf_idCuenta.getText()), tf_nombreBanco.getText(),
-                tf_numeroCuenta.getText(), cb_usuarioAsociado.getValue(), cb_tipoCuenta.getValue(), saldo);
+                tf_numeroCuenta.getText(), cb_usuarioAsociado.getValue(), cb_tipoCuenta.getValue(), saldo, null);
     }
 
     private void agregarCuenta() {

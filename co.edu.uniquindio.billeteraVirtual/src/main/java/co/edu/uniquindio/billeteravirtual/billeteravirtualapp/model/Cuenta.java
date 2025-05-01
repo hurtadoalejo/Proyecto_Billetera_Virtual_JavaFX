@@ -10,13 +10,14 @@ public class Cuenta {
     private TipoCuenta tipoCuenta;
     private LinkedList<Transaccion> listaTransacciones;
     private double saldo;
+    private Presupuesto presupuestoAsociado;
 
     public Cuenta(){
         listaTransacciones = new LinkedList<>();
         saldo = 0;
     }
 
-    public Cuenta(int idCuenta, String nombreBanco, String numeroCuenta, Usuario usuarioAsociado, TipoCuenta tipoCuenta, BilleteraVirtual billeteraVirtual) {
+    public Cuenta(int idCuenta, String nombreBanco, String numeroCuenta, Usuario usuarioAsociado, TipoCuenta tipoCuenta, BilleteraVirtual billeteraVirtual, Presupuesto presupuestoAsociado) {
         this.idCuenta = idCuenta;
         this.nombreBanco = nombreBanco;
         this.numeroCuenta = numeroCuenta;
@@ -25,6 +26,7 @@ public class Cuenta {
         this.billeteraVirtual = billeteraVirtual;
         listaTransacciones = new LinkedList<>();
         this.saldo = 0;
+        this.presupuestoAsociado = presupuestoAsociado;
     }
 
     public BilleteraVirtual getBilleteraVirtual() {
@@ -93,5 +95,13 @@ public class Cuenta {
 
     public void modificarSaldoTotal(double saldoDado) {
         saldo = saldo+saldoDado;
+    }
+
+    public Presupuesto getPresupuestoAsociado() {
+        return presupuestoAsociado;
+    }
+
+    public void setPresupuestoAsociado(Presupuesto presupuestoAsociado) {
+        this.presupuestoAsociado = presupuestoAsociado;
     }
 }

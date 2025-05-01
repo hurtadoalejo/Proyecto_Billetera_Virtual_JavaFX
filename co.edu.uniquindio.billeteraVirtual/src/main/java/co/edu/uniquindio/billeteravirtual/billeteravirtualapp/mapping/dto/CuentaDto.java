@@ -4,6 +4,6 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.TipoCuenta;
 
 public record CuentaDto(
         int idCuenta, String nombreBanco, String numCuenta, String idUsuarioAsociado,
-        TipoCuenta tipoCuenta, double saldo
+        TipoCuenta tipoCuenta, double saldo, String presupuestoAsociado
 ) {
 }

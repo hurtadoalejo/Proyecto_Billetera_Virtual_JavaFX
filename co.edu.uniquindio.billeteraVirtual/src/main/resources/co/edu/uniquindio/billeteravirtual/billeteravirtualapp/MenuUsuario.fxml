@@ -8,7 +8,7 @@
    <children>
       <TabPane fx:id="tp_menuUsuario" prefHeight="600.0" prefWidth="1180.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
-            <Tab fx:id="tab_editarPerfil" style="-fx-font-size: 14px;" text="Editar Perfil">
+            <Tab fx:id="tab_editarPerfil" style="-fx-font-size: 14px;" text="Perfil">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1180.0">
                      <children>

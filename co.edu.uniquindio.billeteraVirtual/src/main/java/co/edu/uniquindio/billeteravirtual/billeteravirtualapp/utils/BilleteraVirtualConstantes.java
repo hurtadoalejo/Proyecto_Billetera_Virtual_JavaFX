@@ -92,7 +92,6 @@ public class BilleteraVirtualConstantes {
     public static final String BODY_TRANSFERENCIA_EXITOSA = "Se transfirieron exitosamente: ";
     public static final String TITULO_TRANSFERENCIA_NO_EXITOSA = "Transferencia no exitosa";
     public static final String BODY_TRANSFERENCIA_NO_EXITOSA_DINERO = "Su cuenta no tiene el saldo suficiente a transferir";
-    public static final String BODY_TRANSFERENCIA_NO_EXITOSA_CUENTA = "La cuenta a la que quiere transferir no existe";
 
     public static final String TITULO_CATEGORIA_NO_SELECCIONADA = "Categoria no seleccionada";
     public static final String BODY_CATEGORIA_NO_SELECCIONADA = "No hay ninguna Categoria seleccionada";

@@ -361,33 +361,62 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
     @Override
     public boolean agregarTransaccion(Transaccion transaccion) {
-        if (obtenerTransaccion(transaccion.getIdTransaccion()) == null && cuentasExisten(transaccion)){
+        if (obtenerTransaccion(transaccion.getIdTransaccion()) == null){
+            if (transaccion.getCategoriaTransaccion().getNombre().equalsIgnoreCase("Retiro")) {
+                return retirarDinero(transaccion);
+            } else if (transaccion.getCategoriaTransaccion().getNombre().equalsIgnoreCase("Deposito")) {
+                return realizarDeposito(transaccion);
+            } else if (transaccion.getCategoriaTransaccion().getNombre().equalsIgnoreCase("Transferencia")) {
+                return realizarTransferencia(transaccion);
+            }
+        }
+        return false;
+    }
+
+    public boolean validarPresupuesto(Transaccion transaccion) {
+        Presupuesto presupuesto = transaccion.getCuentaOrigen().getPresupuestoAsociado();
+        return presupuesto.getMontoGastado()+transaccion.getMonto() <= presupuesto.getMontoTotalAsignado();
+    }
+
+    public boolean validarSaldo(Transaccion transaccion) {
+        Cuenta cuenta = transaccion.getCuentaOrigen();
+        return cuenta.getSaldo() >= transaccion.getMonto();
+    }
+
+    private boolean retirarDinero(Transaccion transaccion) {
+        if (validarPresupuesto(transaccion) || validarSaldo(transaccion)) {
+            Cuenta cuentaOrigen = transaccion.getCuentaOrigen();
+            cuentaOrigen.actualizarSaldo(transaccion.getMonto()*-1);
+            cuentaOrigen.getUsuarioAsociado().actualizarSaldoTotal();
+            cuentaOrigen.getPresupuestoAsociado().actualizarMontoGastado(transaccion.getMonto());
             listaTransacciones.add(transaccion);
+            cuentaOrigen.getUsuarioAsociado().getListaTransacciones().add(transaccion);
             return true;
         }
         return false;
     }
 
-    private boolean cuentasExisten(Transaccion transaccion) {
-        if (transaccion.getCuentaOrigen() == null) {
-            return false;
-        }
-        Cuenta cuentaOrigen = transaccion.getCuentaOrigen();
-        if (transaccion.getTipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)){
-            if (transaccion.getCuentaDestino() != null) {
-                return transaccion.getCuentaDestino() != null;
-            }
-        }
-        return true;
-    }
-
-    public boolean cuentasExisten(String numCuentaOrigen, String numCuentaDestino) {
-        if (numCuentaOrigen != null && numCuentaDestino != null){
-            Cuenta cuentaOrigen = obtenerCuentaNumCuenta(numCuentaOrigen);
-            Cuenta cuentaDestino = obtenerCuentaNumCuenta(numCuentaDestino);
-            return cuentaOrigen !=null && cuentaDestino != null;
+    private boolean realizarTransferencia(Transaccion transaccion) {
+        if (validarPresupuesto(transaccion) || validarSaldo(transaccion)) {
+            Cuenta cuentaOrigen = transaccion.getCuentaOrigen();
+            Cuenta cuentaDestino = transaccion.getCuentaDestino();
+            cuentaOrigen.actualizarSaldo(transaccion.getMonto()*-1);
+            cuentaDestino.actualizarSaldo(transaccion.getMonto());
+            cuentaOrigen.getPresupuestoAsociado().actualizarMontoGastado(transaccion.getMonto());
+            listaTransacciones.add(transaccion);
+            cuentaOrigen.getUsuarioAsociado().getListaTransacciones().add(transaccion);
+            return true;
         }
         return false;
+    }
+
+    private boolean realizarDeposito(Transaccion transaccion) {
+        Cuenta cuenta = transaccion.getCuentaOrigen();
+        cuenta.actualizarSaldo(transaccion.getMonto());
+        cuenta.getUsuarioAsociado().actualizarSaldoTotal();
+        listaTransacciones.add(transaccion);
+        cuenta.getUsuarioAsociado().getListaTransacciones().add(transaccion);
+        return true;
     }
 
     @Override
@@ -419,13 +448,6 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
             listaUsuariosId.add(usuario.getIdUsuario());
         }
         return listaUsuariosId;
-    }
-
-    public void modificarSaldoTotalCuenta(double dinero, int idCuentaDestino) {
-        Cuenta cuenta = obtenerCuentaId(idCuentaDestino);
-        if (cuenta != null) {
-            cuenta.modificarSaldoTotal(dinero);
-        }
     }
 
     public LinkedList<String> obtenerCategoriasNombresDeUsuario(String idUsuario) {

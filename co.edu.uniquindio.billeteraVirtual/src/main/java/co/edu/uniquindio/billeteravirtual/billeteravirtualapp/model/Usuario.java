@@ -1,11 +1,10 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ICrudTransaccion;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IGestionDinero;
 
 import java.util.LinkedList;
 
-public class Usuario implements IGestionDinero, ICrudTransaccion {
+public class Usuario implements ICrudTransaccion {
     private BilleteraVirtual billeteraVirtual;
     private String nombreCompleto, idUsuario, correoElectronico, numeroTelefono, direccion;
     private int clave;
@@ -143,63 +142,17 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
 
     @Override
     public boolean agregarTransaccion(Transaccion transaccion) {
-        if (esTransaccionPosible(transaccion) && saldoCuentaEsSuficiente(transaccion)) {
-            if (billeteraVirtual.agregarTransaccion(transaccion)) {
-                listaTransacciones.add(transaccion);
-                if (transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)){
-                    agregarDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta());
-                }
-                else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)){
-                    transferirDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta(),
-                            transaccion.getCuentaDestino().getIdCuenta());
-                }
-                else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.RETIRO)){
-                    retirarDinero(transaccion.getMonto(), transaccion.getCuentaOrigen().getIdCuenta());
-                }
-                //actualizarMontoGastadoPresupuesto(transaccion);
-                return true;
-            }
-        }
-        return false;
+        return billeteraVirtual.agregarTransaccion(transaccion);
     }
 
     @Override
     public Transaccion obtenerTransaccion(int idTransaccion) {
+        for (Transaccion transaccion : listaTransacciones) {
+            if (transaccion.getIdTransaccion() == idTransaccion) {
+                return transaccion;
+            }
+        }
         return null;
-    }
-
-    @Override
-    public boolean agregarDinero(double dinero, int idCuenta) {
-        Cuenta cuenta = obtenerCuenta(idCuenta);
-        if (cuenta != null) {
-            cuenta.modificarSaldoTotal(dinero);
-            modificarSaldoTotal(dinero);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean retirarDinero(double dinero, int idCuenta) {
-        Cuenta cuenta = obtenerCuenta(idCuenta);
-        if (cuenta != null) {
-            cuenta.modificarSaldoTotal(dinero*-1);
-            modificarSaldoTotal(dinero*-1);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean transferirDinero(double dinero, int idCuentaOrigen, int idCuentaDestino) {
-        Cuenta cuenta = obtenerCuenta(idCuentaOrigen);
-        if (cuenta != null) {
-            cuenta.modificarSaldoTotal(dinero*-1);
-            modificarSaldoTotal(dinero*-1);
-            billeteraVirtual.modificarSaldoTotalCuenta(dinero, idCuentaDestino);
-            return true;
-        }
-        return false;
     }
 
     public boolean agregarCuenta(Cuenta cuenta) {
@@ -223,36 +176,12 @@ public class Usuario implements IGestionDinero, ICrudTransaccion {
         return false;
     }
 
-    private void modificarSaldoTotal(double saldoDado) {
-        saldoTotal = saldoTotal+saldoDado;
-    }
-
-    private boolean esTransaccionPosible(Transaccion transaccion) {
-        if (!transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)){
-            Categoria categoria = transaccion.getCategoriaTransaccion();
-            if (categoria != null) {
-                return transaccionPasaPresupuesto(transaccion);
-            }
+    public void actualizarSaldoTotal() {
+        double saldoTotal = 0;
+        for (Cuenta cuenta : listaCuentas) {
+            saldoTotal += cuenta.getSaldo();
         }
-        return true;
-    }
-
-    public boolean transaccionPasaPresupuesto(Transaccion transaccion) {
-        Presupuesto presupuesto = null;
-        //Presupuesto presupuesto = transaccion.getCuentaDestino().getPresupuestoAsociado();
-        if (presupuesto != null) {
-            double montoGastadoFuturo = transaccion.getMonto() + presupuesto.getMontoGastado();
-            return montoGastadoFuturo <= presupuesto.getMontoTotalAsignado();
-        }
-        return true;
-    }
-
-    public boolean saldoCuentaEsSuficiente(Transaccion transaccion) {
-        if (transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)) {
-            return true;
-        }
-        Cuenta cuenta = transaccion.getCuentaOrigen();
-        return cuenta.getSaldo() >= transaccion.getMonto();
+        this.saldoTotal = saldoTotal;
     }
 
     public boolean agregarCategoria(Categoria categoria) {

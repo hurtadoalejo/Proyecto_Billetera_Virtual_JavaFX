@@ -12,15 +12,31 @@ public class GestionTransaccionesUsuarioController {
         modelFactory = ModelFactory.getInstance();
     }
 
-    public LinkedList<String> obtenerCategoriasPorNombreUsuario(String idUsuario) {
-        return modelFactory.obtenerCategoriasPorNombreUsuario(idUsuario);
-    }
-
     public LinkedList<TransaccionDto> obtenerTransacciones(String idUsuario) {
         return modelFactory.obtenerTransacciones(idUsuario);
     }
 
-    public boolean transaccionPasaPresupuesto(String idUsuario, TransaccionDto transaccion) {
-        return modelFactory.transaccionPasaPresupuesto(idUsuario, transaccion);
+    public LinkedList<String> obtenerCategoriasNombresDeUsuario(String idUsuario) {
+        return modelFactory.obtenerCategoriasNombresDeUsuario(idUsuario);
+    }
+
+    public LinkedList<String> obtenerNumCuentasUsuario(String idUsuario) {
+        return modelFactory.obtenerNumCuentasUsuario(idUsuario);
+    }
+
+    public int obtenerNuevoIdTransaccion() {
+        return modelFactory.obtenerNuevoIdTransaccion();
+    }
+
+    public boolean agregarTransaccion(TransaccionDto transaccionDto, String idUsuario) {
+        return modelFactory.agregarTransaccion(transaccionDto, idUsuario);
+    }
+
+    public boolean saldoCuentaEsSuficiente(TransaccionDto transaccion) {
+        return modelFactory.saldoCuentaEsSuficiente(transaccion);
+    }
+
+    public boolean validarPresupuesto(TransaccionDto transaccion) {
+        return modelFactory.validarPresupuesto(transaccion);
     }
 }

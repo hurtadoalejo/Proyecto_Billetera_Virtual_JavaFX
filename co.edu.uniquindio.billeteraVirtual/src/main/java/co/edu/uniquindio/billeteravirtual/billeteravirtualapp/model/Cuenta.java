@@ -104,4 +104,8 @@ public class Cuenta {
     public void setPresupuestoAsociado(Presupuesto presupuestoAsociado) {
         this.presupuestoAsociado = presupuestoAsociado;
     }
+
+    public void actualizarSaldo(double monto){
+        saldo += monto;
+    }
 }

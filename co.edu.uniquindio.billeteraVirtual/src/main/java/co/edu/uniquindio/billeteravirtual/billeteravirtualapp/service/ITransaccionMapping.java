@@ -13,5 +13,4 @@ public interface ITransaccionMapping {
                                             Categoria categoria, Cuenta cuentaOrigen,
                                             Cuenta cuentaDestino);
     String mapNumeroCuenta(Cuenta cuenta);
-    String mapNombreCategoria(Categoria categoria);
 }

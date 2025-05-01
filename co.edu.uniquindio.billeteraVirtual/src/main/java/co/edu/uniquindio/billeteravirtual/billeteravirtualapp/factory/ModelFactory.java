@@ -135,13 +135,8 @@ public class ModelFactory implements IModelFactoryService {
                 agregarTransaccion(transaccionDtoToTransaccion(transaccion));
     }
 
-    public boolean saldoCuentaEsSuficiente(TransaccionDto transaccion, String idUsuario) {
-        return obtenerUsuario(idUsuario).
-                saldoCuentaEsSuficiente(transaccionDtoToTransaccion(transaccion));
-    }
-
-    public boolean cuentasExisten(String numCuentaOrigen, String numCuentaDestino) {
-        return billeteraVirtual.cuentasExisten(numCuentaOrigen, numCuentaDestino);
+    public boolean saldoCuentaEsSuficiente(TransaccionDto transaccion) {
+        return billeteraVirtual.validarSaldo(transaccionDtoToTransaccion(transaccion));
     }
 
     public boolean agregarCategoria(CategoriaDto categoria, String idUsuario) {
@@ -194,8 +189,8 @@ public class ModelFactory implements IModelFactoryService {
         return obtenerUsuario(idUsuario).obtenerPresupuestosNombres();
     }
 
-    public boolean transaccionPasaPresupuesto(String idUsuario, TransaccionDto transaccion) {
-        return obtenerUsuario(idUsuario).transaccionPasaPresupuesto(transaccionDtoToTransaccion(transaccion));
+    public boolean validarPresupuesto(TransaccionDto transaccion) {
+        return billeteraVirtual.validarPresupuesto(transaccionDtoToTransaccion(transaccion));
     }
 
     public boolean agregarPresupuesto(PresupuestoDto presupuestoDto) {

@@ -85,7 +85,7 @@ public class Presupuesto {
         this.tipoPresupuesto = tipoPresupuesto;
     }
 
-    public void aumentarMontoGastado(double monto) {
+    public void actualizarMontoGastado(double monto) {
         montoGastado += monto;
     }
 }

@@ -233,7 +233,7 @@ public class GestionCuentasUsuarioViewController {
     private boolean verificarCamposLlenos() {
         return !tf_numeroCuenta.getText().isEmpty() && !tf_idCuenta.getText().isEmpty()
                 && !tf_nombreBanco.getText().isEmpty() && !cb_tipoCuenta.getSelectionModel().isEmpty()
-                && !cb_presupuestoAsociado.getSelectionModel().isEmpty();
+                && !cb_presupuestoAsociado.getSelectionModel().getSelectedItem().isEmpty();
     }
 
     private boolean verificarCamposCorrectos(){

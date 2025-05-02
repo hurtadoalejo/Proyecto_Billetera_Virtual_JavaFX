@@ -255,6 +255,7 @@ public class GestionTransaccionesUsuarioViewController {
         cb_cuentaDestino.getSelectionModel().clearSelection();
         tf_monto.setText(null);
         tf_descripcion.setText(null);
+        tb_transacciones.getSelectionModel().clearSelection();
         filtroCuentasDestino.setPredicate(cuenta -> true);
     }
 

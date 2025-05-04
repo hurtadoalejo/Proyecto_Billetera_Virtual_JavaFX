@@ -29,13 +29,13 @@ public class MenuUsuarioViewController {
     private Tab tab_categorias;
 
     @FXML
-    private Tab tab_gestioDinero;
+    private Tab tab_reporteFinanciero;
 
     @FXML
     private Tab tab_cuentas;
 
     @FXML
-    private SplitPane sp_gestionDinero;
+    private SplitPane sp_reporteFinanciero;
 
     @FXML
     private Tab tab_transacciones;
@@ -64,6 +64,11 @@ public class MenuUsuarioViewController {
     @FXML
     private SplitPane sp_categorias;
 
+    @FXML
+    void initialize() {
+        configurarCambioDeTab();
+    }
+
     public void setUsuario(UsuarioDto usuarioDto) {
         usuario = usuarioDto;
         cargarVistaEditarPerfil();
@@ -71,14 +76,15 @@ public class MenuUsuarioViewController {
         cargarVistaGestionCategorias();
         cargarVistaGestionPresupuestos();
         cargarVistaGestionTransaccionesUsuario();
+        cargarVistaReporteFinanciero();
     }
 
     private void configurarCambioDeTab() {
         tp_menuUsuario.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
             if (newTab == tab_editarPerfil) {
                 cargarVistaEditarPerfil();
-            } else if (newTab == tab_gestioDinero) {
-                System.out.println();
+            } else if (newTab == tab_reporteFinanciero) {
+                cargarVistaReporteFinanciero();
             } else if (newTab == tab_cuentas) {
                 cargarVistaGestionCuentasUsuario();
             } else if (newTab == tab_categorias) {
@@ -157,22 +163,16 @@ public class MenuUsuarioViewController {
         }
     }
 
-    @FXML
-    void initialize() {
-        configurarCambioDeTab();
-        assert tab_editarPerfil != null : "fx:id=\"tab_editarPerfil\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert tab_categorias != null : "fx:id=\"tab_categorias\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert tab_gestioDinero != null : "fx:id=\"tab_gestioDinero\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert tab_cuentas != null : "fx:id=\"tab_cuentas\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert sp_gestionDinero != null : "fx:id=\"sp_gestionDinero\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert tab_transacciones != null : "fx:id=\"tab_transacciones\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert sp_presupuestos != null : "fx:id=\"sp_presupuestos\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert sp_editarPerfil != null : "fx:id=\"sp_editarPerfil\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert ap_menuAdmin != null : "fx:id=\"ap_menuAdmin\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert tab_presupuestos != null : "fx:id=\"tab_presupuestos\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert sp_transacciones != null : "fx:id=\"sp_transacciones\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert sp_cuentas != null : "fx:id=\"sp_cuentas\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert tp_menuUsuario != null : "fx:id=\"tp_menuUsuario\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
-        assert sp_categorias != null : "fx:id=\"sp_categorias\" was not injected: check your FXML file 'MenuUsuario.fxml'.";
+    private void cargarVistaReporteFinanciero() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/ReporteFinanciero.fxml"));
+            AnchorPane nuevaVista = loader.load();
+            ReporteFinancieroViewController viewController = loader.getController();
+            viewController.setUsuario(usuario);
+            sp_reporteFinanciero.getItems().setAll(nuevaVista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

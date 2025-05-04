@@ -21,19 +21,6 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="tab_gestioDinero" style="-fx-font-size: 14px;" text="Gestión Dinero">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <SplitPane fx:id="sp_gestionDinero" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0">
-                           <items>
-                              <fx:include source="EditarPerfil.fxml" />
-                           </items>
-                        </SplitPane>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
             <Tab fx:id="tab_cuentas" style="-fx-font-size: 14px;" text="Cuentas">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="1180.0">
@@ -51,7 +38,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane fx:id="sp_categorias" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" >
+                        <SplitPane fx:id="sp_categorias" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0">
                            <items>
                               <fx:include source="GestionCategorias.fxml" />
                            </items>
@@ -64,7 +51,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane fx:id="sp_presupuestos" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" >
+                        <SplitPane fx:id="sp_presupuestos" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0">
                            <items>
                               <fx:include source="GestionPresupuestos.fxml" />
                            </items>
@@ -77,9 +64,22 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane fx:id="sp_transacciones" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" >
+                        <SplitPane fx:id="sp_transacciones" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0">
                            <items>
                               <fx:include source="GestionTransaccionesUsuario.fxml" />
+                           </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tab_reporteFinanciero" style="-fx-font-size: 14px;" text="Reporte Financiero">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane fx:id="sp_reporteFinanciero" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0">
+                           <items>
+                              <fx:include source="ReporteFinanciero.fxml" />
                            </items>
                         </SplitPane>
                      </children>

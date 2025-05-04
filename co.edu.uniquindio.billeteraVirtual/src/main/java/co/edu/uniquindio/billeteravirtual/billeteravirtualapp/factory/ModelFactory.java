@@ -251,4 +251,12 @@ public class ModelFactory implements IModelFactoryService {
     public LinkedList<TransaccionDto> obtenerTransacciones(String idUsuario) {
         return transaccionMapper.getTransaccionDto(obtenerUsuario(idUsuario).getListaTransacciones());
     }
+
+    public LinkedList<TransaccionDto> obtenerListaTransaccionesGastos(String idUsuario) {
+        return transaccionMapper.getTransaccionDto(obtenerUsuario(idUsuario).obtenerListaTransaccionesGastos());
+    }
+
+    public LinkedList<TransaccionDto> obtenerListaTransaccionesIngresos(String idUsuario) {
+        return transaccionMapper.getTransaccionDto(obtenerUsuario(idUsuario).obtenerListaTransaccionesIngresos());
+    }
 }

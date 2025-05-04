@@ -334,4 +334,26 @@ public class Usuario implements ICrudTransaccion {
         }
         return listaCategoriasNombres;
     }
+
+    public LinkedList<Transaccion> obtenerListaTransaccionesIngresos() {
+        LinkedList<Transaccion> listaTransaccionesIngresos = new LinkedList<>();
+        for (Transaccion transaccion : listaTransacciones) {
+            if (transaccion.getCategoriaTransaccion().getNombre().equalsIgnoreCase("Deposito")){
+                listaTransaccionesIngresos.add(transaccion);
+            }
+        }
+        return listaTransaccionesIngresos;
+    }
+
+    public LinkedList<Transaccion> obtenerListaTransaccionesGastos() {
+        LinkedList<Transaccion> listaTransaccionesGastos = new LinkedList<>();
+        for (Transaccion transaccion : listaTransacciones) {
+            String nombreCategoria = transaccion.getCategoriaTransaccion().getNombre();
+            if (nombreCategoria.equalsIgnoreCase("Retiro") ||
+                    nombreCategoria.equalsIgnoreCase("Transferencia")){
+                listaTransaccionesGastos.add(transaccion);
+            }
+        }
+        return listaTransaccionesGastos;
+    }
 }

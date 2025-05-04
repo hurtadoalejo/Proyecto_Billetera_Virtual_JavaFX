@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.ReporteFinancieroViewController">
+   <children>
+      <ComboBox fx:id="cb_tipoReporte" layoutX="611.0" layoutY="246.0" prefHeight="29.0" prefWidth="185.0" style="-fx-font-family: &quot;Segoe UI&quot;; -fx-font-size: 16px;" />
+      <Label layoutX="451.0" layoutY="56.0" text="Generador de Reportes Financieros">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="bt_generarReporte" layoutX="480.0" layoutY="346.0" mnemonicParsing="false" onAction="#onGenerarReporte" prefHeight="31.0" prefWidth="224.0" text="Generar Reporte Financiero">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </Button>
+      <Label layoutX="386.0" layoutY="251.0" text="Seleccione el tipo de reporte:">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -42,7 +42,7 @@ public class GeneradorPDF {
             PdfWriter writer = new PdfWriter(rutaSalida);
             PdfDocument pdf = new PdfDocument(writer);
             pdf.setDefaultPageSize(PageSize.LETTER);
-            Document document = new Document(pdf);
+            Document documentos = new Document(pdf);
             PdfFont letra = PdfFontFactory.createFont("Helvetica");
             PdfFont letraBold = PdfFontFactory.createFont("Helvetica-Bold");
 
@@ -65,57 +65,63 @@ public class GeneradorPDF {
             tablaTitulo.addCell(cellTitulo);
             tablaTitulo.addCell(cellFecha);
             tablaTitulo.addCell(cellFechaActual);
-            document.add(tablaTitulo);
+            documentos.add(tablaTitulo);
 
-            document.add(ESPACIO);
+            documentos.add(ESPACIO);
             Border border = new SolidBorder(ColorConstants.GRAY, 1.5f);
             Table tableBorde = new Table(BORDE_COMPLETO);
             tableBorde.setBorder(border);
-            document.add(tableBorde);
+            documentos.add(tableBorde);
 
-            document.add(ESPACIO);
-            document.add(obtenerTextoColumna("Información Usuario", letraBold).setTextAlignment(TextAlignment.CENTER));
-            document.add(ESPACIO);
+            documentos.add(ESPACIO);
+            documentos.add(obtenerTextoColumna("Información Usuario", letraBold).setTextAlignment(TextAlignment.CENTER));
+            documentos.add(ESPACIO);
 
             Table tablaUsuario1 = new Table(DOS_COLUMNAS);
             tablaUsuario1.addCell(obtenerTextoColumna("Nombre Completo:", letraBold));
             tablaUsuario1.addCell(obtenerTextoColumna("Cédula:", letraBold));
-            document.add(tablaUsuario1);
+            documentos.add(tablaUsuario1);
 
             Table tablaUsuario2 = new Table(DOS_COLUMNAS);
             tablaUsuario2.addCell(obtenerTextoColumna(usuario.nombreCompleto(), letra));
             tablaUsuario2.addCell(obtenerTextoColumna(usuario.idUsuario(), letra));
-            document.add(tablaUsuario2.setMarginBottom(12f));
+            documentos.add(tablaUsuario2.setMarginBottom(12f));
 
             Table tablaUsuario3 = new Table(DOS_COLUMNAS);
             tablaUsuario3.addCell(obtenerTextoColumna("Correo Electrónico:", letraBold));
             tablaUsuario3.addCell(obtenerTextoColumna("Número de Teléfono:", letraBold));
-            document.add(tablaUsuario3);
+            documentos.add(tablaUsuario3);
 
             Table tablaUsuario4 = new Table(DOS_COLUMNAS);
             tablaUsuario4.addCell(obtenerTextoColumna(usuario.correoElectronico(), letra));
             tablaUsuario4.addCell(obtenerTextoColumna(usuario.numeroTelefono(), letra));
-            document.add(tablaUsuario4.setMarginBottom(12f));
+            documentos.add(tablaUsuario4.setMarginBottom(12f));
 
-            document.add(obtenerTextoColumna("Dirección:", letraBold)
+            documentos.add(obtenerTextoColumna("Dirección:", letraBold)
                     .setTextAlignment(TextAlignment.LEFT));
-            document.add(obtenerTextoColumna(usuario.direccion(), letra)
+            documentos.add(obtenerTextoColumna(usuario.direccion(), letra)
                     .setTextAlignment(TextAlignment.LEFT));
 
             Table tablaDivisoraTransacciones = new Table(BORDE_COMPLETO).setBorder(BORDE_PUNTEADO);
-            document.add(tablaDivisoraTransacciones
+            documentos.add(tablaDivisoraTransacciones
                     .setMarginTop(15f)
                     .setMarginBottom(10f));
 
-            if (tipoReporte.equals("Ingresos")) {
-                generarListaIngresos(document, transacciones, letra, letraBold, tablaDivisoraTransacciones);
-            } else if (tipoReporte.equals("Gastos")) {
-                generarListaGastos(document, transacciones, letra, letraBold, tablaDivisoraTransacciones);
-            } else if (tipoReporte.equals("Saldos")) {
-                System.out.println();
+            switch (tipoReporte) {
+                case "Ingresos":
+                    documentos.add(obtenerTextoColumna("Depositos", letraBold)
+                            .setTextAlignment(TextAlignment.LEFT));
+                    generarListaDepositoRetiro(documentos, transacciones, letra, tablaDivisoraTransacciones);
+                        break;
+                case "Gastos":
+                        generarListaGastos(documentos, transacciones, letra, letraBold, tablaDivisoraTransacciones);
+                        break;
+                case "Saldos":
+                    System.out.println();
+                    break;
             }
 
-            document.close();
+            documentos.close();
             File archivo = new File(rutaSalida);
             if (archivo.exists()) {
                 Desktop.getDesktop().open(archivo);
@@ -126,11 +132,8 @@ public class GeneradorPDF {
         }
     }
 
-    private static void generarListaIngresos(Document documento, LinkedList<TransaccionDto> transacciones,
-                                             PdfFont letra, PdfFont letraBold, Table tablaDivisoraTransacciones) {
-        documento.add(obtenerTextoColumna("Depositos", letraBold)
-                .setTextAlignment(TextAlignment.LEFT));
-
+    private static double generarListaDepositoRetiro(Document documento, LinkedList<TransaccionDto> transacciones,
+                                             PdfFont letra, Table tablaDivisoraTransacciones) {
         Table tablaTransacciones = new Table(COLUMNAS_INGRESOS);
         tablaTransacciones.setWidth(100);
         tablaTransacciones.setFixedLayout();
@@ -153,11 +156,13 @@ public class GeneradorPDF {
         Table listaTransacciones = new Table(COLUMNAS_INGRESOS);
         double total = 0;
         for (TransaccionDto t : transacciones) {
-            listaTransacciones.addCell(obtenerTextoColumna(t.fecha().toString(), letra));
-            listaTransacciones.addCell(obtenerTextoColumna(t.descripcion(), letra));
-            listaTransacciones.addCell(obtenerTextoColumna(t.numCuentaOrigen(), letra));
-            listaTransacciones.addCell(obtenerTextoColumna(String.format("$%.2f", t.monto()), letra));
-            total += t.monto();
+            if (!t.nombreCategoria().equals("Transferencia")) {
+                listaTransacciones.addCell(obtenerTextoColumna(t.fecha().toString(), letra));
+                listaTransacciones.addCell(obtenerTextoColumna(t.descripcion(), letra));
+                listaTransacciones.addCell(obtenerTextoColumna(t.numCuentaOrigen(), letra));
+                listaTransacciones.addCell(obtenerTextoColumna(String.format("$%.2f", t.monto()), letra));
+                total += t.monto();
+            }
         }
         documento.add(new Cell().add(listaTransacciones).setBorder(Border.NO_BORDER));
 
@@ -168,13 +173,14 @@ public class GeneradorPDF {
         float[] columnasMontoTotal = {280f, 125f, 125f};
         Table tablaMontoTotal = obtenerTablaMontoTotal(columnasMontoTotal, letra, total);
         documento.add(tablaMontoTotal);
+        return total;
     }
 
     private static void generarListaGastos(Document documento, LinkedList<TransaccionDto> transacciones,
                                            PdfFont letra, PdfFont letraBold, Table tablaDivisoraTransacciones) {
         documento.add(obtenerTextoColumna("Retiros", letraBold)
                 .setTextAlignment(TextAlignment.LEFT));
-        double saldoGastos = generarListaRetiros(documento, transacciones, letra, tablaDivisoraTransacciones);
+        double saldoGastos = generarListaDepositoRetiro(documento, transacciones, letra, tablaDivisoraTransacciones);
 
         documento.add(obtenerTextoColumna("Transferencias", letraBold)
                 .setTextAlignment(TextAlignment.LEFT));
@@ -188,56 +194,10 @@ public class GeneradorPDF {
 
     }
 
-    private static double generarListaRetiros(Document documento, LinkedList<TransaccionDto> transacciones,
-                                               PdfFont letra, Table tablaDivisoraTransacciones) {
-        Table tablaTransacciones = new Table(COLUMNAS_INGRESOS);
-        tablaTransacciones.setWidth(100);
-        tablaTransacciones.setFixedLayout();
-        tablaTransacciones.setBackgroundColor(ColorConstants.BLACK, 0.7f);
-
-        tablaTransacciones.addCell(new Cell().add(obtenerTextoColumna("Fecha", letra))
-                .setFontColor(ColorConstants.WHITE)
-                .setBorder(Border.NO_BORDER));
-        tablaTransacciones.addCell(new Cell().add(obtenerTextoColumna("Descripción", letra))
-                .setFontColor(ColorConstants.WHITE)
-                .setBorder(Border.NO_BORDER));
-        tablaTransacciones.addCell(new Cell().add(obtenerTextoColumna("Cuenta", letra))
-                .setFontColor(ColorConstants.WHITE)
-                .setBorder(Border.NO_BORDER));
-        tablaTransacciones.addCell(new Cell().add(obtenerTextoColumna("Monto", letra))
-                .setFontColor(ColorConstants.WHITE)
-                .setBorder(Border.NO_BORDER));
-        documento.add(new Cell().add(tablaTransacciones).setBorder(Border.NO_BORDER));
-
-        Table listaTransacciones = new Table(COLUMNAS_INGRESOS);
-        double totalRetiro = 0;
-        for (TransaccionDto t : transacciones) {
-            if (t.nombreCategoria().equals("Retiro")) {
-                listaTransacciones.addCell(obtenerTextoColumna(t.fecha().toString(), letra));
-                listaTransacciones.addCell(obtenerTextoColumna(t.descripcion(), letra));
-                listaTransacciones.addCell(obtenerTextoColumna(t.numCuentaOrigen(), letra));
-                listaTransacciones.addCell(obtenerTextoColumna(String.format("$%.2f", t.monto()), letra));
-                totalRetiro += t.monto();
-            }
-        }
-        documento.add(new Cell().add(listaTransacciones).setBorder(Border.NO_BORDER));
-
-        float[] columnasTotal = {280f, 250f};
-        Table tablaTotal = obtenerDivisorMontoTotal(columnasTotal, tablaDivisoraTransacciones);
-        documento.add(tablaTotal);
-
-        float[] columnasMontoTotal = {280f, 125f, 125f};
-        Table tablaMontoTotal = obtenerTablaMontoTotal(columnasMontoTotal, letra, totalRetiro);
-        documento.add(tablaMontoTotal);
-        return totalRetiro;
-    }
-
     private static double generarListaTransferencias(Document documento, LinkedList<TransaccionDto> transacciones,
                                                    PdfFont letra, Table tablaDivisoraTransacciones) {
         Table tablaTransacciones = new Table(COLUMNAS_GASTOS);
-        tablaTransacciones.setWidth(100);
-        tablaTransacciones.setFixedLayout();
-        tablaTransacciones.setBackgroundColor(ColorConstants.BLACK, 0.7f);
+        configurarTablaTransacciones(tablaTransacciones);
 
         tablaTransacciones.addCell(new Cell().add(obtenerTextoColumna("Fecha", letra))
                 .setFontColor(ColorConstants.WHITE)
@@ -282,6 +242,12 @@ public class GeneradorPDF {
                 totalTransferencia);
         documento.add(tablaMontoTotal);
         return totalTransferencia;
+    }
+
+    private static void configurarTablaTransacciones(Table tablaTransacciones) {
+        tablaTransacciones.setWidth(100);
+        tablaTransacciones.setFixedLayout();
+        tablaTransacciones.setBackgroundColor(ColorConstants.BLACK, 0.7f);
     }
 
     private static Table obtenerDivisorMontoTotal(float[] columnasTotal, Table tablaDivisora) {

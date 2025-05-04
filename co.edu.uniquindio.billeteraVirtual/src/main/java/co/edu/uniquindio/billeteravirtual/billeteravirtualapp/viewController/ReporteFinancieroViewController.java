@@ -42,7 +42,13 @@ public class ReporteFinancieroViewController {
     private void generarReporte() {
         String tipoReporte = cb_tipoReporte.getSelectionModel().getSelectedItem();
         if (tipoReporte != null) {
-            GeneradorPDF.exportarTransacciones(usuario.idUsuario(), tipoReporte, obtenerListaTransaccionesIngresos());
+            if (tipoReporte.equals("Ingresos")) {
+                GeneradorPDF.exportarTransacciones(usuario, tipoReporte, obtenerListaTransaccionesIngresos());
+            } else if (tipoReporte.equals("Saldos")) {
+                System.out.println();
+            } else if (tipoReporte.equals("Gastos")) {
+                GeneradorPDF.exportarTransacciones(usuario, tipoReporte, obtenerListaTransaccionesGastos());
+            }
         } else {
             System.out.println();
         }
@@ -50,7 +56,7 @@ public class ReporteFinancieroViewController {
 
     public void setUsuario(UsuarioDto usuario) {
         this.usuario = usuario;
-        cb_tipoReporte.getItems().addAll(reporteFinancieroController.obtenerCategoriasPorNombreUsuario(usuario.idUsuario()));
+        cb_tipoReporte.getItems().addAll("Ingresos", "Saldos", "Gastos");
     }
 
     private LinkedList<TransaccionDto> obtenerListaTransaccionesGastos() {

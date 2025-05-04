@@ -5,6 +5,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.DataUtil;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.GeneradorPDF;
 
 import java.util.LinkedList;
 
@@ -18,10 +19,6 @@ public class ModelFactory implements IModelFactoryService {
     private ICategoriaMapping categoriaMapper;
     private IPresupuestoMapping presupuestoMapper;
 
-    /**
-     * Metodo para obtener la instancia unica de la clase ModelFactory
-     * @return Instancia unica de la clase ModelFactory
-     */
     public static ModelFactory getInstance(){
         if (modelFactory == null){
             modelFactory = new ModelFactory();
@@ -29,9 +26,6 @@ public class ModelFactory implements IModelFactoryService {
         return modelFactory;
     }
 
-    /**
-     * Metodo constructor de la clase ModelFactory
-     */
     private ModelFactory(){
         usuarioMapper = new UsuarioMappingImpl();
         cuentaMapper = new CuentaMappingImpl();
@@ -40,6 +34,10 @@ public class ModelFactory implements IModelFactoryService {
         presupuestoMapper = new PresupuestoMappingImpl();
         billeteraVirtual = DataUtil.inicializarDatos();
         administrador = billeteraVirtual.getAdministrador();
+        /*Usuario usuario = obtenerUsuario("1092850037");
+        UsuarioDto usuarioDto = obtenerUsuarioToUsuarioDto("1092850037");
+        LinkedList<TransaccionDto> listaTransacciones = transaccionMapper.getTransaccionDto(usuario.obtenerListaTransaccionesGastos());
+        GeneradorPDF.exportarTransacciones(usuarioDto, "Gastos", listaTransacciones);*/
     }
 
     public boolean verificarClaveAdmin(int clave) {

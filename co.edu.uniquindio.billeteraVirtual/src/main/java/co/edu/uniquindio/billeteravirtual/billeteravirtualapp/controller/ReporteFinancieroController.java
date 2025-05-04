@@ -19,8 +19,4 @@ public class ReporteFinancieroController {
     public LinkedList<TransaccionDto> obtenerListaTransaccionesIngresos(String idUsuario) {
         return modelFactory.obtenerListaTransaccionesIngresos(idUsuario);
     }
-
-    public LinkedList<String> obtenerCategoriasPorNombreUsuario(String idUsuario) {
-        return modelFactory.obtenerCategoriasPorNombreUsuario(idUsuario);
-    }
 }

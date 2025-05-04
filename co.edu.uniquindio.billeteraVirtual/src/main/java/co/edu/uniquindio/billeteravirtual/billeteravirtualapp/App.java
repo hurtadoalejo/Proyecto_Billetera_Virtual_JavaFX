@@ -25,8 +25,6 @@ public class App extends Application {
 
     public void openPrincipalView() {
         try {
-            mostrarMensaje("Contraseña admin",
-                    "La contraseña del admin es: 2911", Alert.AlertType.INFORMATION);
             invocar();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource("PrincipalView.fxml"));

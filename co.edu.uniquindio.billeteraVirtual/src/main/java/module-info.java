@@ -4,6 +4,7 @@ module co.edu.uniquindio.billeteravirtual.billeteravirtualapp {
     requires layout;
     requires kernel;
     requires java.desktop;
+    requires pdfua;
 
 
     opens co.edu.uniquindio.billeteravirtual.billeteravirtualapp to javafx.fxml;

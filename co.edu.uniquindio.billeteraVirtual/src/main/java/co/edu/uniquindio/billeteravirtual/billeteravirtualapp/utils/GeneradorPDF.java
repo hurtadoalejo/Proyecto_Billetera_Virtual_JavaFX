@@ -3,6 +3,7 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -24,16 +25,18 @@ public class GeneradorPDF {
         try {
             PdfWriter writer = new PdfWriter(rutaSalida);
             PdfDocument pdf = new PdfDocument(writer);
+            pdf.setDefaultPageSize(PageSize.LETTER);
             Document document = new Document(pdf);
 
             // Cargar la fuente para negrita en iText 7
-            PdfFont boldFont = PdfFontFactory.createFont("Helvetica-Bold");
+            PdfFont letra = PdfFontFactory.createFont("Helvetica");
+            PdfFont letraBold = PdfFontFactory.createFont("Helvetica-Bold");
 
             // Título del reporte
-            document.add(new Paragraph("Transacciones - " + tipoTransaccion).setFont(boldFont).setFontSize(16));
+            document.add(new Paragraph("Transacciones - " + tipoTransaccion).setFont(letraBold).setFontSize(16));
 
             // Usuario
-            document.add(new Paragraph("Usuario: " + nombreUsuario).setFontSize(12));
+            document.add(new Paragraph("Usuario: " + nombreUsuario).setFont(letra).setFontSize(12));
 
             // Tabla
             float[] columnWidths = {100, 200, 100, 100};  // Ancho de las columnas
@@ -43,26 +46,26 @@ public class GeneradorPDF {
             table.setFixedLayout();
 
             // Encabezado de la tabla con negrita
-            table.addCell(new Cell().add(new Paragraph("Fecha").setFont(boldFont)));
-            table.addCell(new Cell().add(new Paragraph("Descripción").setFont(boldFont)));
-            table.addCell(new Cell().add(new Paragraph("Monto").setFont(boldFont)));
-            table.addCell(new Cell().add(new Paragraph("Cuenta Origen").setFont(boldFont)));
+            table.addCell(new Cell().add(new Paragraph("Fecha").setFont(letraBold)));
+            table.addCell(new Cell().add(new Paragraph("Descripción").setFont(letraBold)));
+            table.addCell(new Cell().add(new Paragraph("Monto").setFont(letraBold)));
+            table.addCell(new Cell().add(new Paragraph("Cuenta Origen").setFont(letraBold)));
 
             double total = 0;
 
             // Recorrer las transacciones (con LinkedList)
             for (TransaccionDto t : transacciones) {
-                table.addCell(t.fecha().toString());
-                table.addCell(t.descripcion());
-                table.addCell(String.format("$%.2f", t.monto()));
-                table.addCell(t.numCuentaOrigen());
+                table.addCell(new Paragraph(t.fecha().toString()).setFont(letra));
+                table.addCell(new Paragraph(t.descripcion()).setFont(letra));
+                table.addCell(new Paragraph(String.format("$%.2f", t.monto())).setFont(letra));
+                table.addCell(new Paragraph(t.numCuentaOrigen()).setFont(letra));
                 total += t.monto();
             }
 
             document.add(table);
 
             // Total
-            document.add(new Paragraph("Total: $" + String.format("%.2f", total)).setFont(boldFont).setFontSize(12));
+            document.add(new Paragraph("Total: $" + String.format("%.2f", total)).setFont(letraBold).setFontSize(12));
 
             // Cerrar el documento
             document.close();

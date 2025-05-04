@@ -12,69 +12,69 @@
             <Font name="Segoe UI" size="16.0" />
          </font>
       </Button>
-      <TextField fx:id="tf_clave" layoutX="801.0" layoutY="311.0" prefHeight="31.0" prefWidth="289.0">
+      <TextField fx:id="tf_clave" layoutX="798.0" layoutY="314.0" prefHeight="31.0" prefWidth="289.0">
          <font>
             <Font name="Segoe UI" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="tf_direccion" layoutX="801.0" layoutY="258.0" prefHeight="31.0" prefWidth="289.0">
+      <TextField fx:id="tf_direccion" layoutX="798.0" layoutY="261.0" prefHeight="31.0" prefWidth="289.0">
          <font>
             <Font name="Segoe UI" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="tf_correo" layoutX="801.0" layoutY="202.0" prefHeight="31.0" prefWidth="289.0">
+      <TextField fx:id="tf_correo" layoutX="798.0" layoutY="205.0" prefHeight="31.0" prefWidth="289.0">
          <font>
             <Font name="Segoe UI" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="tf_telefono" layoutX="269.0" layoutY="310.0" prefHeight="31.0" prefWidth="289.0">
+      <TextField fx:id="tf_telefono" layoutX="266.0" layoutY="313.0" prefHeight="31.0" prefWidth="289.0">
          <font>
             <Font name="Segoe UI" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="tf_id" layoutX="269.0" layoutY="257.0" prefHeight="31.0" prefWidth="289.0">
+      <TextField fx:id="tf_id" layoutX="266.0" layoutY="260.0" prefHeight="31.0" prefWidth="289.0">
          <font>
             <Font name="Segoe UI" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="tf_nombre" layoutX="269.0" layoutY="201.0" prefHeight="31.0" prefWidth="289.0">
+      <TextField fx:id="tf_nombre" layoutX="266.0" layoutY="204.0" prefHeight="31.0" prefWidth="289.0">
          <font>
             <Font name="Segoe UI" size="15.0" />
          </font>
       </TextField>
-      <Label layoutX="742.0" layoutY="317.0" text="Clave:">
+      <Label layoutX="739.0" layoutY="320.0" text="Clave:">
          <font>
             <Font name="Segoe UI" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="716.0" layoutY="263.0" text="Dirección:">
+      <Label layoutX="713.0" layoutY="266.0" text="Dirección:">
          <font>
             <Font name="Segoe UI" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="123.0" layoutY="317.0" text="Número teléfono:">
+      <Label layoutX="120.0" layoutY="320.0" text="Número teléfono:">
          <font>
             <Font name="Segoe UI" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="652.0" layoutY="210.0" text="Correo Electronico:">
+      <Label layoutX="649.0" layoutY="213.0" text="Correo Electronico:">
          <font>
             <Font name="Segoe UI" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="86.0" layoutY="265.0" text="Número identificación:">
+      <Label layoutX="83.0" layoutY="268.0" text="Número identificación:">
          <font>
             <Font name="Segoe UI" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="113.0" layoutY="208.0" text="Nombre Completo:">
+      <Label layoutX="110.0" layoutY="211.0" text="Nombre Completo:">
          <font>
             <Font name="Segoe UI" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="501.0" layoutY="63.0" text="Registrar Usuario">
+      <Label layoutX="517.0" layoutY="59.0" text="Registrar Usuario">
          <font>
-            <Font name="Segoe UI" size="22.0" />
+            <Font name="Segoe UI" size="18.0" />
          </font>
       </Label>
    </children>

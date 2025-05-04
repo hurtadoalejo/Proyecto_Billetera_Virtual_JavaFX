@@ -11,45 +11,45 @@
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="285.0" prefWidth="1178.0">
                <children>
-                  <DatePicker fx:id="dp_fecha" layoutX="774.0" layoutY="132.0" prefHeight="12.0" prefWidth="281.0" style="-fx-font-size: 15px;" />
-                  <Label layoutX="710.0" layoutY="138.0" text="Fecha:">
+                  <DatePicker fx:id="dp_fecha" layoutX="773.0" layoutY="135.0" prefHeight="12.0" prefWidth="281.0" style="-fx-font-size: 15px;" />
+                  <Label layoutX="709.0" layoutY="141.0" text="Fecha:">
                      <font>
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tf_monto" layoutX="774.0" layoutY="74.0" prefHeight="31.0" prefWidth="281.0">
+                  <TextField fx:id="tf_monto" layoutX="773.0" layoutY="89.0" prefHeight="31.0" prefWidth="281.0">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="703.0" layoutY="80.0" text="Monto:">
+                  <Label layoutX="702.0" layoutY="95.0" text="Monto:">
                      <font>
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="127.0" layoutY="138.0" text="Cuenta origen:">
+                  <Label layoutX="126.0" layoutY="141.0" text="Cuenta origen:">
                      <font>
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="159.0" layoutY="79.0" text="Categoria:">
+                  <Label layoutX="158.0" layoutY="95.0" text="Categoria:">
                      <font>
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="124.0" layoutY="194.0" text="Cuenta destino:">
+                  <Label layoutX="123.0" layoutY="186.0" text="Cuenta destino:">
                      <font>
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cb_categoria" layoutX="253.0" layoutY="74.0" prefHeight="29.0" prefWidth="281.0" style="-fx-font-size: 15px; -fx-font-family: &quot;Segoe UI&quot;;" />
-                  <ComboBox fx:id="cb_cuentaOrigen" layoutX="253.0" layoutY="133.0" prefHeight="29.0" prefWidth="281.0" style="-fx-font-family: &quot;Segoe UI&quot;; -fx-font-size: 15px;" />
-                  <Label layoutX="595.0" layoutY="194.0" text="Descripción (opcional):">
+                  <ComboBox fx:id="cb_categoria" layoutX="252.0" layoutY="90.0" prefHeight="29.0" prefWidth="281.0" style="-fx-font-size: 15px; -fx-font-family: &quot;Segoe UI&quot;;" />
+                  <ComboBox fx:id="cb_cuentaOrigen" layoutX="252.0" layoutY="136.0" prefHeight="29.0" prefWidth="281.0" style="-fx-font-family: &quot;Segoe UI&quot;; -fx-font-size: 15px;" />
+                  <Label layoutX="594.0" layoutY="186.0" text="Descripción (opcional):">
                      <font>
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tf_descripcion" layoutX="775.0" layoutY="188.0" prefHeight="31.0" prefWidth="281.0">
+                  <TextField fx:id="tf_descripcion" layoutX="774.0" layoutY="180.0" prefHeight="31.0" prefWidth="281.0">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
@@ -60,9 +60,9 @@
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Button>
-                  <Label layoutX="492.0" layoutY="21.0" text="Gestión Transacciones">
+                  <Label layoutX="506.0" layoutY="34.0" text="Gestión Transacciones">
                      <font>
-                        <Font name="Segoe UI" size="20.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
                   </Label>
                   <Button fx:id="bt_realizarTransaccion" layoutX="431.0" layoutY="260.0" mnemonicParsing="false" onAction="#onRealizarTransaccion" prefHeight="19.0" prefWidth="171.0" text="Realizar Transacción">
@@ -70,7 +70,7 @@
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Button>
-                  <ComboBox fx:id="cb_cuentaDestino" layoutX="253.0" layoutY="189.0" prefHeight="29.0" prefWidth="281.0" style="-fx-font-family: &quot;Segoe UI&quot;; -fx-font-size: 15px;" />
+                  <ComboBox fx:id="cb_cuentaDestino" layoutX="252.0" layoutY="181.0" prefHeight="29.0" prefWidth="281.0" style="-fx-font-family: &quot;Segoe UI&quot;; -fx-font-size: 15px;" />
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="244.0" prefWidth="1178.0">

@@ -168,12 +168,7 @@ public class Usuario implements ICrudTransaccion {
     }
 
     public boolean eliminarCuenta(int idCuenta, String numCuenta) {
-        Cuenta cuenta = obtenerCuenta(idCuenta);
-        if (billeteraVirtual.eliminarCuenta(idCuenta, numCuenta)) {
-            cuenta.getPresupuestoAsociado().setCuentaAsociada(null);
-            return true;
-        }
-        return false;
+        return billeteraVirtual.eliminarCuenta(idCuenta, numCuenta);
     }
 
     public void actualizarSaldoTotal() {

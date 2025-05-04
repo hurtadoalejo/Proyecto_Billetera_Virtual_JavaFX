@@ -11,38 +11,38 @@
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="287.0" prefWidth="1178.0">
                <children>
-                  <Label layoutX="153.0" layoutY="75.0" text="Id Cuenta:">
+                  <Label layoutX="158.0" layoutY="87.0" text="Id Cuenta:">
                      <font>
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lb_nombreBanc" layoutX="114.0" layoutY="127.0" text="Nombre Banco:">
+                  <Label fx:id="lb_nombreBanc" layoutX="119.0" layoutY="134.0" text="Nombre Banco:">
                      <font>
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lb_numeroCuent" layoutX="107.0" layoutY="179.0" text="Número Cuenta:">
+                  <Label fx:id="lb_numeroCuent" layoutX="112.0" layoutY="180.0" text="Número Cuenta:">
                      <font>
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="665.0" layoutY="126.0" text="Tipo Cuenta:">
+                  <Label layoutX="669.0" layoutY="135.0" text="Tipo Cuenta:">
                      <font>
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
                   <Separator layoutX="55.0" layoutY="219.0" prefHeight="12.0" prefWidth="1075.0" />
-                  <TextField fx:id="tf_idCuenta" layoutX="244.0" layoutY="66.0" prefHeight="31.0" prefWidth="289.0">
+                  <TextField fx:id="tf_idCuenta" layoutX="249.0" layoutY="78.0" prefHeight="31.0" prefWidth="289.0">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="tf_nombreBanco" layoutX="244.0" layoutY="119.0" prefHeight="31.0" prefWidth="289.0">
+                  <TextField fx:id="tf_nombreBanco" layoutX="249.0" layoutY="126.0" prefHeight="31.0" prefWidth="289.0">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="tf_numeroCuenta" layoutX="244.0" layoutY="171.0" prefHeight="31.0" prefWidth="289.0">
+                  <TextField fx:id="tf_numeroCuenta" layoutX="249.0" layoutY="172.0" prefHeight="31.0" prefWidth="289.0">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
@@ -62,18 +62,18 @@
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Button>
-                  <Label layoutX="521.0" layoutY="22.0" text="Gestión Cuentas">
+                  <Label layoutX="524.0" layoutY="25.0" text="Gestión Cuentas">
                      <font>
-                        <Font name="Segoe UI" size="20.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cb_tipoCuenta" layoutX="774.0" layoutY="120.0" prefHeight="29.0" prefWidth="289.0" style="-fx-font-family: &quot;Segoe UI&quot;; -fx-font-size: 15px;" />
-                  <Label layoutX="593.0" layoutY="72.0" text="Presupuesto Asociado:">
+                  <ComboBox fx:id="cb_tipoCuenta" layoutX="778.0" layoutY="129.0" prefHeight="29.0" prefWidth="289.0" style="-fx-font-family: &quot;Segoe UI&quot;; -fx-font-size: 15px;" />
+                  <Label layoutX="598.0" layoutY="84.0" text="Presupuesto Asociado:">
                      <font>
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="cb_presupuestoAsociado" layoutX="773.0" layoutY="67.0" prefHeight="29.0" prefWidth="289.0" style="-fx-font-family: &quot;Segoe UI&quot;; -fx-font-size: 15px;" />
+                  <ComboBox fx:id="cb_presupuestoAsociado" layoutX="778.0" layoutY="79.0" prefHeight="29.0" prefWidth="289.0" style="-fx-font-family: &quot;Segoe UI&quot;; -fx-font-size: 15px;" />
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="249.0" prefWidth="1178.0">

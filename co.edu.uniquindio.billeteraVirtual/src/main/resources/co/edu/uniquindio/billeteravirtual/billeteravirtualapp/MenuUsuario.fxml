@@ -51,7 +51,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane fx:id="sp_categorias" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" />
+                        <SplitPane fx:id="sp_categorias" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" >
+                           <items>
+                              <fx:include source="GestionCategorias.fxml" />
+                           </items>
+                        </SplitPane>
                      </children>
                   </AnchorPane>
                </content>
@@ -60,7 +64,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane fx:id="sp_presupuestos" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" />
+                        <SplitPane fx:id="sp_presupuestos" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" >
+                           <items>
+                              <fx:include source="GestionPresupuestos.fxml" />
+                           </items>
+                        </SplitPane>
                      </children>
                   </AnchorPane>
                </content>
@@ -69,7 +77,11 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane fx:id="sp_transacciones" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" />
+                        <SplitPane fx:id="sp_transacciones" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0" >
+                           <items>
+                              <fx:include source="GestionTransaccionesUsuario.fxml" />
+                           </items>
+                        </SplitPane>
                      </children>
                   </AnchorPane>
                </content>

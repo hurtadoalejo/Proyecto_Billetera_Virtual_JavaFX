@@ -7,9 +7,9 @@
 
 <AnchorPane fx:id="ap_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="1175.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.LoginMenuViewController">
    <children>
-      <Label layoutX="526.0" layoutY="82.0" text="Iniciar Sesión">
+      <Label layoutX="538.0" layoutY="80.0" text="Iniciar Sesión">
          <font>
-            <Font name="Segoe UI" size="22.0" />
+            <Font name="Segoe UI" size="18.0" />
          </font>
       </Label>
       <Label layoutX="313.0" layoutY="258.0" text="Ingrese número de identificación:">

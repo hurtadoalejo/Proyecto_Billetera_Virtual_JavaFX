@@ -7,9 +7,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.EditarPerfilViewController">
    <children>
-      <Label fx:id="lb_titulo" layoutX="566.0" layoutY="93.0" text="Perfil">
+      <Label fx:id="lb_titulo" layoutX="570.0" layoutY="71.0" text="Perfil">
          <font>
-            <Font name="Segoe UI" size="22.0" />
+            <Font name="Segoe UI" size="18.0" />
          </font>
       </Label>
       <Button fx:id="bt_limpiar" layoutX="621.0" layoutY="438.0" mnemonicParsing="false" onAction="#onLimpiar" prefHeight="31.0" prefWidth="118.0" text="Limpiar">

@@ -35,9 +35,6 @@ public class GestionCuentasViewController {
     private Button bt_eliminar;
 
     @FXML
-    private Label lb_nombreBanco;
-
-    @FXML
     private TableColumn<CuentaDto, String> cl_numeroCuenta;
 
     @FXML
@@ -56,9 +53,6 @@ public class GestionCuentasViewController {
     private TableColumn<CuentaDto, Double> cl_saldo;
 
     @FXML
-    private Label lb_numeroCuenta;
-
-    @FXML
     private TableColumn<CuentaDto, Integer> cl_idCuenta;
 
     @FXML
@@ -71,25 +65,19 @@ public class GestionCuentasViewController {
     private Button bt_nuevo;
 
     @FXML
-    private Label lb_tipoCuenta;
-
-    @FXML
-    private Label lb_titulo;
-
-    @FXML
-    private Label lb_idCuenta;
-
-    @FXML
     private TableColumn<CuentaDto, String> cl_tipoCuenta;
 
     @FXML
-    private Label lb_usuarioAsociado;
+    private ComboBox<String> cb_Presupuesto;
 
     @FXML
     private TextField tf_idCuenta;
 
     @FXML
     private TableColumn<CuentaDto, String> cl_usuarioAsociado;
+
+    @FXML
+    private TableColumn<CuentaDto, String> cl_presupuestoAsociado;
 
     @FXML
     private Button bt_limpiar;
@@ -114,14 +102,28 @@ public class GestionCuentasViewController {
         eliminarCuenta();
     }
 
+    @FXML
+    void initialize() {
+        gestionCuentasController = new GestionCuentasController();
+        initView();
+        inicializarComboBox();
+    }
+
+    private void inicializarComboBox() {
+        cb_tipoCuenta.getItems().addAll(TipoCuenta.values());
+        cb_usuarioAsociado.getItems().addAll(gestionCuentasController.obtenerUsuariosId());
+        cb_usuarioAsociado.setOnAction(e -> manejarSeleccionUsuario());
+        cb_Presupuesto.setDisable(true);
+    }
+
     private CuentaDto crearCuenta() {
         return new CuentaDto(Integer.parseInt(tf_idCuenta.getText()), tf_nombreBanco.getText(),
-                tf_numeroCuenta.getText(), cb_usuarioAsociado.getValue(), cb_tipoCuenta.getValue(), 0, null);
+                tf_numeroCuenta.getText(), cb_usuarioAsociado.getValue(), cb_tipoCuenta.getValue(), 0, cb_Presupuesto.getValue());
     }
 
     private CuentaDto crearCuentaConSaldo(Double saldo) {
         return new CuentaDto(Integer.parseInt(tf_idCuenta.getText()), tf_nombreBanco.getText(),
-                tf_numeroCuenta.getText(), cb_usuarioAsociado.getValue(), cb_tipoCuenta.getValue(), saldo, null);
+                tf_numeroCuenta.getText(), cb_usuarioAsociado.getValue(), cb_tipoCuenta.getValue(), saldo, cb_Presupuesto.getValue());
     }
 
     private void agregarCuenta() {
@@ -216,7 +218,7 @@ public class GestionCuentasViewController {
                 !tf_idCuenta.getText().isEmpty() &&
                 !tf_nombreBanco.getText().isEmpty() &&
                 !cb_tipoCuenta.getSelectionModel().isEmpty() &&
-                !cb_usuarioAsociado.getSelectionModel().isEmpty();
+                !cb_usuarioAsociado.getSelectionModel().getSelectedItem().isEmpty();
     }
 
     private boolean verificarCamposCorrectos(){
@@ -230,6 +232,7 @@ public class GestionCuentasViewController {
             tf_numeroCuenta.setText(cuenta.numCuenta());
             cb_usuarioAsociado.getSelectionModel().select(cuenta.idUsuarioAsociado());
             cb_tipoCuenta.getSelectionModel().select(cuenta.tipoCuenta());
+            cb_Presupuesto.getSelectionModel().select(cuenta.presupuestoAsociado());
         }
     }
 
@@ -252,6 +255,7 @@ public class GestionCuentasViewController {
         cl_usuarioAsociado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().idUsuarioAsociado()));
         cl_tipoCuenta.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tipoCuenta().name()));
         cl_saldo.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().saldo()).asObject());
+        cl_presupuestoAsociado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().presupuestoAsociado()));
     }
 
     private void listenerSelection(){
@@ -272,36 +276,16 @@ public class GestionCuentasViewController {
         tf_nombreBanco.clear();
         cb_tipoCuenta.getSelectionModel().clearSelection();
         cb_usuarioAsociado.getSelectionModel().clearSelection();
+        cb_Presupuesto.getSelectionModel().select(null);
+        cb_Presupuesto.setDisable(true);
     }
 
-    @FXML
-    void initialize() {
-        gestionCuentasController = new GestionCuentasController();
-        cb_tipoCuenta.getItems().addAll(TipoCuenta.values());
-        cb_usuarioAsociado.getItems().addAll(gestionCuentasController.obtenerUsuariosId());
-        initView();
-        assert cb_usuarioAsociado != null : "fx:id=\"cb_usuarioAsociado\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert bt_eliminar != null : "fx:id=\"bt_eliminar\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert lb_nombreBanco != null : "fx:id=\"lb_nombreBanco\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert cl_numeroCuenta != null : "fx:id=\"cl_numeroCuenta\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert tf_nombreBanco != null : "fx:id=\"tf_nombreBanco\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert bt_actualizar != null : "fx:id=\"bt_actualizar\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert tb_cuentas != null : "fx:id=\"tb_cuentas\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert cl_nombreBanco != null : "fx:id=\"cl_nombreBanco\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert cl_saldo != null : "fx:id=\"cl_saldo\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert lb_numeroCuenta != null : "fx:id=\"lb_numeroCuenta\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert cl_idCuenta != null : "fx:id=\"cl_idCuenta\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert tf_numeroCuenta != null : "fx:id=\"tf_numeroCuenta\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert cb_tipoCuenta != null : "fx:id=\"cb_tipoCuenta\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert bt_nuevo != null : "fx:id=\"bt_nuevo\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert lb_tipoCuenta != null : "fx:id=\"lb_tipoCuenta\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert lb_titulo != null : "fx:id=\"lb_titulo\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert lb_idCuenta != null : "fx:id=\"lb_idCuenta\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert cl_tipoCuenta != null : "fx:id=\"cl_tipoCuenta\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert lb_usuarioAsociado != null : "fx:id=\"lb_usuarioAsociado\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert tf_idCuenta != null : "fx:id=\"tf_idCuenta\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert cl_usuarioAsociado != null : "fx:id=\"cl_usuarioAsociado\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-        assert bt_limpiar != null : "fx:id=\"bt_limpiar\" was not injected: check your FXML file 'GestionCuentas.fxml'.";
-
+    private void manejarSeleccionUsuario() {
+        String usuario = cb_usuarioAsociado.getSelectionModel().getSelectedItem();
+        if (usuario != null) {
+            cb_Presupuesto.getItems().clear();
+            cb_Presupuesto.getItems().addAll(gestionCuentasController.obtenerPresupuestosDisponiblesUsuario(usuario));
+            cb_Presupuesto.setDisable(false);
+        }
     }
 }

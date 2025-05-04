@@ -189,6 +189,10 @@ public class ModelFactory implements IModelFactoryService {
         return obtenerUsuario(idUsuario).obtenerPresupuestosNombres();
     }
 
+    public LinkedList<String> obtenerPresupuestosDisponiblesUsuario(String idUsuario) {
+        return obtenerUsuario(idUsuario).obtenerPresupuestosDisponiblesNombres();
+    }
+
     public boolean validarPresupuesto(TransaccionDto transaccion) {
         return billeteraVirtual.validarPresupuesto(transaccionDtoToTransaccion(transaccion));
     }

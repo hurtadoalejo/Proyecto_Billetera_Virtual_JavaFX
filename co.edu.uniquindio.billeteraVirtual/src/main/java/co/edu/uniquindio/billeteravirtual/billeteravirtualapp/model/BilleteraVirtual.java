@@ -166,6 +166,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         if (cuenta != null){
             listaCuentas.remove(cuenta);
             cuenta.getUsuarioAsociado().getListaCuentas().remove(cuenta);
+            cuenta.getPresupuestoAsociado().setCuentaAsociada(null);
             return true;
         }
         return false;
@@ -197,6 +198,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         Presupuesto presupuesto = cuenta.getPresupuestoAsociado();
         Presupuesto presupuestoNuevo = nuevaCuenta.getPresupuestoAsociado();
         if (presupuesto.getIdPresupuesto() != presupuestoNuevo.getIdPresupuesto()){
+            cuenta.setPresupuestoAsociado(presupuestoNuevo);
             presupuesto.setCuentaAsociada(null);
             presupuestoNuevo.setCuentaAsociada(cuenta);
         }

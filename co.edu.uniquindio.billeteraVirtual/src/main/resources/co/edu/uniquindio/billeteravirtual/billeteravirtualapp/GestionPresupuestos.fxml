@@ -47,9 +47,9 @@
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Button>
-                  <Label layoutX="495.0" layoutY="29.0" text="Gestión Presupuestos">
+                  <Label layoutX="505.0" layoutY="27.0" text="Gestión Presupuestos">
                      <font>
-                        <Font name="Segoe UI" size="20.0" />
+                        <Font name="Segoe UI" size="18.0" />
                      </font>
                   </Label>
                   <Label layoutX="623.0" layoutY="152.0" text="Tipo Presupuesto:">

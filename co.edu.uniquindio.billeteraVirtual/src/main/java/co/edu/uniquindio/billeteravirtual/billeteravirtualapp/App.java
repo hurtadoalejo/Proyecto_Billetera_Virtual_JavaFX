@@ -16,9 +16,6 @@ public class App extends Application {
     private Stage primaryStage;
     public ModelFactory modelFactory;
 
-    /**
-     * Metodo para inicializar el programa
-     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
@@ -26,9 +23,6 @@ public class App extends Application {
         openPrincipalView();
     }
 
-    /**
-     * Metodo para inicializar la vista principal
-     */
     public void openPrincipalView() {
         try {
             mostrarMensaje("Contraseña admin",
@@ -48,9 +42,6 @@ public class App extends Application {
         }
     }
 
-    /**
-     * Metodo para invocar el ModelFactory
-     */
     private void invocar() {
         modelFactory = ModelFactory.getInstance();
     }

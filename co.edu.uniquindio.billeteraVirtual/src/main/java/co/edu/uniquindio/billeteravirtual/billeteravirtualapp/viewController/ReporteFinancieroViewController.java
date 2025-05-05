@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.ReporteFinancieroController;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.CuentaDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.GeneradorPDF;
@@ -43,11 +44,11 @@ public class ReporteFinancieroViewController {
         String tipoReporte = cb_tipoReporte.getSelectionModel().getSelectedItem();
         if (tipoReporte != null) {
             if (tipoReporte.equals("Ingresos")) {
-                GeneradorPDF.exportarTransacciones(usuario, tipoReporte, obtenerListaTransaccionesIngresos());
+                GeneradorPDF.exportarTransacciones(usuario, tipoReporte, obtenerListaTransaccionesIngresos(), null);
             } else if (tipoReporte.equals("Saldos")) {
-                System.out.println();
+                GeneradorPDF.exportarTransacciones(usuario, tipoReporte, null, obtenerListaCuentas());
             } else if (tipoReporte.equals("Gastos")) {
-                GeneradorPDF.exportarTransacciones(usuario, tipoReporte, obtenerListaTransaccionesGastos());
+                GeneradorPDF.exportarTransacciones(usuario, tipoReporte, obtenerListaTransaccionesGastos(), null);
             }
         } else {
             System.out.println();
@@ -56,7 +57,7 @@ public class ReporteFinancieroViewController {
 
     public void setUsuario(UsuarioDto usuario) {
         this.usuario = usuario;
-        cb_tipoReporte.getItems().addAll("Ingresos", "Saldos", "Gastos");
+        cb_tipoReporte.getItems().addAll("Ingresos", "Gastos", "Saldos");
     }
 
     private LinkedList<TransaccionDto> obtenerListaTransaccionesGastos() {
@@ -65,5 +66,9 @@ public class ReporteFinancieroViewController {
 
     private LinkedList<TransaccionDto> obtenerListaTransaccionesIngresos() {
         return reporteFinancieroController.obtenerListaTransaccionesIngresos(usuario.idUsuario());
+    }
+
+    private LinkedList<CuentaDto> obtenerListaCuentas() {
+        return reporteFinancieroController.obtenerListaCuentas(usuario.idUsuario());
     }
 }

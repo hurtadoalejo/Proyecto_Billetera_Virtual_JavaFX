@@ -1,5 +1,6 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.CuentaDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
 import com.itextpdf.kernel.colors.ColorConstants;
@@ -31,10 +32,12 @@ public class GeneradorPDF {
     private static final float[] DOS_COLUMNAS = {300f, 300f};
     private static final float[] COLUMNAS_INGRESOS = {80f, 200f, 125f, 125f};
     private static final float[] COLUMNAS_GASTOS = {80f, 150f, 110f, 110f, 80f};
+    private static final float[] COLUMNAS_SALDOS = {100f, 100f, 130f, 100f, 100f};
     private static final Border BORDE_PUNTEADO = new DashedBorder(ColorConstants.GRAY, 0.5f);
     private static final Paragraph ESPACIO = new Paragraph("\n");
 
-    public static void exportarTransacciones(UsuarioDto usuario, String tipoReporte, LinkedList<TransaccionDto> transacciones) {
+    public static void exportarTransacciones(UsuarioDto usuario, String tipoReporte,
+                                             LinkedList<TransaccionDto> transacciones, LinkedList<CuentaDto> listaCuentas) {
         String nombreArchivo = "reporte_Usuario.pdf";
         String rutaSalida = "src/main/java/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/utils/" + nombreArchivo;
 
@@ -117,7 +120,7 @@ public class GeneradorPDF {
                         generarListaGastos(documentos, transacciones, letra, letraBold, tablaDivisoraTransacciones);
                         break;
                 case "Saldos":
-                    System.out.println();
+                    generarListaSaldos(documentos, listaCuentas, letra, letraBold, tablaDivisoraTransacciones);
                     break;
             }
 
@@ -130,6 +133,52 @@ public class GeneradorPDF {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void generarListaSaldos(Document documento, LinkedList<CuentaDto> cuentas, PdfFont letra, PdfFont letraBold, Table tablaDivisoraTransacciones) {
+        Table tablaCuentas = new Table(COLUMNAS_SALDOS);
+        configurarTablaPrincipal(tablaCuentas);
+
+        tablaCuentas.addCell(new Cell().add(obtenerTextoColumna("Número Cuenta", letra))
+                .setFontColor(ColorConstants.WHITE)
+                .setBorder(Border.NO_BORDER));
+        tablaCuentas.addCell(new Cell().add(obtenerTextoColumna("Nombre Banco", letra))
+                .setFontColor(ColorConstants.WHITE)
+                .setBorder(Border.NO_BORDER));
+        tablaCuentas.addCell(new Cell().add(obtenerTextoColumna("Nombre Presupuesto", letra))
+                .setFontColor(ColorConstants.WHITE)
+                .setBorder(Border.NO_BORDER));
+        tablaCuentas.addCell(new Cell().add(obtenerTextoColumna("Tipo Cuenta", letra))
+                .setFontColor(ColorConstants.WHITE)
+                .setBorder(Border.NO_BORDER));
+        tablaCuentas.addCell(new Cell().add(obtenerTextoColumna("Saldo", letra))
+                .setFontColor(ColorConstants.WHITE)
+                .setBorder(Border.NO_BORDER));
+        documento.add((tablaCuentas));
+
+        Table listaCuentas = new Table(COLUMNAS_SALDOS);
+        listaCuentas.setWidth(100);
+        listaCuentas.setFixedLayout();
+        double totalSaldo = 0;
+        for (CuentaDto cuenta : cuentas) {
+            listaCuentas.addCell(obtenerTextoColumna(cuenta.numCuenta(), letra));
+            listaCuentas.addCell(obtenerTextoColumna(cuenta.nombreBanco(), letra));
+            listaCuentas.addCell(obtenerTextoColumna(cuenta.presupuestoAsociado(), letra));
+            listaCuentas.addCell(obtenerTextoColumna(cuenta.tipoCuenta().toString(), letra));
+            listaCuentas.addCell(obtenerTextoColumna(String.format("$%,.0f", cuenta.saldo()), letra));
+            totalSaldo += cuenta.saldo();
+        }
+        listaCuentas.setBorder(Border.NO_BORDER);
+        documento.add(listaCuentas);
+
+        float[] columnasTotal = {330f, 200f};
+        Table tablaTotal = obtenerDivisorMontoTotal(columnasTotal, tablaDivisoraTransacciones);
+        documento.add(tablaTotal);
+
+        float[] columnasMontoTotal = {330f, 100f, 100f};
+        Table tablaMontoTotal = obtenerTablaMontoTotal(columnasMontoTotal, letra,
+                totalSaldo);
+        documento.add(tablaMontoTotal);
     }
 
     private static double generarListaDepositoRetiro(Document documento, LinkedList<TransaccionDto> transacciones,
@@ -160,7 +209,7 @@ public class GeneradorPDF {
                 listaTransacciones.addCell(obtenerTextoColumna(t.fecha().toString(), letra));
                 listaTransacciones.addCell(obtenerTextoColumna(t.descripcion(), letra));
                 listaTransacciones.addCell(obtenerTextoColumna(t.numCuentaOrigen(), letra));
-                listaTransacciones.addCell(obtenerTextoColumna(String.format("$%.2f", t.monto()), letra));
+                listaTransacciones.addCell(obtenerTextoColumna(String.format("$%,.0f", t.monto()), letra));
                 total += t.monto();
             }
         }
@@ -189,7 +238,7 @@ public class GeneradorPDF {
         documento.add(ESPACIO);
         documento.add(obtenerTextoColumna("Total Gastos", letra)
                 .setTextAlignment(TextAlignment.CENTER));
-        documento.add(obtenerTextoColumna(String.format("$%.2f", saldoGastos), letra)
+        documento.add(obtenerTextoColumna(String.format("$%,.0f", saldoGastos), letra)
                 .setTextAlignment(TextAlignment.CENTER));
 
     }
@@ -197,7 +246,7 @@ public class GeneradorPDF {
     private static double generarListaTransferencias(Document documento, LinkedList<TransaccionDto> transacciones,
                                                    PdfFont letra, Table tablaDivisoraTransacciones) {
         Table tablaTransacciones = new Table(COLUMNAS_GASTOS);
-        configurarTablaTransacciones(tablaTransacciones);
+        configurarTablaPrincipal(tablaTransacciones);
 
         tablaTransacciones.addCell(new Cell().add(obtenerTextoColumna("Fecha", letra))
                 .setFontColor(ColorConstants.WHITE)
@@ -226,7 +275,7 @@ public class GeneradorPDF {
                 listaTransacciones.addCell(obtenerTextoColumna(t.descripcion(), letra));
                 listaTransacciones.addCell(obtenerTextoColumna(t.numCuentaOrigen(), letra));
                 listaTransacciones.addCell(obtenerTextoColumna(t.numCuentaDestino(), letra));
-                listaTransacciones.addCell(obtenerTextoColumna(String.format("$%.2f", t.monto()), letra));
+                listaTransacciones.addCell(obtenerTextoColumna(String.format("$%,.0f", t.monto()), letra));
                 totalTransferencia += t.monto();
             }
         }
@@ -244,10 +293,10 @@ public class GeneradorPDF {
         return totalTransferencia;
     }
 
-    private static void configurarTablaTransacciones(Table tablaTransacciones) {
-        tablaTransacciones.setWidth(100);
-        tablaTransacciones.setFixedLayout();
-        tablaTransacciones.setBackgroundColor(ColorConstants.BLACK, 0.7f);
+    private static void configurarTablaPrincipal(Table tabla) {
+        tabla.setWidth(100);
+        tabla.setFixedLayout();
+        tabla.setBackgroundColor(ColorConstants.BLACK, 0.7f);
     }
 
     private static Table obtenerDivisorMontoTotal(float[] columnasTotal, Table tablaDivisora) {
@@ -261,7 +310,7 @@ public class GeneradorPDF {
         Table tablaMontoTotal = new Table(columnasTotal);
         tablaMontoTotal.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
         tablaMontoTotal.addCell(obtenerTextoColumna("Total", letra));
-        tablaMontoTotal.addCell(obtenerTextoColumna("$" + String.format("%.2f", total), letra));
+        tablaMontoTotal.addCell(obtenerTextoColumna("$" + String.format("%,.0f", total), letra));
         return tablaMontoTotal;
     }
 
@@ -269,6 +318,7 @@ public class GeneradorPDF {
         return new Cell().add(new Paragraph(nombreColumna))
                 .setBorder(Border.NO_BORDER)
                 .setFontSize(11f)
-                .setFont(letra);
+                .setFont(letra)
+                .setTextAlignment(TextAlignment.LEFT);
     }
 }

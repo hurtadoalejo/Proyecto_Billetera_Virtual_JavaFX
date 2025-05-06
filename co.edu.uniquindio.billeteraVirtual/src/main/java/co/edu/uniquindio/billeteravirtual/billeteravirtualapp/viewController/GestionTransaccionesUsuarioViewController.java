@@ -319,6 +319,5 @@ public class GestionTransaccionesUsuarioViewController {
         cl_cuentaDestino.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().numCuentaDestino()));
         cl_cuentaOrigen.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().numCuentaOrigen()));
         cl_categoria.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombreCategoria()));
-        cl_categoria.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombreCategoria()));
     }
 }

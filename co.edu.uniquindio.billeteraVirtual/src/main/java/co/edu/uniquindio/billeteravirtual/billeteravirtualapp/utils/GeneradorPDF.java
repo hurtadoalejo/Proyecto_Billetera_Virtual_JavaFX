@@ -39,7 +39,9 @@ public class GeneradorPDF {
     public static void exportarTransacciones(UsuarioDto usuario, String tipoReporte,
                                              LinkedList<TransaccionDto> transacciones, LinkedList<CuentaDto> listaCuentas) {
         String nombreArchivo = "reporte_Usuario.pdf";
-        String rutaSalida = "src/main/java/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/utils/" + nombreArchivo;
+        String rutaUsuario = System.getProperty("user.home");
+        String rutaSalida = rutaUsuario + "/Downloads/" + nombreArchivo;
+
 
         try {
             PdfWriter writer = new PdfWriter(rutaSalida);

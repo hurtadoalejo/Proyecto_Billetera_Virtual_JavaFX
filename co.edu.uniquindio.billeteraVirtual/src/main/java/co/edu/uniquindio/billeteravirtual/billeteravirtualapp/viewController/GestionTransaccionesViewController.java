@@ -90,12 +90,12 @@ public class GestionTransaccionesViewController {
 
     @FXML
     void onLimpiar() {
-        limpiarSeleccion();
+        //limpiarSeleccion();
     }
 
     @FXML
     void onRealizarTransaccion() {
-        realizarMovimiento();
+        //realizarMovimiento();
     }
 
     @FXML
@@ -114,7 +114,7 @@ public class GestionTransaccionesViewController {
     }
 
     private void obtenerTransacciones() {
-        listaTransacciones.addAll(gestionTransaccionesController.obtenerTransacciones(usuario.idUsuario()));
+        listaTransacciones.addAll(gestionTransaccionesController.obtenerTransacciones(cb_usuario.getValue()));
     }
 
     private void listenerSelection(){
@@ -148,7 +148,7 @@ public class GestionTransaccionesViewController {
                 cb_categoria.getSelectionModel().getSelectedItem());
     }
 
-    private void inicializarComboBox() {
+    /*private void inicializarComboBox() {
         cb_categoria.getItems().addAll();
         cb_categoria.getItems().addAll(gestionTransaccionesController.obtenerCategoriasNombresDeUsuario(usuario.idUsuario()));
         cb_categoria.setOnAction(event -> manejarSeleccionCategoria());
@@ -156,7 +156,7 @@ public class GestionTransaccionesViewController {
         LinkedList<String> listaNumCuentas = gestionTransaccionesUsuarioController.obtenerNumCuentasUsuario(usuario.idUsuario());
         cb_cuentaOrigen.getItems().addAll(listaNumCuentas);
         crearListaFiltrada(listaNumCuentas);
-    }
+    }*/
 
     private void limpiarCampos() {
         cb_cuentaOrigen.getSelectionModel().clearSelection();

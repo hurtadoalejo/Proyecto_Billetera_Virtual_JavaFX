@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.GestionPresupuestoController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.PresupuestoDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.TipoPresupuesto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.Categoria;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -41,7 +41,7 @@ public class GestionPresupuestosViewController {
     private TableColumn<PresupuestoDto, Double> cl_tope;
 
     @FXML
-    private ComboBox<TipoPresupuesto> cb_tipoPresupuesto;
+    private ComboBox<String> cb_categoria;
 
     @FXML
     private Button bt_actualizar;
@@ -65,7 +65,7 @@ public class GestionPresupuestosViewController {
     private TableColumn<PresupuestoDto, Integer> cl_idPresupuesto;
 
     @FXML
-    private TableColumn<PresupuestoDto, String> cl_tipoPresupuesto;
+    private TableColumn<PresupuestoDto, String> cl_categoria;
 
     @FXML
     private TextField tf_nombrePresupuesto;
@@ -103,19 +103,24 @@ public class GestionPresupuestosViewController {
 
     public void setUsuario(UsuarioDto usuario) {
         this.usuario = usuario;
-        cb_tipoPresupuesto.getItems().addAll(TipoPresupuesto.values());
+        configurarComboBox();
         initView();
+    }
+
+    private void configurarComboBox() {
+        cb_categoria.getItems().clear();
+        cb_categoria.getItems().addAll(gestionPresupuestoController.obtenerCategoriasDisponibles(usuario.idUsuario()));
     }
 
     private PresupuestoDto crearPresupuesto() {
         return new PresupuestoDto(Integer.parseInt(tf_idPresupuesto.getText()), tf_nombrePresupuesto.getText(),
-                Double.parseDouble(tf_tope.getText()), 0, usuario.idUsuario(), null, cb_tipoPresupuesto.getValue());
+                Double.parseDouble(tf_tope.getText()), 0, usuario.idUsuario(), null, cb_categoria.getValue());
     }
 
     private PresupuestoDto crearPresupuesto(double montoGastado, String numCuenta) {
         return new PresupuestoDto(Integer.parseInt(tf_idPresupuesto.getText()), tf_nombrePresupuesto.getText(),
                 Double.parseDouble(tf_tope.getText()), montoGastado, usuario.idUsuario(), numCuenta,
-                cb_tipoPresupuesto.getValue());
+                cb_categoria.getValue());
     }
 
     private void agregarPresupuesto() {
@@ -126,6 +131,7 @@ public class GestionPresupuestosViewController {
                     listaPresupuestos.add(presupuestoDto);
                     tb_presupuestos.refresh();
                     limpiarSeleccion();
+                    configurarComboBox();
                     mostrarMensaje(TITULO_PRESUPUESTO_AGREGADO,
                             BODY_PRESUPUESTO_AGREGADO, Alert.AlertType.INFORMATION);
                 }
@@ -155,6 +161,7 @@ public class GestionPresupuestosViewController {
                             intercambiarPresupuestos(presupuestoSeleccionado.idPresupuesto(), presupuestoNuevo);
                             limpiarSeleccion();
                             tb_presupuestos.refresh();
+                            configurarComboBox();
                             mostrarMensaje(TITULO_PRESUPUESTO_ACTUALIZADO,
                                     BODY_PRESUPUESTO_ACTUALIZADO, Alert.AlertType.INFORMATION);
                         }
@@ -187,9 +194,13 @@ public class GestionPresupuestosViewController {
             if (mostrarMensajeConfirmacion(BODY_CONFIRMACION_ELIMINAR_PRESUPUESTO) && gestionPresupuestoController
                     .eliminarPresupuesto(presupuestoSeleccionado.idPresupuesto(), usuario.idUsuario())){
                 listaPresupuestos.remove(presupuestoSeleccionado);
+                configurarComboBox();
                 limpiarSeleccion();
                 mostrarMensaje(TITULO_PRESUPUESTO_ELIMINADO,
                         BODY_PRESUPUESTO_ELIMINADO, Alert.AlertType.INFORMATION);
+            } else {
+                mostrarMensaje(TITULO_PRESUPUESTO_NO_ELIMINADO,
+                        BODY_PRESUPUESTO_NO_ELIMINADO, Alert.AlertType.ERROR);
             }
         }
         else {
@@ -215,7 +226,7 @@ public class GestionPresupuestosViewController {
         return !tf_nombrePresupuesto.getText().isEmpty() &&
                 !tf_tope.getText().isEmpty() &&
                 !tf_idPresupuesto.getText().isEmpty() &&
-                !cb_tipoPresupuesto.getSelectionModel().isEmpty();
+                !cb_categoria.getSelectionModel().getSelectedItem().isEmpty();
     }
 
     private boolean verificarCamposCorrectos(){
@@ -227,7 +238,7 @@ public class GestionPresupuestosViewController {
             tf_nombrePresupuesto.setText(presupuesto.nombre());
             tf_idPresupuesto.setText(String.valueOf(presupuesto.idPresupuesto()));
             tf_tope.setText(String.valueOf(presupuesto.montoTotalAsignado()));
-            cb_tipoPresupuesto.getSelectionModel().select(presupuesto.tipoPresupuesto());
+            cb_categoria.getSelectionModel().select(presupuesto.categoria());
         }
     }
 
@@ -249,7 +260,7 @@ public class GestionPresupuestosViewController {
         cl_cuentaAsociada.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().cuentaAsociada()));
         cl_tope.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().montoTotalAsignado()).asObject());
         cl_montoGastado.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().montoGastado()).asObject());
-        cl_tipoPresupuesto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tipoPresupuesto().name()));
+        cl_categoria.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().categoria()));
     }
 
     private void listenerSelection(){
@@ -268,6 +279,6 @@ public class GestionPresupuestosViewController {
         tf_nombrePresupuesto.clear();
         tf_idPresupuesto.clear();
         tf_tope.clear();
-        cb_tipoPresupuesto.getSelectionModel().clearSelection();
+        cb_categoria.setValue(null);
     }
 }

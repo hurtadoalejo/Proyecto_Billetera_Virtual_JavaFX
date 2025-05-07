@@ -288,7 +288,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     @Override
     public boolean eliminarCategoria(int idCategoria) {
         Categoria categoria = obtenerCategoria(idCategoria);
-        if (categoria != null){
+        if (categoria != null && categoria.getPresupuestoAsociado() == null){
             listaCategorias.remove(categoria);
             categoria.getUsuarioAsociado().getListaCategorias().remove(categoria);
             return true;
@@ -319,8 +319,10 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
 
     @Override
     public boolean agregarPresupuesto(Presupuesto presupuesto) {
-        if (obtenerPresupuesto(presupuesto.getIdPresupuesto()) == null){
+        if (obtenerPresupuesto(presupuesto.getIdPresupuesto()) == null &&
+                presupuesto.getCategoriaAsociada().getPresupuestoAsociado() == null){
             listaPresupuestos.add(presupuesto);
+            presupuesto.getCategoriaAsociada().setPresupuestoAsociado(presupuesto);
             return true;
         }
         return false;
@@ -332,6 +334,7 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
         if (presupuesto != null && presupuesto.getCuentaAsociada() == null){
             listaPresupuestos.remove(presupuesto);
             presupuesto.getUsuarioAsociado().getListaPresupuestos().remove(presupuesto);
+            presupuesto.getCategoriaAsociada().setPresupuestoAsociado(null);
             return true;
         }
         return false;
@@ -344,11 +347,21 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
                 presupuesto.setIdPresupuesto(nuevoPresupuesto.getIdPresupuesto());
                 presupuesto.setNombre(nuevoPresupuesto.getNombre());
                 presupuesto.setMontoTotalAsignado(nuevoPresupuesto.getMontoTotalAsignado());
-                presupuesto.setTipoPresupuesto(nuevoPresupuesto.getTipoPresupuesto());
+                cambiarCategoriasPresupuestos(presupuesto, nuevoPresupuesto);
                 return true;
             }
         }
         return false;
+    }
+
+    private void cambiarCategoriasPresupuestos(Presupuesto presupuesto, Presupuesto nuevoPresupuesto) {
+        Categoria categoriaVieja = presupuesto.getCategoriaAsociada();
+        Categoria categoriaNueva = nuevoPresupuesto.getCategoriaAsociada();
+        if (categoriaVieja.getIdCategoria() != categoriaNueva.getIdCategoria()){
+            presupuesto.setCategoriaAsociada(categoriaNueva);
+            categoriaVieja.setPresupuestoAsociado(null);
+            categoriaNueva.setPresupuestoAsociado(presupuesto);
+        }
     }
 
     @Override
@@ -364,11 +377,11 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     @Override
     public boolean agregarTransaccion(Transaccion transaccion) {
         if (obtenerTransaccion(transaccion.getIdTransaccion()) == null){
-            if (transaccion.getCategoriaTransaccion().getNombre().equalsIgnoreCase("Retiro")) {
+            if (transaccion.getTipoTransaccion().equals(TipoTransaccion.RETIRO)) {
                 return retirarDinero(transaccion);
-            } else if (transaccion.getCategoriaTransaccion().getNombre().equalsIgnoreCase("Deposito")) {
+            } else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)) {
                 return realizarDeposito(transaccion);
-            } else if (transaccion.getCategoriaTransaccion().getNombre().equalsIgnoreCase("Transferencia")) {
+            } else if (transaccion.getTipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)) {
                 return realizarTransferencia(transaccion);
             }
         }

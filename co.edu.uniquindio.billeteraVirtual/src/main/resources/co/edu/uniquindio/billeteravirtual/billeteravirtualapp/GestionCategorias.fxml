@@ -71,11 +71,12 @@
                         <Font name="Segoe UI" size="16.0" />
                      </font>
                   </Button>
-                  <TableView fx:id="tb_categorias" layoutX="249.0" layoutY="14.0" prefHeight="184.0" prefWidth="680.0" style="-fx-font-size: 14px;">
+                  <TableView fx:id="tb_categorias" layoutX="126.0" layoutY="14.0" prefHeight="184.0" prefWidth="927.0" style="-fx-font-size: 14px;">
                      <columns>
                         <TableColumn fx:id="cl_nombre" prefWidth="213.0" text="Nombre" />
                         <TableColumn fx:id="cl_idCategoria" prefWidth="163.0" text="Id Categoria" />
                         <TableColumn fx:id="cl_descripcion" prefWidth="301.0" text="Descripción" />
+                        <TableColumn fx:id="cl_presupuesto" prefWidth="249.0" text="Presupuesto Asociado" />
                      </columns>
                   </TableView>
                </children>

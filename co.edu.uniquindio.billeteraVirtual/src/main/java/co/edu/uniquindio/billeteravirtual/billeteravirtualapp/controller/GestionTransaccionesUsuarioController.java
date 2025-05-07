@@ -16,10 +16,6 @@ public class GestionTransaccionesUsuarioController {
         return modelFactory.obtenerTransacciones(idUsuario);
     }
 
-    public LinkedList<String> obtenerCategoriasNombresDeUsuario(String idUsuario) {
-        return modelFactory.obtenerCategoriasNombresDeUsuario(idUsuario);
-    }
-
     public LinkedList<String> obtenerNumCuentasUsuario(String idUsuario) {
         return modelFactory.obtenerNumCuentasUsuario(idUsuario);
     }

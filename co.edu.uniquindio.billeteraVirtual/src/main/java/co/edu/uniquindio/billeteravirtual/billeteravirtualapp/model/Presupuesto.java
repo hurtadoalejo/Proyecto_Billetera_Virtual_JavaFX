@@ -7,17 +7,17 @@ public class Presupuesto {
     private double montoTotalAsignado, montoGastado;
     private Usuario usuarioAsociado;
     private Cuenta cuentaAsociada;
-    private TipoPresupuesto tipoPresupuesto;
+    private Categoria categoriaAsociada;
 
     public Presupuesto() {}
 
-    public Presupuesto(int idPresupuesto, String nombre, double montoTotalAsignado, Usuario usuarioAsociado, TipoPresupuesto tipoPresupuesto, BilleteraVirtual billeteraVirtual) {
+    public Presupuesto(int idPresupuesto, String nombre, double montoTotalAsignado, Usuario usuarioAsociado, Categoria categoriaAsociada, BilleteraVirtual billeteraVirtual) {
         this.idPresupuesto = idPresupuesto;
         this.nombre = nombre;
         this.montoTotalAsignado = montoTotalAsignado;
         this.montoGastado = 0;
         this.usuarioAsociado = usuarioAsociado;
-        this.tipoPresupuesto = tipoPresupuesto;
+        this.categoriaAsociada = categoriaAsociada;
         this.billeteraVirtual = billeteraVirtual;
     }
 
@@ -77,12 +77,12 @@ public class Presupuesto {
         this.cuentaAsociada = cuentaAsociada;
     }
 
-    public TipoPresupuesto getTipoPresupuesto() {
-        return tipoPresupuesto;
+    public Categoria getCategoriaAsociada() {
+        return categoriaAsociada;
     }
 
-    public void setTipoPresupuesto(TipoPresupuesto tipoPresupuesto) {
-        this.tipoPresupuesto = tipoPresupuesto;
+    public void setCategoriaAsociada(Categoria categoriaAsociada) {
+        this.categoriaAsociada = categoriaAsociada;
     }
 
     public void actualizarMontoGastado(double monto) {

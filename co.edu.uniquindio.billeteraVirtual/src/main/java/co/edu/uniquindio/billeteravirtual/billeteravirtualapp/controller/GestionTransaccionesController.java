@@ -12,12 +12,8 @@ public class GestionTransaccionesController {
         modelFactory = ModelFactory.getInstance();
     }
 
-    public LinkedList<TransaccionDto> obtenerTransacciones(String idUsuario) {
-        return modelFactory.obtenerTransacciones(idUsuario);
-    }
-
-    public LinkedList<String> obtenerCategoriasNombresDeUsuario(String idUsuario) {
-        return modelFactory.obtenerCategoriasNombresDeUsuario(idUsuario);
+    public LinkedList<TransaccionDto> obtenerTransacciones() {
+        return modelFactory.obtenerTransacciones();
     }
 
     public LinkedList<String> obtenerNumCuentasUsuario(String idUsuario) {

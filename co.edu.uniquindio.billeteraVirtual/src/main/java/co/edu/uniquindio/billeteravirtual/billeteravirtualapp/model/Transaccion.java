@@ -10,18 +10,18 @@ public class Transaccion {
     private double monto;
     private String descripcionOpcional;
     private Usuario usuarioAsociado;
-    private Categoria categoriaTransaccion;
+    private TipoTransaccion tipoTransaccion;
     private Cuenta cuentaOrigen, cuentaDestino;
 
     public Transaccion(){}
 
-    public Transaccion(int idTransaccion, LocalDate fecha, double monto, String descripcionOpcional, Usuario usuarioAsociado, Categoria categoriaTransaccion, Cuenta cuentaOrigen, Cuenta cuentaDestino, BilleteraVirtual billeteraVirtual) {
+    public Transaccion(int idTransaccion, LocalDate fecha, double monto, String descripcionOpcional, Usuario usuarioAsociado, TipoTransaccion tipoTransaccion, Cuenta cuentaOrigen, Cuenta cuentaDestino, BilleteraVirtual billeteraVirtual) {
         this.idTransaccion = idTransaccion;
         this.fecha = fecha;
         this.monto = monto;
         this.descripcionOpcional = descripcionOpcional;
         this.usuarioAsociado = usuarioAsociado;
-        this.categoriaTransaccion = categoriaTransaccion;
+        this.tipoTransaccion = tipoTransaccion;
         this.cuentaOrigen = cuentaOrigen;
         this.cuentaDestino = cuentaDestino;
         this.billeteraVirtual = billeteraVirtual;
@@ -55,8 +55,8 @@ public class Transaccion {
         return usuarioAsociado;
     }
 
-    public Categoria getCategoriaTransaccion() {
-        return categoriaTransaccion;
+    public TipoTransaccion getTipoTransaccion() {
+        return tipoTransaccion;
     }
 
     public Cuenta getCuentaOrigen() {

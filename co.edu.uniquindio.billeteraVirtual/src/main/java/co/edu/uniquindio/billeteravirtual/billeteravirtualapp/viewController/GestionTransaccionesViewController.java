@@ -1,26 +1,24 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController;
 
 import java.net.URL;
-import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.GestionTransaccionesController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
-import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.TipoTransaccion;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.*;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.BilleteraVirtualConstantes.BODY_INCOMPLETO;
 import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.isDouble;
+import static co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.MetodosReutilizables.mostrarMensaje;
 
 public class GestionTransaccionesViewController {
 
@@ -35,7 +33,7 @@ public class GestionTransaccionesViewController {
     private URL location;
 
     @FXML
-    private ComboBox<String> cb_categoria;
+    private ComboBox<TipoTransaccion> cb_tipoTransaccion;
 
     @FXML
     private TableColumn<TransaccionDto, String> cl_cuentaOrigen;
@@ -77,7 +75,7 @@ public class GestionTransaccionesViewController {
     private TableColumn<TransaccionDto, String> cl_fecha;
 
     @FXML
-    private TableColumn<TransaccionDto, String> cl_categoria;
+    private TableColumn<TransaccionDto, String> cl_tipoTransaccion;
 
     @FXML
     private ComboBox<String> cb_cuentaDestino;
@@ -90,17 +88,18 @@ public class GestionTransaccionesViewController {
 
     @FXML
     void onLimpiar() {
-        //limpiarSeleccion();
+        limpiarSeleccion();
     }
 
     @FXML
     void onRealizarTransaccion() {
-        //realizarMovimiento();
+        realizarMovimiento();
     }
 
     @FXML
     void initialize() {
         gestionTransaccionesController = new GestionTransaccionesController();
+        initView();
     }
 
     private void initView() {
@@ -110,11 +109,17 @@ public class GestionTransaccionesViewController {
         tb_transacciones.setItems(listaTransacciones);
         cb_usuario.getItems().clear();
         cb_usuario.getItems().setAll(gestionTransaccionesController.obtenerUsuariosId());
+        cb_tipoTransaccion.getItems().addAll(TipoTransaccion.values());
         listenerSelection();
+        listenerUsuarioSeleccionado();
+        listenerTipoTransaccionSeleccionado();
+        listenerCuentaOrigenSeleccionada();
+        listenerCuentaDestinoSeleccionada();
+        limpiarSeleccion();
     }
 
     private void obtenerTransacciones() {
-        listaTransacciones.addAll(gestionTransaccionesController.obtenerTransacciones(cb_usuario.getValue()));
+        listaTransacciones.addAll(gestionTransaccionesController.obtenerTransacciones());
     }
 
     private void listenerSelection(){
@@ -126,7 +131,7 @@ public class GestionTransaccionesViewController {
 
     private void mostrarInformacionTransaccion(TransaccionDto transaccionSeleccionada) {
         if (transaccionSeleccionada != null) {
-            cb_categoria.getSelectionModel().select(transaccionSeleccionada.nombreCategoria());
+            cb_tipoTransaccion.getSelectionModel().select(transaccionSeleccionada.tipoTransaccion());
             dp_fecha.setValue(transaccionSeleccionada.fecha());
             tf_monto.setText(Double.toString(transaccionSeleccionada.monto()));
             tf_descripcion.setText(transaccionSeleccionada.descripcion());
@@ -145,35 +150,119 @@ public class GestionTransaccionesViewController {
                 cb_usuario.getValue(),
                 cb_cuentaOrigen.getSelectionModel().getSelectedItem(),
                 cb_cuentaDestino.getSelectionModel().getSelectedItem(),
-                cb_categoria.getSelectionModel().getSelectedItem());
+                cb_tipoTransaccion.getSelectionModel().getSelectedItem());
     }
 
-    /*private void inicializarComboBox() {
-        cb_categoria.getItems().addAll();
-        cb_categoria.getItems().addAll(gestionTransaccionesController.obtenerCategoriasNombresDeUsuario(usuario.idUsuario()));
-        cb_categoria.setOnAction(event -> manejarSeleccionCategoria());
-        cb_cuentaOrigen.setOnAction(event -> manejarSeleccionCuentaOrigen());
-        LinkedList<String> listaNumCuentas = gestionTransaccionesUsuarioController.obtenerNumCuentasUsuario(usuario.idUsuario());
-        cb_cuentaOrigen.getItems().addAll(listaNumCuentas);
-        crearListaFiltrada(listaNumCuentas);
-    }*/
+    private void realizarMovimiento() {
+        if (verificarCamposLlenos()) {
+            if (verificarCamposCorrectos()) {
+                TipoTransaccion tipoTransaccion = cb_tipoTransaccion.getSelectionModel().getSelectedItem();
+                TransaccionDto transaccionDto = crearTransaccion();
+                if (tipoTransaccion.equals(TipoTransaccion.DEPOSITO)) {
+                    realizarDeposito(transaccionDto);
+                }
+                else if (tipoTransaccion.equals(TipoTransaccion.TRANSFERENCIA)) {
+                    realizarTransferencia(transaccionDto);
+                }
+                else if (tipoTransaccion.equals(TipoTransaccion.RETIRO)) {
+                    realizarRetiro(transaccionDto);
+                }
+            }
+            else {
+                mostrarMensaje(TITULO_INCORRECTO, BODY_INCORRECTO, Alert.AlertType.WARNING);
+            }
+        }
+        else {
+            mostrarMensaje(TITULO_INCOMPLETO, BODY_INCOMPLETO, Alert.AlertType.WARNING);
+        }
+    }
+
+    private void realizarDeposito(TransaccionDto transaccionDto) {
+        if (gestionTransaccionesController.agregarTransaccion(transaccionDto, cb_usuario.getValue())){
+            mostrarMensajeTransaccionExitosa(transaccionDto);
+            listaTransacciones.add(transaccionDto);
+        }
+        else {
+            mostrarMensaje(TITULO_DEPOSITO_NO_EXITOSO, BODY_DEPOSITO_NO_EXITOSO, Alert.AlertType.ERROR);
+        }
+    }
+
+    private boolean falloSacarDinero(TransaccionDto transaccionDto) {
+        if (gestionTransaccionesController.saldoCuentaEsSuficiente(transaccionDto)) {
+            if (gestionTransaccionesController.validarPresupuesto(transaccionDto)) {
+                if (gestionTransaccionesController.agregarTransaccion(transaccionDto, cb_usuario.getValue())){
+                    mostrarMensajeTransaccionExitosa(transaccionDto);
+                    listaTransacciones.add(transaccionDto);
+                }
+            }
+            else {
+                mostrarMensaje(TITULO_PRESUPUESTO_SUPERADO, BODY_PRESUPUESTO_SUPERADO, Alert.AlertType.ERROR);
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private void realizarRetiro(TransaccionDto transaccionDto) {
+        if (falloSacarDinero(transaccionDto)) {
+            mostrarMensaje(TITULO_RETIRO_NO_EXITOSO,
+                    BODY_RETIRO_NO_EXITOSO, Alert.AlertType.ERROR);
+        }
+    }
+
+    private void realizarTransferencia(TransaccionDto transaccionDto) {
+        if (falloSacarDinero(transaccionDto)) {
+            mostrarMensaje(TITULO_TRANSFERENCIA_NO_EXITOSA,
+                    BODY_TRANSFERENCIA_NO_EXITOSA_DINERO, Alert.AlertType.ERROR);
+        }
+    }
+
+    private void mostrarMensajeTransaccionExitosa(TransaccionDto transaccionDto) {
+        String mensajeMonto = transaccionDto.monto() + " pesos.";
+        if (transaccionDto.tipoTransaccion().equals(TipoTransaccion.DEPOSITO)) {
+            mostrarMensaje(TITULO_DEPOSITO_EXITOSO,
+                    BODY_DEPOSITO_EXITOSO + mensajeMonto,
+                    Alert.AlertType.INFORMATION);
+        }
+        else if (transaccionDto.tipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)) {
+            mostrarMensaje(TITULO_TRANSFERENCIA_EXITOSA,
+                    BODY_TRANSFERENCIA_EXITOSA + mensajeMonto,
+                    Alert.AlertType.INFORMATION);
+
+        }
+        else if (transaccionDto.tipoTransaccion().equals(TipoTransaccion.RETIRO)) {
+            mostrarMensaje(TITULO_RETIRO_EXITOSO,
+                    BODY_RETIRO_EXITOSO + mensajeMonto,
+                    Alert.AlertType.INFORMATION);
+        }
+        limpiarSeleccion();
+    }
+
+    private void limpiarSeleccion() {
+        tb_transacciones.getSelectionModel().clearSelection();
+        desabilitarCamposFormulario();
+        limpiarCampos();
+    }
 
     private void limpiarCampos() {
-        cb_cuentaOrigen.getSelectionModel().clearSelection();
+        cb_usuario.setValue(null);
+        cb_tipoTransaccion.setValue(null);
+        cb_cuentaOrigen.setValue(null);
+        cb_tipoTransaccion.setValue(null);
         dp_fecha.setValue(null);
-        cb_cuentaDestino.getSelectionModel().clearSelection();
-        tf_monto.clear();
-        tf_descripcion.clear();
-        cb_usuario.getSelectionModel().clearSelection();
+        cb_cuentaDestino.setValue(null);
+        tf_monto.setText(null);
+        tf_descripcion.setText(null);
+        tb_transacciones.getSelectionModel().clearSelection();
     }
 
     private boolean verificarCamposLlenos() {
-        if (!cb_categoria.getSelectionModel().isEmpty()
+        if (!cb_tipoTransaccion.getSelectionModel().isEmpty()
                 && !cb_cuentaOrigen.getSelectionModel().isEmpty()
                 && dp_fecha.getValue() != null
                 && !tf_monto.getText().isEmpty()
                 && !cb_usuario.getSelectionModel().isEmpty()) {
-            if (cb_categoria.getSelectionModel().getSelectedItem().equalsIgnoreCase("Transferencia")) {
+            if (cb_tipoTransaccion.getValue().equals(TipoTransaccion.TRANSFERENCIA)) {
                 return !cb_cuentaDestino.getSelectionModel().isEmpty();
             }
             return true;
@@ -192,7 +281,78 @@ public class GestionTransaccionesViewController {
         cl_descripcion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().descripcion()));
         cl_cuentaDestino.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().numCuentaDestino()));
         cl_cuentaOrigen.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().numCuentaOrigen()));
-        cl_categoria.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombreCategoria()));
+        cl_tipoTransaccion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tipoTransaccion().name()));
         cl_usuario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().idUsuario()));
+    }
+
+    private void desabilitarCamposFormulario() {
+        cb_tipoTransaccion.setDisable(true);
+        cb_cuentaOrigen.setDisable(true);
+        tf_monto.setDisable(true);
+        tf_descripcion.setDisable(true);
+        dp_fecha.setDisable(true);
+        cb_cuentaDestino.setDisable(true);
+        cb_cuentaDestino.getItems().clear();
+        cb_cuentaOrigen.getItems().clear();
+    }
+
+    private void listenerUsuarioSeleccionado() {
+        cb_usuario.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                cb_cuentaOrigen.getItems().clear();
+                cb_cuentaOrigen.getItems().addAll(gestionTransaccionesController.obtenerNumCuentasUsuario(newSelection));
+                cb_tipoTransaccion.setDisable(false);
+            } else {
+                desabilitarCamposFormulario();
+            }
+        });
+    }
+
+    private void listenerTipoTransaccionSeleccionado() {
+        cb_tipoTransaccion.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                if (newSelection.equals(TipoTransaccion.TRANSFERENCIA)) {
+                    cb_cuentaOrigen.setDisable(false);
+                    cb_cuentaOrigen.getSelectionModel().clearSelection();
+                    listenerCuentaOrigenSeleccionada();
+                } else {
+                    cb_cuentaOrigen.setDisable(false);
+                    cb_cuentaOrigen.getSelectionModel().clearSelection();
+                    cb_cuentaDestino.setDisable(true);
+                    cb_cuentaDestino.setValue(null);
+                    listenerCuentaOrigenSeleccionada();
+                }
+            }
+        });
+    }
+
+    private void listenerCuentaOrigenSeleccionada() {
+        cb_cuentaOrigen.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                if (cb_tipoTransaccion.getValue().equals(TipoTransaccion.TRANSFERENCIA)) {
+                    cb_cuentaDestino.setDisable(false);
+                    FilteredList<String> filtroCuentasDestino = new FilteredList<>
+                            (cb_cuentaOrigen.getItems(), cuenta -> !cuenta.equals(cb_cuentaOrigen.getValue()));
+                    cb_cuentaDestino.setItems(filtroCuentasDestino);
+                } else {
+                    tf_monto.setDisable(false);
+                    tf_descripcion.setDisable(false);
+                    dp_fecha.setDisable(false);
+                }
+            } else {
+                cb_cuentaDestino.setDisable(true);
+                cb_cuentaDestino.getItems().clear();
+            }
+        });
+    }
+
+    private void listenerCuentaDestinoSeleccionada() {
+        cb_cuentaDestino.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                tf_monto.setDisable(false);
+                tf_descripcion.setDisable(false);
+                dp_fecha.setDisable(false);
+            }
+        });
     }
 }

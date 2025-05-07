@@ -27,4 +27,8 @@ public class GestionPresupuestoController {
     public boolean actualizarPresupuesto(int idPresupuestoViejo, PresupuestoDto presupuestoDto){
         return modelFactory.actualizarPresupuesto(idPresupuestoViejo, presupuestoDto);
     }
+
+    public LinkedList<String> obtenerCategoriasDisponibles(String idUsuario) {
+        return modelFactory.obtenerCategoriasDisponibles(idUsuario);
+    }
 }

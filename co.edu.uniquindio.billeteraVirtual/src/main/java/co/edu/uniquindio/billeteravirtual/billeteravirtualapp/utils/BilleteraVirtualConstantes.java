@@ -105,6 +105,9 @@ public class BilleteraVirtualConstantes {
     public static final String TITULO_CATEGORIA_ELIMINADA = "Categoria eliminada";
     public static final String BODY_CATEGORIA_ELIMINADA = "La categoria se eliminó exitosamente";
 
+    public static final String TITULO_CATEGORIA_NO_ELIMINADA = "Categoria no eliminada";
+    public static final String BODY_CATEGORIA_NO_ELIMINADA = "La categoria no se eliminó, debido a que tiene un presupuesto asociado";
+
     public static final String TITULO_CATEGORIA_ACTUALIZADA = "Categoria actualizada";
     public static final String BODY_CATEGORIA_ACTUALIZADA = "La categoria se actualizó exitosamente";
 
@@ -127,6 +130,9 @@ public class BilleteraVirtualConstantes {
 
     public static final String TITULO_PRESUPUESTO_ELIMINADO = "Presupuesto eliminado";
     public static final String BODY_PRESUPUESTO_ELIMINADO = "El presupuesto se eliminó exitosamente";
+
+    public static final String TITULO_PRESUPUESTO_NO_ELIMINADO = "Presupuesto no eliminado";
+    public static final String BODY_PRESUPUESTO_NO_ELIMINADO = "El presupuesto no se eliminó, debido a que tiene una cuenta asociada";
 
     public static final String TITULO_PRESUPUESTO_ACTUALIZADO = "Presupuesto actualizado";
     public static final String BODY_PRESUPUESTO_ACTUALIZADO = "El presupuesto se actualizó exitosamente";

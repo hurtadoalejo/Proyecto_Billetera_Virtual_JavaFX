@@ -1,13 +1,13 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.controller.GestionTransaccionesUsuarioController;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.TipoTransaccion;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -35,7 +35,7 @@ public class GestionTransaccionesUsuarioViewController {
     private URL location;
 
     @FXML
-    private ComboBox<String> cb_categoria;
+    private ComboBox<TipoTransaccion> cb_tipoTransaccion;
 
     @FXML
     private Button bt_realizarTransaccion;
@@ -74,7 +74,7 @@ public class GestionTransaccionesUsuarioViewController {
     private TableColumn<TransaccionDto, String> cl_fecha;
 
     @FXML
-    private TableColumn<TransaccionDto, String> cl_categoria;
+    private TableColumn<TransaccionDto, String> cl_tipoCategoria;
 
     @FXML
     private ComboBox<String> cb_cuentaDestino;
@@ -131,7 +131,7 @@ public class GestionTransaccionesUsuarioViewController {
 
     private void mostrarInformacionTransaccion(TransaccionDto transaccionSeleccionada) {
         if (transaccionSeleccionada != null) {
-            cb_categoria.getSelectionModel().select(transaccionSeleccionada.nombreCategoria());
+            cb_tipoTransaccion.getSelectionModel().select(transaccionSeleccionada.tipoTransaccion());
             dp_fecha.setValue(transaccionSeleccionada.fecha());
             tf_monto.setText(Double.toString(transaccionSeleccionada.monto()));
             tf_descripcion.setText(transaccionSeleccionada.descripcion());
@@ -149,13 +149,13 @@ public class GestionTransaccionesUsuarioViewController {
                 usuario.idUsuario(),
                 cb_cuentaOrigen.getSelectionModel().getSelectedItem(),
                 cb_cuentaDestino.getSelectionModel().getSelectedItem(),
-                cb_categoria.getSelectionModel().getSelectedItem());
+                cb_tipoTransaccion.getSelectionModel().getSelectedItem());
     }
 
     private void inicializarComboBox() {
-        cb_categoria.getItems().addAll();
-        cb_categoria.getItems().addAll(gestionTransaccionesUsuarioController.obtenerCategoriasNombresDeUsuario(usuario.idUsuario()));
-        cb_categoria.setOnAction(event -> manejarSeleccionCategoria());
+        cb_tipoTransaccion.getItems().addAll();
+        cb_tipoTransaccion.getItems().addAll(TipoTransaccion.values());
+        cb_tipoTransaccion.setOnAction(event -> manejarSeleccionCategoria());
         cb_cuentaOrigen.setOnAction(event -> manejarSeleccionCuentaOrigen());
         LinkedList<String> listaNumCuentas = gestionTransaccionesUsuarioController.obtenerNumCuentasUsuario(usuario.idUsuario());
         cb_cuentaOrigen.getItems().addAll(listaNumCuentas);
@@ -165,15 +165,15 @@ public class GestionTransaccionesUsuarioViewController {
     private void realizarMovimiento() {
         if (verificarCamposLlenos()) {
             if (verificarCamposCorrectos()) {
-                String categoria = cb_categoria.getSelectionModel().getSelectedItem();
+                TipoTransaccion tipoTransaccion = cb_tipoTransaccion.getSelectionModel().getSelectedItem();
                 TransaccionDto transaccionDto = crearTransaccion();
-                if (categoria.equalsIgnoreCase("Deposito")) {
+                if (tipoTransaccion.equals(TipoTransaccion.DEPOSITO)) {
                     realizarDeposito(transaccionDto);
                 }
-                else if (categoria.equalsIgnoreCase("Transferencia")) {
+                else if (tipoTransaccion.equals(TipoTransaccion.TRANSFERENCIA)) {
                     realizarTransferencia(transaccionDto);
                 }
-                else if (categoria.equalsIgnoreCase("Retiro")) {
+                else if (tipoTransaccion.equals(TipoTransaccion.RETIRO)) {
                     realizarRetiro(transaccionDto);
                 }
             }
@@ -228,18 +228,18 @@ public class GestionTransaccionesUsuarioViewController {
 
     private void mostrarMensajeTransaccionExitosa(TransaccionDto transaccionDto) {
         String mensajeMonto = transaccionDto.monto() + " pesos.";
-        if (transaccionDto.nombreCategoria().equalsIgnoreCase("Deposito")) {
+        if (transaccionDto.tipoTransaccion().equals(TipoTransaccion.DEPOSITO)) {
             mostrarMensaje(TITULO_DEPOSITO_EXITOSO,
                     BODY_DEPOSITO_EXITOSO + mensajeMonto,
                     Alert.AlertType.INFORMATION);
         }
-        else if (transaccionDto.nombreCategoria().equalsIgnoreCase("Transferencia")) {
+        else if (transaccionDto.tipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)) {
             mostrarMensaje(TITULO_TRANSFERENCIA_EXITOSA,
                     BODY_TRANSFERENCIA_EXITOSA + mensajeMonto,
                     Alert.AlertType.INFORMATION);
 
         }
-        else if (transaccionDto.nombreCategoria().equalsIgnoreCase("Retiro")) {
+        else if (transaccionDto.tipoTransaccion().equals(TipoTransaccion.RETIRO)) {
             mostrarMensaje(TITULO_RETIRO_EXITOSO,
                     BODY_RETIRO_EXITOSO + mensajeMonto,
                     Alert.AlertType.INFORMATION);
@@ -248,9 +248,9 @@ public class GestionTransaccionesUsuarioViewController {
     }
 
     private void limpiarSeleccion() {
-        cb_categoria.getSelectionModel().clearSelection();
+        cb_tipoTransaccion.getSelectionModel().clearSelection();
         cb_cuentaOrigen.getSelectionModel().clearSelection();
-        cb_categoria.getSelectionModel().clearSelection();
+        cb_tipoTransaccion.getSelectionModel().clearSelection();
         dp_fecha.setValue(null);
         cb_cuentaDestino.getSelectionModel().clearSelection();
         tf_monto.setText(null);
@@ -261,20 +261,20 @@ public class GestionTransaccionesUsuarioViewController {
 
     private void manejarSeleccionCuentaOrigen() {
         String cuentaOrigen = cb_cuentaOrigen.getSelectionModel().getSelectedItem();
-        if (cuentaOrigen != null && cb_categoria.getSelectionModel().getSelectedItem().equalsIgnoreCase("Transferencia")) {
+        if (cuentaOrigen != null && cb_tipoTransaccion.getValue().equals(TipoTransaccion.TRANSFERENCIA)) {
             filtroCuentasDestino.setPredicate(cuenta -> !cuenta.equalsIgnoreCase(cuentaOrigen));
             cb_cuentaDestino.setDisable(false);
         }
     }
 
     private void manejarSeleccionCategoria() {
-        String categoria = cb_categoria.getSelectionModel().getSelectedItem();
+        TipoTransaccion tipoTransaccion = cb_tipoTransaccion.getSelectionModel().getSelectedItem();
         cb_cuentaOrigen.setDisable(false);
         cb_cuentaDestino.setDisable(false);
         tf_monto.setDisable(false);
         dp_fecha.setDisable(false);
         tf_descripcion.setDisable(false);
-        if (categoria == null || categoria.isEmpty()) {
+        if (tipoTransaccion == null) {
             cb_cuentaOrigen.setDisable(true);
             cb_cuentaDestino.setDisable(true);
             tf_monto.setDisable(true);
@@ -295,11 +295,11 @@ public class GestionTransaccionesUsuarioViewController {
     }
 
     private boolean verificarCamposLlenos() {
-        if (!cb_categoria.getSelectionModel().isEmpty()
+        if (!cb_tipoTransaccion.getSelectionModel().isEmpty()
                 && !cb_cuentaOrigen.getSelectionModel().isEmpty()
                 && dp_fecha.getValue() != null
                 && !tf_monto.getText().isEmpty()) {
-            if (cb_categoria.getSelectionModel().getSelectedItem().equalsIgnoreCase("Transferencia")) {
+            if (cb_tipoTransaccion.getValue().equals(TipoTransaccion.TRANSFERENCIA)) {
                 return !cb_cuentaDestino.getSelectionModel().isEmpty();
             }
             return true;
@@ -318,6 +318,6 @@ public class GestionTransaccionesUsuarioViewController {
         cl_descripcion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().descripcion()));
         cl_cuentaDestino.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().numCuentaDestino()));
         cl_cuentaOrigen.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().numCuentaOrigen()));
-        cl_categoria.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombreCategoria()));
+        cl_tipoCategoria.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tipoTransaccion().name()));
     }
 }

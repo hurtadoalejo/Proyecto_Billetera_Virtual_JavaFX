@@ -3,6 +3,7 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.CuentaDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.TipoTransaccion;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -207,7 +208,7 @@ public class GeneradorPDF {
         Table listaTransacciones = new Table(COLUMNAS_INGRESOS);
         double total = 0;
         for (TransaccionDto t : transacciones) {
-            if (!t.nombreCategoria().equals("Transferencia")) {
+            if (!t.tipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)) {
                 listaTransacciones.addCell(obtenerTextoColumna(t.fecha().toString(), letra));
                 listaTransacciones.addCell(obtenerTextoColumna(t.descripcion(), letra));
                 listaTransacciones.addCell(obtenerTextoColumna(t.numCuentaOrigen(), letra));
@@ -272,7 +273,7 @@ public class GeneradorPDF {
         listaTransacciones.setFixedLayout();
         double totalTransferencia = 0;
         for (TransaccionDto t : transacciones) {
-            if (t.nombreCategoria().equals("Transferencia")) {
+            if (t.tipoTransaccion().equals(TipoTransaccion.TRANSFERENCIA)) {
                 listaTransacciones.addCell(obtenerTextoColumna(t.fecha().toString(), letra));
                 listaTransacciones.addCell(obtenerTextoColumna(t.descripcion(), letra));
                 listaTransacciones.addCell(obtenerTextoColumna(t.numCuentaOrigen(), letra));

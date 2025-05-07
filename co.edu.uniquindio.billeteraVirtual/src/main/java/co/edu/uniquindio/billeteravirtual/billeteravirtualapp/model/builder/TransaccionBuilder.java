@@ -11,7 +11,7 @@ public class TransaccionBuilder {
     protected double monto;
     protected String descripcionOpcional;
     protected Usuario usuarioAsociado;
-    protected Categoria categoriaTransaccion;
+    protected TipoTransaccion tipoTransaccion;
     protected Cuenta cuentaOrigen, cuentaDestino;
 
     public TransaccionBuilder idTransaccion(int idTransaccion) {
@@ -39,8 +39,8 @@ public class TransaccionBuilder {
         return this;
     }
 
-    public TransaccionBuilder categoriaTransaccion(Categoria categoriaTransaccion) {
-        this.categoriaTransaccion = categoriaTransaccion;
+    public TransaccionBuilder tipoTransaccion(TipoTransaccion tipoTransaccion) {
+        this.tipoTransaccion = tipoTransaccion;
         return this;
     }
 
@@ -60,6 +60,6 @@ public class TransaccionBuilder {
     }
 
     public Transaccion build() {
-        return new Transaccion(idTransaccion, fecha, monto, descripcionOpcional, usuarioAsociado, categoriaTransaccion, cuentaOrigen, cuentaDestino, billeteraVirtual);
+        return new Transaccion(idTransaccion, fecha, monto, descripcionOpcional, usuarioAsociado, tipoTransaccion, cuentaOrigen, cuentaDestino, billeteraVirtual);
     }
 }

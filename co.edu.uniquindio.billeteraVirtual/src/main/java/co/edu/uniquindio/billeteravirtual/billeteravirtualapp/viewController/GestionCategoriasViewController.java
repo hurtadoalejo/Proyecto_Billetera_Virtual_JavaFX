@@ -66,6 +66,9 @@ public class GestionCategoriasViewController {
     private TableColumn<CategoriaDto, String> cl_nombre;
 
     @FXML
+    private TableColumn<CategoriaDto, String> cl_presupuesto;
+
+    @FXML
     private Label lb_descripcion;
 
     @FXML
@@ -106,7 +109,7 @@ public class GestionCategoriasViewController {
 
     private CategoriaDto crearCategoria() {
         return new CategoriaDto(Integer.parseInt(tf_idCategoria.getText()), usuario.idUsuario(),
-                tf_nombreCategoria.getText(), tf_descripcion.getText());
+                tf_nombreCategoria.getText(), tf_descripcion.getText(), null);
     }
 
     private void agregarCategoria() {
@@ -174,6 +177,8 @@ public class GestionCategoriasViewController {
                 listaCategorias.remove(categoriaSeleccionada);
                 limpiarSeleccion();
                 mostrarMensaje(TITULO_CATEGORIA_ELIMINADA, BODY_CATEGORIA_ELIMINADA, Alert.AlertType.INFORMATION);
+            } else {
+                mostrarMensaje(TITULO_CATEGORIA_NO_ELIMINADA, BODY_CATEGORIA_NO_ELIMINADA, Alert.AlertType.ERROR);
             }
         }
         else {
@@ -224,6 +229,7 @@ public class GestionCategoriasViewController {
         cl_nombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombre()));
         cl_idCategoria.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().idCategoria()).asObject());
         cl_descripcion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().descripcion()));
+        cl_presupuesto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().presupuesto()));
     }
 
     private void listenerSelection(){

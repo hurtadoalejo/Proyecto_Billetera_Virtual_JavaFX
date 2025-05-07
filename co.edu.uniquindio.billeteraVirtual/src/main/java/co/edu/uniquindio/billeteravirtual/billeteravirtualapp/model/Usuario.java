@@ -327,18 +327,10 @@ public class Usuario implements ICrudTransaccion {
         return listaPresupuestosNombres;
     }
 
-    public LinkedList<String> obtenerCategoriasNombres() {
-        LinkedList<String> listaCategoriasNombres = new LinkedList<>();
-        for (Categoria categoria : listaCategorias) {
-            listaCategoriasNombres.add(categoria.getNombre());
-        }
-        return listaCategoriasNombres;
-    }
-
     public LinkedList<Transaccion> obtenerListaTransaccionesIngresos() {
         LinkedList<Transaccion> listaTransaccionesIngresos = new LinkedList<>();
         for (Transaccion transaccion : listaTransacciones) {
-            if (transaccion.getCategoriaTransaccion().getNombre().equalsIgnoreCase("Deposito")){
+            if (transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)){
                 listaTransaccionesIngresos.add(transaccion);
             }
         }
@@ -348,12 +340,22 @@ public class Usuario implements ICrudTransaccion {
     public LinkedList<Transaccion> obtenerListaTransaccionesGastos() {
         LinkedList<Transaccion> listaTransaccionesGastos = new LinkedList<>();
         for (Transaccion transaccion : listaTransacciones) {
-            String nombreCategoria = transaccion.getCategoriaTransaccion().getNombre();
-            if (nombreCategoria.equalsIgnoreCase("Retiro") ||
-                    nombreCategoria.equalsIgnoreCase("Transferencia")){
+            TipoTransaccion tipoTransaccion = transaccion.getTipoTransaccion();
+            if (tipoTransaccion.equals(TipoTransaccion.RETIRO) ||
+                    tipoTransaccion.equals(TipoTransaccion.TRANSFERENCIA)){
                 listaTransaccionesGastos.add(transaccion);
             }
         }
         return listaTransaccionesGastos;
+    }
+
+    public LinkedList<String> obtenerCategoriasDisponibles() {
+        LinkedList<String> listaCategoriasDisponibles = new LinkedList<>();
+        for (Categoria categoria : listaCategorias) {
+            if (categoria.getPresupuestoAsociado() == null) {
+                listaCategoriasDisponibles.add(categoria.getNombre());
+            }
+        }
+        return listaCategoriasDisponibles;
     }
 }

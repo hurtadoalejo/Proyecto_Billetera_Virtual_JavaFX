@@ -143,4 +143,7 @@ public class BilleteraVirtualConstantes {
 
     public static final String TITULO_PRESUPUESTO_TOPE_INVALIDO = "Tope invalido";
     public static final String BODY_PRESUPUESTO_TOPE_INVALIDO = "El tope del presupuesto es mayor al monto ya gastado";
+
+    public static final String TITULO_FECHAS_INVALIDAS = "Fechas invalidas";
+    public static final String BODY_FECHAS_INVALIDAS = "La fecha de fin no puede ser mayor a la fecha de inicio";
 }

@@ -2,6 +2,7 @@ package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model;
 
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.ICrudTransaccion;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class Usuario implements ICrudTransaccion {
@@ -327,22 +328,27 @@ public class Usuario implements ICrudTransaccion {
         return listaPresupuestosNombres;
     }
 
-    public LinkedList<Transaccion> obtenerListaTransaccionesIngresos() {
+    public LinkedList<Transaccion> obtenerListaTransaccionesIngresos(LocalDate fechaInicio, LocalDate fechaFin) {
         LinkedList<Transaccion> listaTransaccionesIngresos = new LinkedList<>();
         for (Transaccion transaccion : listaTransacciones) {
-            if (transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)){
+            LocalDate fechaTransaccion = transaccion.getFecha();
+            if (transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)
+                    && fechaTransaccion.isAfter(fechaInicio)
+                    && fechaTransaccion.isBefore(fechaFin)){
                 listaTransaccionesIngresos.add(transaccion);
             }
         }
         return listaTransaccionesIngresos;
     }
 
-    public LinkedList<Transaccion> obtenerListaTransaccionesGastos() {
+    public LinkedList<Transaccion> obtenerListaTransaccionesGastos(LocalDate fechaInicio, LocalDate fechaFin) {
         LinkedList<Transaccion> listaTransaccionesGastos = new LinkedList<>();
         for (Transaccion transaccion : listaTransacciones) {
             TipoTransaccion tipoTransaccion = transaccion.getTipoTransaccion();
-            if (tipoTransaccion.equals(TipoTransaccion.RETIRO) ||
-                    tipoTransaccion.equals(TipoTransaccion.TRANSFERENCIA)){
+            LocalDate fechaTransaccion = transaccion.getFecha();
+            if (!tipoTransaccion.equals(TipoTransaccion.DEPOSITO)
+                    && fechaTransaccion.isAfter(fechaInicio)
+                    && fechaTransaccion.isBefore(fechaFin)){
                 listaTransaccionesGastos.add(transaccion);
             }
         }

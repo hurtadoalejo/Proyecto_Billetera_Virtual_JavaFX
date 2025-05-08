@@ -6,6 +6,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.DataUtil;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class ModelFactory implements IModelFactoryService {
@@ -234,12 +235,12 @@ public class ModelFactory implements IModelFactoryService {
         return billeteraMapper.getTransaccionDto(billeteraVirtual.getListaTransacciones());
     }
 
-    public LinkedList<TransaccionDto> obtenerListaTransaccionesGastos(String idUsuario) {
-        return billeteraMapper.getTransaccionDto(obtenerUsuario(idUsuario).obtenerListaTransaccionesGastos());
+    public LinkedList<TransaccionDto> obtenerListaTransaccionesGastos(String idUsuario, LocalDate fechaInicio, LocalDate fechaFin) {
+        return billeteraMapper.getTransaccionDto(obtenerUsuario(idUsuario).obtenerListaTransaccionesGastos(fechaInicio, fechaFin));
     }
 
-    public LinkedList<TransaccionDto> obtenerListaTransaccionesIngresos(String idUsuario) {
-        return billeteraMapper.getTransaccionDto(obtenerUsuario(idUsuario).obtenerListaTransaccionesIngresos());
+    public LinkedList<TransaccionDto> obtenerListaTransaccionesIngresos(String idUsuario, LocalDate fechaInicio, LocalDate fechaFin) {
+        return billeteraMapper.getTransaccionDto(obtenerUsuario(idUsuario).obtenerListaTransaccionesIngresos(fechaInicio, fechaFin));
     }
 
     public LinkedList<String> obtenerCategoriasDisponibles(String idUsuario) {

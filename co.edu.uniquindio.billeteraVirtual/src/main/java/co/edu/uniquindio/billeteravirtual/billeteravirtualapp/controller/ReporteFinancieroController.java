@@ -4,6 +4,7 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory.ModelFacto
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.CuentaDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class ReporteFinancieroController {
@@ -13,12 +14,12 @@ public class ReporteFinancieroController {
         modelFactory = ModelFactory.getInstance();
     }
 
-    public LinkedList<TransaccionDto> obtenerListaTransaccionesGastos(String idUsuario) {
-        return modelFactory.obtenerListaTransaccionesGastos(idUsuario);
+    public LinkedList<TransaccionDto> obtenerListaTransaccionesGastos(String idUsuario, LocalDate fechaInicio, LocalDate fechaFin) {
+        return modelFactory.obtenerListaTransaccionesGastos(idUsuario, fechaInicio, fechaFin);
     }
 
-    public LinkedList<TransaccionDto> obtenerListaTransaccionesIngresos(String idUsuario) {
-        return modelFactory.obtenerListaTransaccionesIngresos(idUsuario);
+    public LinkedList<TransaccionDto> obtenerListaTransaccionesIngresos(String idUsuario, LocalDate fechaInicio, LocalDate fechaFin) {
+        return modelFactory.obtenerListaTransaccionesIngresos(idUsuario, fechaInicio, fechaFin);
     }
 
     public LinkedList<CuentaDto> obtenerListaCuentas(String idUsuario) {

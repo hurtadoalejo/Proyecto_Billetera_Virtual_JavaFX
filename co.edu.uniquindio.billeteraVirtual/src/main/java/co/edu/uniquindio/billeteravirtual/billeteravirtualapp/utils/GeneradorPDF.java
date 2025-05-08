@@ -42,8 +42,16 @@ public class GeneradorPDF {
                                              LocalDate fechaInicio, LocalDate fechaFin) {
         String nombreArchivo = "reporte_Usuario.pdf";
         String rutaUsuario = System.getProperty("user.home");
-        String rutaSalida = rutaUsuario + "/Downloads/" + nombreArchivo;
+        String rutaSalida = rutaUsuario + "/Downloads/";
+        File archivo = new File(rutaSalida);
 
+        int contador = 1;
+        while (archivo.exists()) {
+            nombreArchivo = "reporte_Usuario_" + contador + ".pdf";
+            rutaSalida = rutaUsuario + "/Downloads/" + nombreArchivo;
+            archivo = new File(rutaSalida);
+            contador++;
+        }
 
         try {
             PdfWriter writer = new PdfWriter(rutaSalida);
@@ -152,7 +160,7 @@ public class GeneradorPDF {
             }
 
             documentos.close();
-            File archivo = new File(rutaSalida);
+
             if (archivo.exists()) {
                 Desktop.getDesktop().open(archivo);
             }

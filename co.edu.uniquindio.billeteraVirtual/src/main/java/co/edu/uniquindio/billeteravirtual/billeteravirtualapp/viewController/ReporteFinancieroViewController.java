@@ -10,8 +10,6 @@ import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.Cuenta
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.TransaccionDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.UsuarioDto;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.utils.GeneradorPDF;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;

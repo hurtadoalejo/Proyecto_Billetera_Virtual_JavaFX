@@ -333,8 +333,8 @@ public class Usuario implements ICrudTransaccion {
         for (Transaccion transaccion : listaTransacciones) {
             LocalDate fechaTransaccion = transaccion.getFecha();
             if (transaccion.getTipoTransaccion().equals(TipoTransaccion.DEPOSITO)
-                    && fechaTransaccion.isAfter(fechaInicio)
-                    && fechaTransaccion.isBefore(fechaFin)){
+                    && !fechaTransaccion.isBefore(fechaInicio)
+                    && !fechaTransaccion.isAfter(fechaFin)){
                 listaTransaccionesIngresos.add(transaccion);
             }
         }
@@ -347,8 +347,8 @@ public class Usuario implements ICrudTransaccion {
             TipoTransaccion tipoTransaccion = transaccion.getTipoTransaccion();
             LocalDate fechaTransaccion = transaccion.getFecha();
             if (!tipoTransaccion.equals(TipoTransaccion.DEPOSITO)
-                    && fechaTransaccion.isAfter(fechaInicio)
-                    && fechaTransaccion.isBefore(fechaFin)){
+                    && !fechaTransaccion.isBefore(fechaInicio)
+                    && !fechaTransaccion.isAfter(fechaFin)){
                 listaTransaccionesGastos.add(transaccion);
             }
         }

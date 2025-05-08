@@ -318,7 +318,9 @@ public class GeneradorPDF {
     }
 
     private static Cell obtenerTextoColumna(String nombreColumna, PdfFont letra) {
-        return new Cell().add(new Paragraph(nombreColumna))
+        String textoValidado = (nombreColumna != null) ? nombreColumna : "";
+
+        return new Cell().add(new Paragraph(textoValidado))
                 .setBorder(Border.NO_BORDER)
                 .setFontSize(11f)
                 .setFont(letra)

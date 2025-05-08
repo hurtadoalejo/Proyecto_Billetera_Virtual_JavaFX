@@ -16,9 +16,9 @@ public class DataUtil {
         Presupuesto presupuesto1 = new Presupuesto(1, "Comidita", 500000, usuario1, categoria1, billeteraVirtual);
         Presupuesto presupuesto2 = new Presupuesto(2, "Transporte", 300000, usuario1, categoria2, billeteraVirtual);
         Presupuesto presupuesto3 = new Presupuesto(3, "Rumba", 150000, usuario1, categoria3, billeteraVirtual);
-        Cuenta cuenta = new Cuenta(1, "Davivienda", "13657348-12", usuario1, TipoCuenta.AHORRO, billeteraVirtual, presupuesto1);
-        Cuenta cuenta2 = new Cuenta(2, "Bancolombia", "2507892-2", usuario1, TipoCuenta.AHORRO, billeteraVirtual, presupuesto2);
-        Cuenta cuenta3 = new Cuenta(3, "NuBank", "7879250-5", usuario1, TipoCuenta.CORRIENTE, billeteraVirtual, presupuesto3);
+        Cuenta cuenta = new Cuenta(1, "Davivienda", "13657348", usuario1, TipoCuenta.AHORRO, billeteraVirtual, presupuesto1);
+        Cuenta cuenta2 = new Cuenta(2, "Bancolombia", "25078922", usuario1, TipoCuenta.AHORRO, billeteraVirtual, presupuesto2);
+        Cuenta cuenta3 = new Cuenta(3, "NuBank", "7879250", usuario1, TipoCuenta.CORRIENTE, billeteraVirtual, presupuesto3);
         billeteraVirtual.agregarUsuario(usuario1);
         billeteraVirtual.agregarUsuario(usuario2);
         usuario1.agregarCategoria(categoria1);

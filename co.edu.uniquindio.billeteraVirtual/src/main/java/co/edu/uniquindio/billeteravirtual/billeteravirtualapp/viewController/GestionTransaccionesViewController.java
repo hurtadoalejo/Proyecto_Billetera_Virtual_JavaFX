@@ -114,7 +114,6 @@ public class GestionTransaccionesViewController {
         listenerUsuarioSeleccionado();
         listenerTipoTransaccionSeleccionado();
         listenerCuentaOrigenSeleccionada();
-        listenerCuentaDestinoSeleccionada();
         limpiarSeleccion();
     }
 
@@ -240,8 +239,8 @@ public class GestionTransaccionesViewController {
 
     private void limpiarSeleccion() {
         tb_transacciones.getSelectionModel().clearSelection();
-        desabilitarCamposFormulario();
         limpiarCampos();
+        desabilitarCamposFormulario();
     }
 
     private void limpiarCampos() {
@@ -288,9 +287,6 @@ public class GestionTransaccionesViewController {
     private void desabilitarCamposFormulario() {
         cb_tipoTransaccion.setDisable(true);
         cb_cuentaOrigen.setDisable(true);
-        tf_monto.setDisable(true);
-        tf_descripcion.setDisable(true);
-        dp_fecha.setDisable(true);
         cb_cuentaDestino.setDisable(true);
         cb_cuentaDestino.getItems().clear();
         cb_cuentaOrigen.getItems().clear();
@@ -300,7 +296,8 @@ public class GestionTransaccionesViewController {
         cb_usuario.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 cb_cuentaOrigen.getItems().clear();
-                cb_cuentaOrigen.getItems().addAll(gestionTransaccionesController.obtenerNumCuentasUsuario(newSelection));
+                ObservableList<String> listaCuentasOrigen = FXCollections.observableArrayList(gestionTransaccionesController.obtenerNumCuentasUsuario(newSelection));
+                cb_cuentaOrigen.setItems(listaCuentasOrigen);
                 cb_tipoTransaccion.setDisable(false);
             } else {
                 desabilitarCamposFormulario();
@@ -314,13 +311,11 @@ public class GestionTransaccionesViewController {
                 if (newSelection.equals(TipoTransaccion.TRANSFERENCIA)) {
                     cb_cuentaOrigen.setDisable(false);
                     cb_cuentaOrigen.getSelectionModel().clearSelection();
-                    listenerCuentaOrigenSeleccionada();
                 } else {
                     cb_cuentaOrigen.setDisable(false);
                     cb_cuentaOrigen.getSelectionModel().clearSelection();
                     cb_cuentaDestino.setDisable(true);
                     cb_cuentaDestino.setValue(null);
-                    listenerCuentaOrigenSeleccionada();
                 }
             }
         });
@@ -333,25 +328,12 @@ public class GestionTransaccionesViewController {
                     cb_cuentaDestino.setDisable(false);
                     FilteredList<String> filtroCuentasDestino = new FilteredList<>
                             (cb_cuentaOrigen.getItems(), cuenta -> !cuenta.equals(cb_cuentaOrigen.getValue()));
-                    cb_cuentaDestino.setItems(filtroCuentasDestino);
-                } else {
-                    tf_monto.setDisable(false);
-                    tf_descripcion.setDisable(false);
-                    dp_fecha.setDisable(false);
+                    ObservableList<String> listaCuentasDestino = FXCollections.observableArrayList(filtroCuentasDestino);
+                    cb_cuentaDestino.setItems(listaCuentasDestino);
                 }
             } else {
                 cb_cuentaDestino.setDisable(true);
                 cb_cuentaDestino.getItems().clear();
-            }
-        });
-    }
-
-    private void listenerCuentaDestinoSeleccionada() {
-        cb_cuentaDestino.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                tf_monto.setDisable(false);
-                tf_descripcion.setDisable(false);
-                dp_fecha.setDisable(false);
             }
         });
     }

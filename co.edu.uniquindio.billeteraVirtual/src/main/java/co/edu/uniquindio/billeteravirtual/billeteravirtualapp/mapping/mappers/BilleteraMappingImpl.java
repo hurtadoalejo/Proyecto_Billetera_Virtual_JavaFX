@@ -1,5 +1,8 @@
 package co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.mappers;
 
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory.CuentaFactory;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory.FactoryCuentaAhorro;
+import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.factory.FactoryCuentaCorriente;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.mapping.dto.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.model.*;
 import co.edu.uniquindio.billeteravirtual.billeteravirtualapp.service.IBilleteraMapping;
@@ -62,16 +65,17 @@ public class BilleteraMappingImpl implements IBilleteraMapping {
     @Override
     public Cuenta cuentaDtoToCuenta(CuentaDto cuentaDto, BilleteraVirtual billeteraVirtual,
                                     Usuario usuario, Presupuesto presupuesto) {
-        Cuenta cuenta = new Cuenta();
-        cuenta.setIdCuenta(cuentaDto.idCuenta());
-        cuenta.setNombreBanco(cuentaDto.nombreBanco());
-        cuenta.setNumeroCuenta(cuentaDto.numCuenta());
-        cuenta.setTipoCuenta(cuentaDto.tipoCuenta());
-        cuenta.setSaldo(cuentaDto.saldo());
-        cuenta.setBilleteraVirtual(billeteraVirtual);
-        cuenta.setUsuarioAsociado(usuario);
-        cuenta.setPresupuestoAsociado(presupuesto);
-        return cuenta;
+        CuentaFactory cuentaFactory = obtenerCuentaFactory(cuentaDto.tipoCuenta());
+        return cuentaFactory.crearCuenta(cuentaDto.idCuenta(), cuentaDto.nombreBanco(), cuentaDto.numCuenta(), usuario, billeteraVirtual, presupuesto);
+    }
+
+    private CuentaFactory obtenerCuentaFactory(TipoCuenta tipoCuenta) {
+        if (tipoCuenta.equals(TipoCuenta.AHORRO)) {
+            return new FactoryCuentaAhorro();
+        } else if (tipoCuenta.equals(TipoCuenta.CORRIENTE)) {
+            return new FactoryCuentaCorriente();
+        }
+        throw new IllegalArgumentException("El tipo de cuenta no existe");
     }
 
     @Override

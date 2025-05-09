@@ -296,8 +296,7 @@ public class GestionTransaccionesViewController {
         cb_usuario.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 cb_cuentaOrigen.getItems().clear();
-                ObservableList<String> listaCuentasOrigen = FXCollections.observableArrayList(gestionTransaccionesController.obtenerNumCuentasUsuario(newSelection));
-                cb_cuentaOrigen.setItems(listaCuentasOrigen);
+                cb_cuentaOrigen.getItems().addAll(gestionTransaccionesController.obtenerNumCuentasUsuario(newSelection));
                 cb_tipoTransaccion.setDisable(false);
             } else {
                 desabilitarCamposFormulario();
@@ -328,8 +327,7 @@ public class GestionTransaccionesViewController {
                     cb_cuentaDestino.setDisable(false);
                     FilteredList<String> filtroCuentasDestino = new FilteredList<>
                             (cb_cuentaOrigen.getItems(), cuenta -> !cuenta.equals(cb_cuentaOrigen.getValue()));
-                    ObservableList<String> listaCuentasDestino = FXCollections.observableArrayList(filtroCuentasDestino);
-                    cb_cuentaDestino.setItems(listaCuentasDestino);
+                    cb_cuentaDestino.getItems().addAll(filtroCuentasDestino);
                 }
             } else {
                 cb_cuentaDestino.setDisable(true);

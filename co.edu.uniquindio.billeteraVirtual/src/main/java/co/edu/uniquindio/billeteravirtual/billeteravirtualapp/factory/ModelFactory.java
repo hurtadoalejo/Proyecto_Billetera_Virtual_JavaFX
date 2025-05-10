@@ -246,4 +246,12 @@ public class ModelFactory implements IModelFactoryService {
     public LinkedList<String> obtenerCategoriasDisponibles(String idUsuario) {
         return obtenerUsuario(idUsuario).obtenerCategoriasDisponibles();
     }
+
+    public UsuarioDto obtenerUsuarioMasTransacciones() {
+        return billeteraMapper.usuarioToUsuarioDto(billeteraVirtual.obtenerUsuarioMasTransacciones());
+    }
+
+    public double obtenerSaldoPromedioUsuarios() {
+        return billeteraVirtual.obtenerSaldoPromedioUsuarios();
+    }
 }

@@ -47,12 +47,26 @@
             </Tab>
             <Tab fx:id="tab_estadisticas" style="-fx-font-size: 14px;" text="Estadísticas">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane fx:id="sp_estadisticas" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0">
+                           <items>
+                              <fx:include source="Estadisticas.fxml" />
+                           </items>
+                        </SplitPane>
+                     </children></AnchorPane>
                </content>
             </Tab>
             <Tab fx:id="tab_graficas" style="-fx-font-size: 14px;" text="Gráficas">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane fx:id="sp_graficas" orientation="VERTICAL" prefHeight="570.0" prefWidth="1180.0">
+                           <items>
+                              <fx:include source="GestionTransacciones.fxml" />
+                           </items>
+                        </SplitPane>
+                     </children></AnchorPane>
                </content>
             </Tab>
         </tabs>

@@ -20,6 +20,15 @@ public class MenuAdminViewController {
     private URL location;
 
     @FXML
+    private SplitPane sp_graficas;
+
+    @FXML
+    private SplitPane sp_estadisticas;
+
+    @FXML
+    private SplitPane sp_gestionTransacciones;
+
+    @FXML
     private AnchorPane ap_menuAdmin;
 
     @FXML
@@ -46,9 +55,6 @@ public class MenuAdminViewController {
     @FXML
     private Tab tab_gestionTransacciones;
 
-    /**
-     * Metodo para configurar el cambio de tab
-     */
     private void configurarCambioDeTab() {
         tp_menuAdmin.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
             if (newTab == tab_gestionUsuarios) {
@@ -56,18 +62,15 @@ public class MenuAdminViewController {
             } else if (newTab == tab_gestionCuentas) {
                 cargarVistaGestionCuentas();
             } else if (newTab == tab_estadisticas) {
-                System.out.println();
+                cargarVistaEstadisticas();
             } else if (newTab == tab_graficas) {
                 System.out.println();
             } else if (newTab == tab_gestionTransacciones) {
-                System.out.println();
+                cargarVistaGestionTransacciones();
             }
         });
     }
 
-    /**
-     * Metodo para cargar la vista de la gestion de usuario
-     */
     private void cargarVistaGestionUsuarios() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -79,9 +82,6 @@ public class MenuAdminViewController {
         }
     }
 
-    /**
-     * Metodo para cargar la vista de la gestion de cuentas
-     */
     private void cargarVistaGestionCuentas() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -93,9 +93,29 @@ public class MenuAdminViewController {
         }
     }
 
-    /**
-     * Metodo para inicializar el MenuAdminViewController
-     */
+    private void cargarVistaGestionTransacciones() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/GestionTransacciones.fxml"));
+            AnchorPane nuevaVista = loader.load();
+            sp_gestionTransacciones.getItems().setAll(nuevaVista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cargarVistaEstadisticas() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/co/edu/uniquindio/billeteravirtual/billeteravirtualapp/Estadisticas.fxml"));
+            AnchorPane nuevaVista = loader.load();
+            sp_estadisticas.getItems().setAll(nuevaVista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @FXML
     void initialize() {
         configurarCambioDeTab();

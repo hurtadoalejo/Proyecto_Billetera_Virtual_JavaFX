@@ -490,4 +490,24 @@ public class BilleteraVirtual implements ICrudUsuario, ICrudCuenta, ICrudCategor
     public int obtenerNuevoIdTransaccion() {
         return listaTransacciones.size()+1;
     }
+
+    public Usuario obtenerUsuarioMasTransacciones() {
+        int contador = 0;
+        Usuario usuarioMasTransacciones = null;
+        for (Usuario usuario : listaUsuarios) {
+            if (usuario.getListaTransacciones().size() > contador){
+                usuarioMasTransacciones = usuario;
+                contador = usuario.getListaTransacciones().size();
+            }
+        }
+        return usuarioMasTransacciones;
+    }
+
+    public double obtenerSaldoPromedioUsuarios() {
+        double saldoPromedio = 0;
+        for (Usuario usuario : listaUsuarios) {
+            saldoPromedio += usuario.getSaldoTotal();
+        }
+        return saldoPromedio /listaUsuarios.size();
+    }
 }

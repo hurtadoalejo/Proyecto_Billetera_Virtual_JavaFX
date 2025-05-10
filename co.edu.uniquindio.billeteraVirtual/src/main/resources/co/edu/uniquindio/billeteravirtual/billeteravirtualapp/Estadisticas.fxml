@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billeteravirtualapp.viewController.EstadisticasViewController">
+   <children>
+      <Label layoutX="562.0" layoutY="33.0" text="Estadísticas">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="374.0" layoutY="138.0" text="Saldo promedio de usuarios:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="456.0" layoutY="217.0" text="Gasto más común:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="486.0" layoutY="330.0" text="Usuario con más transacciones">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="txt_saldoPromedio" layoutX="613.0" layoutY="138.0" prefHeight="23.0" prefWidth="131.0">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="txt_gastoComun" layoutX="615.0" layoutY="217.0" prefHeight="23.0" prefWidth="131.0">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="265.0" layoutY="401.0" prefHeight="23.0" prefWidth="155.0" text="Nombre completo:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Separator layoutX="60.0" layoutY="293.0" prefHeight="11.0" prefWidth="1095.0" />
+      <Label layoutX="304.0" layoutY="477.0" prefHeight="23.0" prefWidth="116.0" text="Id del usuario:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="629.0" layoutY="401.0" prefHeight="23.0" prefWidth="155.0" text="Correo electrónico:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="707.0" layoutY="477.0" prefHeight="23.0" prefWidth="76.0" text="Teléfono:">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="txt_nombre" layoutX="433.0" layoutY="401.0" prefHeight="23.0" prefWidth="155.0">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="txt_id" layoutX="433.0" layoutY="477.0" prefHeight="23.0" prefWidth="155.0">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="txt_correo" layoutX="805.0" layoutY="401.0" prefHeight="23.0" prefWidth="155.0">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="txt_telefono" layoutX="805.0" layoutY="477.0" prefHeight="23.0" prefWidth="155.0">
+         <font>
+            <Font name="Segoe UI" size="18.0" />
+         </font>
+      </Label>
+      <Separator layoutX="60.0" layoutY="73.0" prefHeight="11.0" prefWidth="1095.0" />
+   </children>
+</AnchorPane>
